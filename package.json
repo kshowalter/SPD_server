@@ -4,7 +4,7 @@
   "description": "Nodejs server to generate PV drawings.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kshowalter/SPD_server/issues"
   },
-  "homepage": "https://github.com/kshowalter/SPD_server#readme"
+  "homepage": "https://github.com/kshowalter/SPD_server#readme",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
 }
