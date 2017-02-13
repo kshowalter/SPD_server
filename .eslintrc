@@ -27,5 +27,6 @@
   "globals": {
     "$": true,
     "_": true,
+    "module": true
   }
 }
