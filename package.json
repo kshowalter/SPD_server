@@ -1,0 +1,19 @@
+{
+  "name": "spd_server",
+  "version": "0.1.0",
+  "description": "Nodejs server to generate PV drawings.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kshowalter/SPD_server.git"
+  },
+  "author": "Keith Showalter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kshowalter/SPD_server/issues"
+  },
+  "homepage": "https://github.com/kshowalter/SPD_server#readme"
+}
