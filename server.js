@@ -1,0 +1,17 @@
+var express = require('express');
+var http = require('http');
+var port = process.env.PORT || '3300';
+
+// Start express app
+var app = express();
+
+// Create HTTP server.
+var server = http.createServer(app);
+
+// Listen on provided port, on all network interfaces.
+server.listen(port);
+
+// Add routes
+require('./routes.js')(app);
+
+console.log('server started on http://localhost:'+port);
