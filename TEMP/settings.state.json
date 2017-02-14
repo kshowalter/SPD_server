@@ -1,0 +1,518 @@
+{
+  "status": {
+    "active_system": "itM3ymZa8AFmbEXXt",
+    "inCompliance": true
+  },
+  "system": {
+    "contractor": {
+      "contractor_name": "Jane Doe",
+      "hidden_input": null,
+      "contractor_license": "C12345",
+      "license_type": "State Certified Solar Contractor",
+      "confirm_contractor_will_comply_with_AHJ": "Yes",
+      "confirm_is_permitted_roof_structure": "Yes",
+      "confirm_array_will_comply_with_AHJ": "Yes",
+      "confirm_compliance_with_NEC_2011": "Yes",
+      "confirm_compliance_with_manufacturer_requirements": "Yes"
+    },
+    "location": {
+      "county": "Broward",
+      "address": "1679 Clearlake road",
+      "city": "cocoa",
+      "zip_code": 32922,
+      "direction_to_road": "S",
+      "exposure_category": "C",
+      "wind_speed": 130,
+      "risk_category": "II"
+    },
+    "roof": {
+      "confirm_wood_structural_members_spacing": "Yes",
+      "mean_height": 20,
+      "least_horizontal_distance": 20,
+      "system_type": "Shingle",
+      "wood_structural_member_type": "Trusses",
+      "num_sections": 1,
+      "section_shape": "Rectangle",
+      "section_zones": 1,
+      "side_of_building": "SE",
+      "slope": "4:12",
+      "section_length": 15,
+      "section_width": 20,
+      "angle": 18.43494882292201,
+      "a": 3,
+      "height": 4.743416490252569
+    },
+    "array": {
+      "module_make": "SolarWorld",
+      "module_model": "Sunmodule Plus SW300 Mono",
+      "module_orientation": "Portrait",
+      "modules_per_string": 10,
+      "number_of_strings": 2,
+      "module": {
+        "_id": "5LaWsLhkT8LNkkzLH",
+        "module_id": 288,
+        "make": "SolarWorld",
+        "model": "Sunmodule Plus SW300 Mono",
+        "pmp": 300,
+        "vmp": 31.6,
+        "imp": 9.57,
+        "voc": 40.1,
+        "isc": 10.23,
+        "eff": null,
+        "noct": null,
+        "min_temp": null,
+        "max_temp": null,
+        "tc_isc_percent": null,
+        "tc_voc_percent": -0.3,
+        "tc_pmp_percent": null,
+        "max_series_fuse": 15,
+        "max_system_v": 1000,
+        "length": 65.95,
+        "width": 39.4,
+        "depth": null,
+        "weight": 39.7,
+        "wire_lead_type": null,
+        "wire_gauge": null,
+        "lead_length": null,
+        "connector_type": "H4",
+        "frame_mount_spacing": null,
+        "cells": null,
+        "cell_type": null,
+        "cell_length": null,
+        "cell_width": null,
+        "ul1703": "Y",
+        "design_load_2_up": 64,
+        "design_load_2_down": 113,
+        "design_load_3_up": null,
+        "design_load_3_down": null,
+        "fire_rating": null,
+        "spec_sheet": null,
+        "category": "modules",
+        "max_temperature": 63,
+        "area": 18.044652777777777
+      },
+      "isc": 20.46,
+      "voc": 401,
+      "imp": 19.14,
+      "vmp": 316,
+      "pmp": 6048.24,
+      "number_of_modules": 20,
+      "isc_OCPD": 31.968750000000004,
+      "maximum_modules_in_series": 10,
+      "minimum_modules_in_series": 10,
+      "max_amps_source_circuit": 12.787500000000001,
+      "voltage_max": 449.12000000000006,
+      "Maximum_isc": 25.575000000000003,
+      "module_dead_load": 2.20009775133446
+    },
+    "inverter": {
+      "inverter_make": "Solectria",
+      "inverter_model": "pvi 6600tl",
+      "grid_voltage": "240V",
+      "location": "Inside",
+      "distance_to_loadcenter": 50,
+      "inverter_specs": {
+        "_id": "nvc4v9jvfqZRqvHE6",
+        "inverter_id": 504,
+        "make": "Solectria",
+        "model": "pvi 6600tl",
+        "nominal_ac_output_power": 6600,
+        "max_inverter_power": 6600,
+        "grid_voltage": 240,
+        "topology": "TL",
+        "mppt_channels": 2,
+        "mttp_channel_power": null,
+        "vmax": 600,
+        "vstart": 150,
+        "mppt_min": 200,
+        "mppt_max": 500,
+        "imax_total": 36,
+        "imax_channel": 18,
+        "isc_channel": null,
+        "landings_per_channel": 1,
+        "dc_input_awg_min": null,
+        "dc_input_awg_max": null,
+        "dc_switch_rating_current": null,
+        "dc_switch_rating_voltage": null,
+        "afci": null,
+        "gfi": null,
+        "connector_type": null,
+        "voltage_range_min": 120,
+        "voltage_range_max": 550,
+        "grid_frequency_min": null,
+        "grid_frequency_max": null,
+        "total_harmonic_distortion": null,
+        "contributory_fault_current_pk": null,
+        "contributory_fault_current_rms": null,
+        "ac_input_awg_min": null,
+        "ac_input_awg_max": null,
+        "reverse_polarity_protection": null,
+        "over_voltage_protecton": null,
+        "max_ac_ocpd": 40,
+        "max_efficiency": null,
+        "cec_efficiency": null,
+        "standby_consumption": null,
+        "nighttime_consumption": null,
+        "ambient_air_operating_min": null,
+        "ambient_air_operating_max": null,
+        "relative_humidity": null,
+        "acoustic_nouise_emission": null,
+        "max_operating_altitude": null,
+        "enclosure_rating": null,
+        "height": 26.8,
+        "width": 15.8,
+        "depth": 8.5,
+        "weight": 65,
+        "shipping_weight": null,
+        "conduit_connections_0_50": null,
+        "conduit_connections_0_75": null,
+        "conduit_connections_1_00": null,
+        "conduit_connections_1_25": null,
+        "conduit_connections_1_50": null,
+        "conduit_connections_2_00": null,
+        "ul_1741": "Y",
+        "ieee_1547": "Y",
+        "ieee_1547_1": null,
+        "ul_1998": null,
+        "ul_1699b": "Y",
+        "fcc_part_15_class_b": "Y",
+        "warranty_standard": null,
+        "warranty_extended1": null,
+        "warranty_extended2": null,
+        "spec_sheet": "solectria-pvi-3800-7600tl-datasheet-194910",
+        "nominal_ac_output_voltage": 240,
+        "nominal_ac_output_current": 32,
+        "category": "inverters"
+      },
+      "conductors": [
+        "ground",
+        "neutral",
+        "L1",
+        "L2"
+      ],
+      "num_conductors": 4,
+      "loadcenter_type": "240V/120V"
+    },
+    "interconnection": {
+      "inverter_subpanel_used": null,
+      "inverter_subpanel_feeder_size": null,
+      "inverter_subpanel_feeder_insulation_type": null,
+      "inverter_subpanel_feeder_ampacity_75C": null,
+      "inverter_subpanel_feeder_supply_ocpd_rating": null,
+      "inverter_subpanel_busbar_rating": null,
+      "inverter_OC_at_subpannel": null,
+      "inverter_output_current_subpannel": null,
+      "total_of_load_breakers_at_subpannel": null,
+      "main_panel_bussbar_rating": 200,
+      "main_panel_supply_ocpd_rating": 200,
+      "sum_of_inverter_output_ocpd_devices": 50,
+      "sum_of_inverter_output_circuit_current": 50,
+      "total_of_load_breakers": 50
+    },
+    "attachment_system": {
+      "make": "Ironridge",
+      "model": "FlushMount XR10",
+      "dead_load": 1,
+      "pv_array_installed_parallel": "Yes",
+      "array_offset_from_roof": 9,
+      "total_dead_load": 3.20009775133446,
+      "wind_load_downforce": 10.613213276749232,
+      "wind_load_uplift": -23.879729872685772,
+      "maximum_downforce": 9.568025717384,
+      "maximum_uplift": -12.407779272810787,
+      "uplift_point_load": null,
+      "point_attachemnt_spacing": 4
+    },
+    "conduits": {
+      "intermodule_wiring_type": "PV WIRE, BARE",
+      "intermodule_wiring_minimum_distance_above_roof__in_": "NA",
+      "intermodule_wiring_temperature_adder__c": null,
+      "intermodule_wiring_min_trade_size__in_": "NA",
+      "intermodule_wiring_conduit_area_40__fill__in2_": null,
+      "pv_dc_source_circuits_type": "THWN-2",
+      "pv_dc_source_circuits_minimum_distance_above_roof__in_": null,
+      "pv_dc_source_circuits_temperature_adder__c": null,
+      "pv_dc_source_circuits_min_trade_size__in_": null,
+      "pv_dc_source_circuits_conduit_area_40__fill__in2_": null,
+      "pv_dc_output_circuits_type": "THWN-2",
+      "pv_dc_output_circuits_minimum_distance_above_roof__in_": "NA",
+      "pv_dc_output_circuits_temperature_adder__c": null,
+      "pv_dc_output_circuits_min_trade_size__in_": null,
+      "pv_dc_output_circuits_conduit_area_40__fill__in2_": null,
+      "inverter_ac_output_circuit_type": "THWN-2",
+      "inverter_ac_output_circuit_minimum_distance_above_roof__in_": "NA",
+      "inverter_ac_output_circuit_temperature_adder__c": null,
+      "inverter_ac_output_circuit_min_trade_size__in_": null,
+      "inverter_ac_output_circuit_conduit_area_40__fill__in2_": null,
+      "feeder_circuit_to_inverter_subpanel_type": "THWN-2, BARE",
+      "feeder_circuit_to_inverter_subpanel_minimum_distance_above_roof__in_": "NA",
+      "feeder_circuit_to_inverter_subpanel_temperature_adder__c": null,
+      "feeder_circuit_to_inverter_subpanel_min_trade_size__in_": null,
+      "feeder_circuit_to_inverter_subpanel_conduit_area_40__fill__in2_": null,
+      "main_service_equipment_type": "THWN-2, BARE",
+      "main_service_equipment_minimum_distance_above_roof__in_": "NA",
+      "main_service_equipment_temperature_adder__c": null,
+      "main_service_equipment_min_trade_size__in_": null,
+      "main_service_equipment_conduit_area_40__fill__in2_": null,
+      "intermodule_wiring_location": "FREE AIR",
+      "pv_dc_source_circuits_location": "3/4\" EMT",
+      "pv_dc_output_circuits_location": "3/4\" EMT",
+      "inverter_ac_output_circuit_location": "3/4\" EMT",
+      "feeder_circuit_to_inverter_subpanel_location": "3/4\" EMT",
+      "main_service_equipment_location": "3/4\" EMT",
+      "intermodule_wiring_minimum_size_awg": "10, RACKING/6",
+      "pv_dc_source_circuits_minimum_size_awg": "10, 6",
+      "pv_dc_output_circuits_minimum_size_awg": "10, 6",
+      "inverter_ac_output_circuit_minimum_size_awg": "8, 8, 6",
+      "feeder_circuit_to_inverter_subpanel_minimum_size_awg": "4, 4, 6, 4",
+      "main_service_equipment_minimum_size_awg": "4/0, 2/0, 4, 4",
+      "intermodule_wiring_conductor_ampacity": "40",
+      "pv_dc_source_circuits_conductor_ampacity": "40",
+      "pv_dc_output_circuits_conductor_ampacity": "40",
+      "inverter_ac_output_circuit_conductor_ampacity": "55",
+      "feeder_circuit_to_inverter_subpanel_conductor_ampacity": "85",
+      "main_service_equipment_conductor_ampacity": "200",
+      "intermodule_wiring_diameter_inches": [
+        0.164
+      ],
+      "pv_dc_source_circuits_diameter_inches": [
+        0.164,
+        0.254
+      ],
+      "pv_dc_output_circuits_diameter_inches": [
+        0.164,
+        0.254
+      ],
+      "inverter_ac_output_circuit_diameter_inches": [
+        0.216,
+        0.216,
+        0.254
+      ],
+      "feeder_circuit_to_inverter_subpanel_diameter_inches": [
+        0.324,
+        0.324,
+        0.216
+      ],
+      "main_service_equipment_diameter_inches": [
+        0.642,
+        0.532,
+        0.324
+      ],
+      "intermodule_wiring_qty": [
+        2
+      ],
+      "pv_dc_source_circuits_qty": [
+        4,
+        1
+      ],
+      "pv_dc_output_circuits_qty": [
+        4,
+        1
+      ],
+      "inverter_ac_output_circuit_qty": [
+        2,
+        1,
+        1
+      ],
+      "feeder_circuit_to_inverter_subpanel_qty": [
+        2,
+        1,
+        1
+      ],
+      "main_service_equipment_qty": [
+        2,
+        1,
+        1
+      ],
+      "intermodule_wiring_conductors": [
+        "DC+/DC-",
+        "EGC"
+      ],
+      "intermodule_wiring_total_conductor_csa__in2_": [
+        0.04224813800547554
+      ],
+      "intermodule_wiring_minimum_required_conduit_area_40__fill__in2_": "NA",
+      "intermodule_wiring_material": "CU",
+      "intermodule_wiring_voltage_rating": "600",
+      "intermodule_wiring_wet_temp_rating_°c": "90",
+      "intermodule_wiring_conduit_size_check": "No",
+      "pv_dc_source_circuits_conductors": [
+        "DC+/DC-",
+        "EGC"
+      ],
+      "pv_dc_source_circuits_total_conductor_csa__in2_": [
+        0.08449627601095108,
+        0.05067074790974978
+      ],
+      "pv_dc_source_circuits_minimum_required_conduit_area_40__fill__in2_": 0.13516702392070085,
+      "pv_dc_source_circuits_material": "CU",
+      "pv_dc_source_circuits_voltage_rating": "600",
+      "pv_dc_source_circuits_wet_temp_rating_°c": "90",
+      "pv_dc_source_circuits_conduit_size_check": "No",
+      "pv_dc_output_circuits_conductors": [
+        "DC+/DC-",
+        "EGC"
+      ],
+      "pv_dc_output_circuits_total_conductor_csa__in2_": [
+        0.08449627601095108,
+        0.05067074790974978
+      ],
+      "pv_dc_output_circuits_minimum_required_conduit_area_40__fill__in2_": 0.13516702392070085,
+      "pv_dc_output_circuits_material": "CU",
+      "pv_dc_output_circuits_voltage_rating": "600",
+      "pv_dc_output_circuits_wet_temp_rating_°c": "90",
+      "pv_dc_output_circuits_conduit_size_check": "No",
+      "inverter_ac_output_circuit_conductors": [
+        "L1/L2",
+        "N",
+        "EGC"
+      ],
+      "inverter_ac_output_circuit_total_conductor_csa__in2_": [
+        0.07328707342294269,
+        0.036643536711471345,
+        0.05067074790974978
+      ],
+      "inverter_ac_output_circuit_minimum_required_conduit_area_40__fill__in2_": 0.4015033951104095,
+      "inverter_ac_output_circuit_material": "CU",
+      "inverter_ac_output_circuit_voltage_rating": "600",
+      "inverter_ac_output_circuit_wet_temp_rating_°c": "90",
+      "inverter_ac_output_circuit_conduit_size_check": "No",
+      "feeder_circuit_to_inverter_subpanel_conductors": [
+        "L1/L2",
+        "N",
+        "EGC",
+        "GEC"
+      ],
+      "feeder_circuit_to_inverter_subpanel_total_conductor_csa__in2_": [
+        0.16489591520162106,
+        0.08244795760081053,
+        0.036643536711471345
+      ],
+      "feeder_circuit_to_inverter_subpanel_minimum_required_conduit_area_40__fill__in2_": 0.7099685237847573,
+      "feeder_circuit_to_inverter_subpanel_material": "CU",
+      "feeder_circuit_to_inverter_subpanel_voltage_rating": "600",
+      "feeder_circuit_to_inverter_subpanel_wet_temp_rating_°c": "90",
+      "feeder_circuit_to_inverter_subpanel_conduit_size_check": "No",
+      "main_service_equipment_conductors": [
+        "L1/L2",
+        "N",
+        "EGC",
+        "GEC"
+      ],
+      "main_service_equipment_total_conductor_csa__in2_": [
+        0.6474256972370918,
+        0.22228652979739943,
+        0.08244795760081053
+      ],
+      "main_service_equipment_minimum_required_conduit_area_40__fill__in2_": 2.3804004615882546,
+      "main_service_equipment_material": "CU",
+      "main_service_equipment_voltage_rating": "600",
+      "main_service_equipment_wet_temp_rating_°c": "90",
+      "main_service_equipment_conduit_size_check": "No"
+    },
+    "geolocation": {
+      "lat": 28.3863994,
+      "lon": -80.7550566
+    },
+    "closest_station": {
+      "Elev": 3,
+      "High Temp 04%": 34,
+      "High Temp 2% Avg": 33,
+      "Distance above roof 05\"": 55,
+      "Distance above roof 35\"": 50,
+      "Distance above roof 12\"": 47,
+      "Extreme min": 0,
+      "lat": 28.62,
+      "lon": -80.72
+    },
+    "module": {
+      "pmp": 300,
+      "isc": 10.23,
+      "voc": 40.1,
+      "imp": 9.57,
+      "vmp": 31.6,
+      "width": 39.4,
+      "length": 65.95,
+      "max_series_fuse": 15,
+      "ul1703": "Y"
+    }
+  },
+  "notes": {
+    "info": [
+      "The sum of 125 percent of the inverter(s) output circuit current and the rating of the overcurrent device protecting the busbar exceeded the ampacity of the busbar.",
+      "The sum of 125 percent of the inverter(s) output circuit current and the rating of the overcurrent device protecting the busbar exceeded 120 percent of the ampacity of the busbar."
+    ],
+    "warnings": [],
+    "errors": []
+  },
+  "system_display": {
+    "contractor": {},
+    "location": {
+      "zip_code": "32922.00",
+      "wind_speed": "130.00"
+    },
+    "roof": {
+      "mean_height": "20.00",
+      "least_horizontal_distance": "20.00",
+      "num_sections": "1.00",
+      "section_zones": "1.00",
+      "section_length": "15.00",
+      "section_width": "20.00",
+      "angle": "18.43",
+      "a": "3.00"
+    },
+    "array": {
+      "modules_per_string": "10.00",
+      "number_of_strings": "2.00",
+      "isc": "20.46",
+      "voc": "401.00",
+      "imp": "19.14",
+      "vmp": "316.00",
+      "pmp": "6048.24",
+      "number_of_modules": "20.00",
+      "isc_OCPD": "31.97",
+      "maximum_modules_in_series": "10.00",
+      "minimum_modules_in_series": "10.00",
+      "max_amps_source_circuit": "12.79",
+      "voltage_max": "449.12",
+      "Maximum_isc": "25.58",
+      "module_dead_load": "2.20"
+    },
+    "inverter": {
+      "distance_to_loadcenter": "50.00",
+      "num_conductors": "4.00"
+    },
+    "interconnection": {
+      "main_panel_bussbar_rating": "200.00",
+      "main_panel_supply_ocpd_rating": "200.00",
+      "sum_of_inverter_output_ocpd_devices": "50.00",
+      "sum_of_inverter_output_circuit_current": "50.00",
+      "total_of_load_breakers": "50.00"
+    },
+    "attachment_system": {
+      "dead_load": "1.00",
+      "array_offset_from_roof": "9.00",
+      "total_dead_load": "3.20",
+      "wind_load_downforce": "10.61",
+      "wind_load_uplift": "-23.88",
+      "maximum_downforce": "9.57",
+      "maximum_uplift": "-12.41",
+      "point_attachemnt_spacing": "4.00"
+    },
+    "geolocation": {
+      "lat": "28.39",
+      "lon": "-80.76"
+    },
+    "closest_station": {
+      "Elev": "3.00",
+      "High Temp 04%": "34.00",
+      "High Temp 2% Avg": "33.00",
+      "Distance above roof 05\"": "55.00",
+      "Distance above roof 35\"": "50.00",
+      "Distance above roof 12\"": "47.00",
+      "Extreme min": "0.00",
+      "lat": "28.62",
+      "lon": "-80.72"
+    }
+  }
+}

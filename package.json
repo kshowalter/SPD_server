@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/kshowalter/SPD_server#readme",
   "dependencies": {
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "lodash": "latest",
+    "moment": "latest"
   }
 }

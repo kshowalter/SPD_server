@@ -1,32 +1,41 @@
 var express = require('express');
 var router = express.Router();
 
+var mk_system = require('../lib/mk_system.js');
 var mk_drawing = require('../lib/mk_drawing.js');
 
+/////////////////////////////////////////////////
 router.get('/d/:system_id/check', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
 
-  mk_drawing(req.params.system_id);
+  // update system calculations
+  var system_settings = mk_system(req.params.system_id);
+
+  var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
 
   res.json({
     system_id: req.params.system_id,
-    status: 'error',
-    notes: {
-      info: [],
-      warnings: [],
-      errors: [
-        'Module array has too high of voltage for the selected Inverter.'
-      ],
-      svg_url: '/'+req.params.system_id+'/SVG'
-
-    },
+    status: status,
+    notes: system_settings.state.notes,
+    svg_url: '/'+req.params.system_id+'/SVG'
   });
 });
 
+///////////////////////////////////////////
 router.get('/d/:system_id/SVG', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
+
+
+  // update system calculations
+  var system_settings = mk_system(req.params.system_id);
+
+  // update drawing
+  system_settings = mk_drawing(system_settings);
+
+
+
 
   res.json({
     system_id: req.params.system_id,
@@ -37,18 +46,18 @@ router.get('/d/:system_id/SVG', function(req, res) {
       ],
       warnings: [],
       errors: [],
-      svg_url: '/'+req.params.system_id+'/SVG'
-
     },
+    svg_url: '/'+req.params.system_id+'/SVG'
   });
 });
 
+////////////////////////////////////////////
 router.get('/d/:system_id/SVG', function(req, response) {
   console.log('server route', req.params.system_id);
 
   var system_id = this.params.system_id;
 
-  var svgs = mk_drawing(system_id);
+  var svgs = mk_system(system_id);
 
 
   //console.log(svgs[0].outerHTML);
@@ -76,7 +85,7 @@ router.get('/d/:system_id/SVG/:page', function(req, response) {
   var page_num = req.params.page;
   var system_id = req.params.system_id;
 
-  //var svgs = mk_drawing(system_id);
+  //var svgs = mk_system(system_id);
 
   var html = '<!doctype html><html><head></head><body style="width:1554px; height:1198px;"><div> ';
 
