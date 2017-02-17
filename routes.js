@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-var mk_drawing = require('../lib/mk_drawing.js');
-var mk_settings = require('../lib/mk_settings.js');
-var process_system = require('../lib/process_system.js');
+var mk_drawing = require('./lib/mk_drawing.js');
+var mk_settings = require('./lib/mk_settings.js');
+var process_system = require('./lib/process_system.js');
+var mk_PDF = require('./lib/mk_PDF.js');
 
 
 /////////////////////////////////////////////////
@@ -55,14 +56,18 @@ router.get('/d/:system_id/SVG', function(req, res) {
   });
 });
 
-/*
 ////////////////////////////////////////////
-router.get('/d/:system_id/SVG', function(req, response) {
+router.get('/d/:system_id/SVG_page', function(req, response) {
   console.log('server route', req.params.system_id);
 
-  var system_id = this.params.system_id;
+  // update system calculations
+  var system_settings = mk_settings(req.params.system_id);
+  system_settings = process_system(system_settings);
 
-  var svgs = mk_system(system_id);
+  // update drawing
+  system_settings = mk_drawing(system_settings);
+
+  var svgs = system_settings.drawing.svgs;
 
   var html = '<!doctype html><html><head></head><body style="width:1554px; height:1198px;"><div> ';
   svgs.forEach(function(svg){
@@ -77,7 +82,7 @@ router.get('/d/:system_id/SVG', function(req, response) {
   response.end(html);
 
 });
-
+/*
 router.get('/d/:system_id/SVG/:page', function(req, response) {
   console.log('server route', req.params.system_id);
   var page_num = req.params.page;
@@ -104,7 +109,7 @@ router.get('/d/:system_id/SVG/:page', function(req, response) {
 
 
 });
-*/
+//*/
 
 
 
@@ -112,13 +117,19 @@ router.get('/d/:system_id/SVG/:page', function(req, response) {
  * Serves the permit to the user as a PDF for the passed system_id
  *******************************************************************/
 router.get('/d/:system_id/PDF', function(req, response) {
+  var responce_string = req.method + ': ' + req.url;
+  console.log(responce_string);
 
+  // update system calculations
+  var system_settings = mk_settings(req.params.system_id);
+  system_settings = process_system(system_settings);
 
+  // update drawing
+  system_settings = mk_drawing(system_settings);
 
+  system_settings.server.host = req.headers.host;
 
-
-
-  mk_PDF.download(this.request, this.response, this.params.system_id);
+  mk_PDF.download( system_settings );
 });
 
 ////////////////////

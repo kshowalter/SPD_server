@@ -15,7 +15,7 @@ server.listen(port);
 app.get('/', function (req, res) {
   res.send('Nothing here. Try /d/[system id.]');
 });
-var router_d = require('./route/drawing.js');
+var router_d = require('./routes.js');
 app.use('/', router_d);
 
 console.log('server started on http://localhost:'+port);
