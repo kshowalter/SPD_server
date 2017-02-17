@@ -16,6 +16,7 @@ router.get('/d/:system_id/check', function(req, res) {
 
   // update system calculations
   var system_settings = mk_settings(req.params.system_id);
+  system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
   ///////////////////////////////////////////
@@ -37,6 +38,7 @@ router.get('/d/:system_id/SVG', function(req, res) {
 
   // update system calculations
   var system_settings = mk_settings(req.params.system_id);
+  system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
   // update drawing
@@ -64,6 +66,7 @@ router.get('/d/:system_id/SVG_page', function(req, response) {
 
   // update system calculations
   var system_settings = mk_settings(req.params.system_id);
+  system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
   // update drawing
@@ -124,12 +127,12 @@ router.get('/d/:system_id/PDF', function(req, response) {
 
   // update system calculations
   var system_settings = mk_settings(req.params.system_id);
+  system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
   // update drawing
   system_settings = mk_drawing(system_settings);
 
-  system_settings.server.host = req.headers.host;
 
   mk_PDF.download( system_settings );
 });

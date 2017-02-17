@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
   res.send('Nothing here. Try /d/[system id.]');
 });
 var router_d = require('./routes.js');
-app.use('/s', express.static(__dirname + 'static'));
+app.use('/s', express.static('static'));
 app.use('/', router_d);
 
 console.log('server started on http://localhost:'+port);
