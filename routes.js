@@ -10,12 +10,36 @@ var mk_PDF = require('./lib/mk_PDF.js');
 
 
 /////////////////////////////////////////////////
+router.get('/test', function(req, res) {
+  //var system_id = req.query.pv_system_id;
+  var system_id = req.params.system_id;
+  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+
+  console.log('//////');
+  for( var sec in req){
+    console.log(sec);
+  }
+  console.log('//////');
+  console.log('???', req.query);
+
+
+  res.end('good');
+});
+
+
+/////////////////////////////////////////////////
 router.get('/d/:system_id/check', function(req, res) {
+  //var system_id = req.query.pv_system_id;
+  var system_id = req.params.system_id;
+  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
 
   // update system calculations
-  var system_settings = mk_settings(req.params.system_id);
+  var system_settings = mk_settings(system_id);
   system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
@@ -23,49 +47,69 @@ router.get('/d/:system_id/check', function(req, res) {
   var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
 
   res.json({
-    system_id: req.params.system_id,
+    system_id: system_id,
     status: status,
     notes: system_settings.state.notes,
-    svg_url: '/'+req.params.system_id+'/SVG'
+    SVG_url: SVG_url,
+    PDF_url: PDF_url,
+    SVGs: {
+      //1: [SVG string?],
+      //2: [SVG string?],
+      //3: [SVG string?]
+    }
   });
+
 });
 
 ///////////////////////////////////////////
 router.get('/d/:system_id/SVG', function(req, res) {
+  //var system_id = req.query.pv_system_id;
+  var system_id = req.params.system_id;
+  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+
+
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
 
 
   // update system calculations
-  var system_settings = mk_settings(req.params.system_id);
+  var system_settings = mk_settings(system_id);
   system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
   // update drawing
   system_settings = mk_drawing(system_settings);
 
-
-
   res.json({
-    system_id: req.params.system_id,
-    status: 'ready',
-    notes: {
-      info: [
-        'Please print sample label document if not provided by label manufacturer'
-      ],
-      warnings: [],
-      errors: [],
-    },
-    svg_url: '/'+req.params.system_id+'/SVG'
+    system_id: system_id,
+    status: status,
+    notes: system_settings.state.notes,
+    SVG_url: SVG_url,
+    PDF_url: PDF_url,
+    SVGs: {
+      //1: [SVG string?],
+      //2: [SVG string?],
+      //3: [SVG string?]
+    }
   });
+
 });
 
+
+
 ////////////////////////////////////////////
-router.get('/d/:system_id/SVG_page', function(req, response) {
-  console.log('server route', req.params.system_id);
+router.get('/d/:system_id/SVG_page', function(req, res) {
+  //var system_id = req.query.pv_system_id;
+  var system_id = req.params.system_id;
+  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+
+
+  console.log('server route', system_id);
 
   // update system calculations
-  var system_settings = mk_settings(req.params.system_id);
+  var system_settings = mk_settings(system_id);
   system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
@@ -84,49 +128,25 @@ router.get('/d/:system_id/SVG_page', function(req, response) {
 
 
 
-  response.end(html);
+  res.end(html);
 
 });
-/*
-router.get('/d/:system_id/SVG/:page', function(req, response) {
-  console.log('server route', req.params.system_id);
-  var page_num = req.params.page;
-  var system_id = req.params.system_id;
-
-  //var svgs = mk_system(system_id);
-
-  var html = '<!doctype html><html><head></head><body style="width:1554px; height:1198px;"><div> ';
-
-  var svg_string = User_systems.findOne({system_id:system_id}).svgs[page_num-1];
-
-  if( svg_string ){
-    svg_string = svg_string.replace(/<svg /g, '<svg style="position:absolute; top:0px; left:0px;" ');
-    html += svg_string;
-
-    html += ' <iv></body></html>';
-
-    response.end(html);
-
-  } else {
-    response.end();
-
-  }
-
-
-});
-//*/
-
 
 
 /*******************************************************************
- * Serves the permit to the user as a PDF for the passed system_id
- *******************************************************************/
-router.get('/d/:system_id/PDF', function(req, response) {
+* Serves the permit to the user as a PDF for the passed system_id
+*******************************************************************/
+router.get('/d/:system_id/PDF', function(req, res) {
+  //var system_id = req.query.pv_system_id;
+  var system_id = req.params.system_id;
+  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
 
   // update system calculations
-  var system_settings = mk_settings(req.params.system_id);
+  var system_settings = mk_settings(system_id);
   system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
@@ -135,19 +155,40 @@ router.get('/d/:system_id/PDF', function(req, response) {
 
 
   mk_PDF.download( system_settings );
+
+
+  res.json({
+    system_id: system_id,
+    status: status,
+    notes: system_settings.state.notes,
+    SVG_url: SVG_url,
+    PDF_url: PDF_url,
+    SVGs: {
+      //1: [SVG string?],
+      //2: [SVG string?],
+      //3: [SVG string?]
+    }
+  });
+
+
 });
 
 ////////////////////
 // Attachments
 
-router.get('/d/:system_id/attachments/:num', function(req, response) {
+router.get('/d/:system_id/attachments/:num', function(req, res) {
+  //var system_id = req.query.pv_system_id;
+  var system_id = req.params.system_id;
+  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+
   var uint8Array = User_systems.findOne({system_id:this.params.system_id}).attachments[this.params.num].content;
   var attachment = Buffer.from(uint8Array.buffer);
   if( attachment ){
-    this.response.write(attachment);
-    this.response.end();
+    this.res.write(attachment);
+    this.res.end();
   } else {
-    this.response.end();
+    this.res.end();
   }
 });
 
