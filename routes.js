@@ -5,16 +5,15 @@ var mk_drawing = require('./lib/mk_drawing.js');
 var mk_settings = require('./lib/mk_settings.js');
 var process_system = require('./lib/process_system.js');
 var mk_PDF = require('./lib/mk_PDF.js');
-
-
+var render_PDF = require('./lib/render_PDF.js');
 
 
 /////////////////////////////////////////////////
 router.get('/test', function(req, res) {
   //var system_id = req.query.pv_system_id;
   var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   console.log('//////');
   for( var sec in req){
@@ -32,8 +31,8 @@ router.get('/test', function(req, res) {
 router.get('/d/:system_id/check', function(req, res) {
   //var system_id = req.query.pv_system_id;
   var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
@@ -52,11 +51,7 @@ router.get('/d/:system_id/check', function(req, res) {
     notes: system_settings.state.notes,
     SVG_url: SVG_url,
     PDF_url: PDF_url,
-    SVGs: {
-      //1: [SVG string?],
-      //2: [SVG string?],
-      //3: [SVG string?]
-    }
+    SVGs: false
   });
 
 });
@@ -65,8 +60,8 @@ router.get('/d/:system_id/check', function(req, res) {
 router.get('/d/:system_id/SVG', function(req, res) {
   //var system_id = req.query.pv_system_id;
   var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
 
   var responce_string = req.method + ': ' + req.url;
@@ -81,17 +76,19 @@ router.get('/d/:system_id/SVG', function(req, res) {
   // update drawing
   system_settings = mk_drawing(system_settings);
 
+  var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
+
+  var svgs = system_settings.drawing.svgs.map(function(svg){
+    return svg.outerHTML;
+  });
+
   res.json({
     system_id: system_id,
     status: status,
     notes: system_settings.state.notes,
     SVG_url: SVG_url,
     PDF_url: PDF_url,
-    SVGs: {
-      //1: [SVG string?],
-      //2: [SVG string?],
-      //3: [SVG string?]
-    }
+    SVGs: svgs
   });
 
 });
@@ -102,8 +99,8 @@ router.get('/d/:system_id/SVG', function(req, res) {
 router.get('/d/:system_id/SVG_page', function(req, res) {
   //var system_id = req.query.pv_system_id;
   var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
 
   console.log('server route', system_id);
@@ -139,8 +136,8 @@ router.get('/d/:system_id/SVG_page', function(req, res) {
 router.get('/d/:system_id/PDF', function(req, res) {
   //var system_id = req.query.pv_system_id;
   var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
@@ -153,8 +150,32 @@ router.get('/d/:system_id/PDF', function(req, res) {
   // update drawing
   system_settings = mk_drawing(system_settings);
 
+  var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
 
-  mk_PDF.download( system_settings );
+  if( status === 'pass'){
+
+    var htmls = system_settings.drawing.svgs.map(function(svg){
+      var svg_string = svg.outerHTML;
+      svg_string = svg_string.replace(/<svg /g, '<svg style="position:absolute; top:0px; left:0px;" ');
+
+      var html = '<!doctype html><html><head></head><body style="width:1554px; height:1198px;"><div> ';
+      html += svg_string;
+      html += ' </div></body></html>';
+
+      return html;
+    });
+
+    var pdfDirectory = process.env.PWD + '/private/.#pdf/';
+    var planNumber = (new Date()).valueOf();
+    var pdfName = 'permit_'+planNumber+'.pdf';
+    var write_path = pdfDirectory + pdfName;
+
+    htmls.forEach(function(html){
+      render_PDF(html, write_path);
+    });
+
+  }
+
 
 
   res.json({
@@ -179,8 +200,8 @@ router.get('/d/:system_id/PDF', function(req, res) {
 router.get('/d/:system_id/attachments/:num', function(req, res) {
   //var system_id = req.query.pv_system_id;
   var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'d/PDF?pv_system_id='+system_id;
+  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var uint8Array = User_systems.findOne({system_id:this.params.system_id}).attachments[this.params.num].content;
   var attachment = Buffer.from(uint8Array.buffer);
