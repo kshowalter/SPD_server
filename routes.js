@@ -166,11 +166,13 @@ router.get('/d/PDF', function(req, res) {
     });
 
     var pdfDirectory = process.env.PWD + '/private/.#pdf/';
-    var planNumber = (new Date()).valueOf();
-    var pdfName = 'permit_'+planNumber+'.pdf';
-    var write_path = pdfDirectory + pdfName;
 
-    htmls.forEach(function(html){
+    htmls.forEach(function(html, i){
+      console.log('page: ', i);
+      //var planNumber = (new Date()).valueOf();
+      var page_num = i + 1;
+      var pdfName = 'permit_'+system_id+'_p'+page_num+'.pdf';
+      var write_path = pdfDirectory + pdfName;
       render_PDF(html, write_path);
     });
 
