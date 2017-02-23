@@ -3,23 +3,23 @@
 ### URLs
 The base URL, or host, is represented as [host] below. It will be something like: “http://10.64.53.89/”.
 
-[host]__/d/__[system_id]__/check__
+[host]__/d/check?pv_system_id=__[system_id] 
 
 Runs the system calculations. Does not create the drawings.
 Returns a status document that includes notes, warnings, and errors to the user.
 
-[host]__/d/__[system_id]/__SVG__
+[host]__/d/SVG?pv_system_id=__[system_id]
 
 Runs the system calculations, creates the drawings.
 Returns a status document that includes notes, warnings, and errors to the user, as wells as a copy of each SVG page.
 
-[host]__/d/__[system_id]__/SVG_page__
+[host]__/d/SVG_page?pv_system_id=__[system_id]
 
 Runs the system calculations, creates the drawings.
 Returns a HTML page containing the SVGS.
 Used in development to test the output of the drawing generation.
 
-[host]__/d/__[system_id]__/PDF__
+[host]__/d/PDF?pv_system_id=__[system_id]
 
 Runs the system calculations, creates the drawings.
 Returns a PDF of the drawing.

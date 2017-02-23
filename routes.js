@@ -28,9 +28,9 @@ router.get('/test', function(req, res) {
 
 
 /////////////////////////////////////////////////
-router.get('/d/:system_id/check', function(req, res) {
-  //var system_id = req.query.pv_system_id;
-  var system_id = req.params.system_id;
+router.get('/d/check', function(req, res) {
+  var system_id = req.query.pv_system_id;
+  //var system_id = req.params.system_id;
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
@@ -57,9 +57,9 @@ router.get('/d/:system_id/check', function(req, res) {
 });
 
 ///////////////////////////////////////////
-router.get('/d/:system_id/SVG', function(req, res) {
-  //var system_id = req.query.pv_system_id;
-  var system_id = req.params.system_id;
+router.get('/d/SVG', function(req, res) {
+  var system_id = req.query.pv_system_id;
+  //var system_id = req.params.system_id;
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
@@ -96,9 +96,9 @@ router.get('/d/:system_id/SVG', function(req, res) {
 
 
 ////////////////////////////////////////////
-router.get('/d/:system_id/SVG_page', function(req, res) {
-  //var system_id = req.query.pv_system_id;
-  var system_id = req.params.system_id;
+router.get('/d/SVG_page', function(req, res) {
+  var system_id = req.query.pv_system_id;
+  //var system_id = req.params.system_id;
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
@@ -133,9 +133,9 @@ router.get('/d/:system_id/SVG_page', function(req, res) {
 /*******************************************************************
 * Serves the permit to the user as a PDF for the passed system_id
 *******************************************************************/
-router.get('/d/:system_id/PDF', function(req, res) {
-  //var system_id = req.query.pv_system_id;
-  var system_id = req.params.system_id;
+router.get('/d/PDF', function(req, res) {
+  var system_id = req.query.pv_system_id;
+  //var system_id = req.params.system_id;
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
