@@ -23,6 +23,7 @@
     "phantom": "latest",
     "shelljs": "^0.7.2",
     "jsdom": "^9.4.1",
-    "oracledb": "latest"
+    "oracledb": "latest",
+    "console-stamp": "latest"
   }
 }
