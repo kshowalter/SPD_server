@@ -8,25 +8,6 @@ var mk_PDFs = require('./lib/mk_PDFs.js');
 var get_DB_data = require('./lib/get_DB_data.js');
 
 
-/////////////////////////////////////////////////
-router.get('/test', function(req, res) {
-  //var system_id = req.query.pv_system_id;
-  var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
-
-  console.log('//////');
-  for( var sec in req){
-    console.log(sec);
-  }
-  console.log('//////');
-  console.log('???', req.query);
-
-
-  res.end('good');
-});
-
-
 
 ///////////////////////////////////////////
 router.get('/d/SVG', function(req, res) {
@@ -140,30 +121,33 @@ router.get('/d/PDF', function(req, res) {
   var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
 
   if( status === 'pass'){
-
-    mk_PDFs(system_settings, res);
-
+    mk_PDFs(system_settings, function(PDF_file_name){
+      res.json({
+        system_id: system_id,
+        status: status,
+        notes: system_settings.state.notes,
+        SVG_url: SVG_url,
+        PDF_url: PDF_url,
+        SVGs: [],
+        PDF_file_name: PDF_file_name
+      });
+    });
+  } else if( status === 'error' ){
+    res.json({
+      system_id: system_id,
+      status: status,
+      notes: system_settings.state.notes,
+      SVG_url: SVG_url,
+      PDF_url: PDF_url,
+      SVGs: [],
+      PDF_file_name: false
+    });
   }
-
-  /*
-  res.json({
-    system_id: system_id,
-    status: status,
-    notes: system_settings.state.notes,
-    SVG_url: SVG_url,
-    PDF_url: PDF_url,
-    SVGs: {
-      //1: [SVG string?],
-      //2: [SVG string?],
-      //3: [SVG string?]
-    }
-  });
-  */
 
 });
 
 
-router.get('/t/PDF', function(req, res) {
+router.get('/t/PDF_download', function(req, res) {
   var system_id = req.query.pv_system_id;
   //var system_id = req.params.system_id;
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
@@ -184,7 +168,18 @@ router.get('/t/PDF', function(req, res) {
 
   if( status === 'pass'){
 
-    mk_PDFs(system_settings, res);
+    mk_PDFs(system_settings, function(PDF_file_name){
+      var filePath = pdfDirectory + PDF_file_name;
+      var stat = fs.statSync(filePath);
+
+      res.writeHead(200, {
+        'Content-Type': 'application/pdf',
+        'Content-Length': stat.size,
+        'Content-Disposition': 'inline; filename="FSEC_drawing.pdf"'
+      });
+
+      fs.createReadStream(filePath).pipe(res);
+    });
 
   }
 
@@ -245,8 +240,8 @@ router.get('/d/PDF_test', function(req, res) {
       console.log('page: ', i);
       //var planNumber = (new Date()).valueOf();
       var page_num = i + 1;
-      var pdfName = 'permit_'+system_id+'_p'+page_num+'.pdf';
-      var write_path = pdfDirectory + pdfName;
+      var PDF_file_name = 'permit_'+system_id+'_p'+page_num+'.pdf';
+      var write_path = pdfDirectory + PDF_file_name;
       //render_PDF(html, write_path);
     });
 
