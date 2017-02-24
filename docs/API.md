@@ -3,25 +3,29 @@
 ### URLs
 The base URL, or host, is represented as [host] below. It will be something like: “http://10.64.53.89/”.
 
-[host]__/d/check?pv_system_id=__[system_id] 
-
-Runs the system calculations. Does not create the drawings.
-Returns a status document that includes notes, warnings, and errors to the user.
-
 [host]__/d/SVG?pv_system_id=__[system_id]
 
-Runs the system calculations, creates the drawings.
-Returns a status document that includes notes, warnings, and errors to the user, as wells as a copy of each SVG page.
+Runs the system calculations. If they pass it then creates the drawings.
+Returns a status document that includes notes, warnings, and errors to the user, as wells as a copy of each SVG strings if they were created.
 
-[host]__/d/SVG_page?pv_system_id=__[system_id]
+[host]__/d/PDF?pv_system_id=__[system_id]
+
+Runs the system calculations. If they pass it then creates the drawings.
+Generates the PDFs and saves them to the server as a file.
+Returns a PDF of the drawing.
+
+#### Dev URLs
+
+[host]__/t/SVG_page?pv_system_id=__[system_id]
 
 Runs the system calculations, creates the drawings.
 Returns a HTML page containing the SVGS.
 Used in development to test the output of the drawing generation.
 
-[host]__/d/PDF?pv_system_id=__[system_id]
+[host]__/t/PDF?pv_system_id=__[system_id]
 
-Runs the system calculations, creates the drawings.
+Runs the system calculations. If they pass it then creates the drawings.
+Generates the PDFs and saves them to the server as a file.
 Returns a PDF of the drawing.
 
 

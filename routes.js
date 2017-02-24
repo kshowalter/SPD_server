@@ -27,34 +27,6 @@ router.get('/test', function(req, res) {
 });
 
 
-/////////////////////////////////////////////////
-router.get('/d/check', function(req, res) {
-  var system_id = req.query.pv_system_id;
-  //var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
-
-  var responce_string = req.method + ': ' + req.url;
-  console.log(responce_string);
-
-  // update system calculations
-  var system_settings = mk_settings(system_id);
-  system_settings.server.host = req.headers.host;
-  system_settings = process_system(system_settings);
-
-  ///////////////////////////////////////////
-  var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
-
-  res.json({
-    system_id: system_id,
-    status: status,
-    notes: system_settings.state.notes,
-    SVG_url: SVG_url,
-    PDF_url: PDF_url,
-    SVGs: false
-  });
-
-});
 
 ///////////////////////////////////////////
 router.get('/d/SVG', function(req, res) {
@@ -63,40 +35,53 @@ router.get('/d/SVG', function(req, res) {
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
-
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
-
 
   // update system calculations
   var system_settings = mk_settings(system_id);
   system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
-  // update drawing
-  system_settings = mk_drawing(system_settings);
-
   var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
 
-  var svgs = system_settings.drawing.svgs.map(function(svg){
-    return svg.outerHTML;
-  });
+  if( status === 'pass'){
+    // update drawing
+    system_settings = mk_drawing(system_settings);
 
-  res.json({
-    system_id: system_id,
-    status: status,
-    notes: system_settings.state.notes,
-    SVG_url: SVG_url,
-    PDF_url: PDF_url,
-    SVGs: svgs
-  });
+
+    var svgs = system_settings.drawing.svgs.map(function(svg){
+      return svg.outerHTML;
+    });
+
+    res.json({
+      system_id: system_id,
+      status: status,
+      notes: system_settings.state.notes,
+      SVG_url: SVG_url,
+      PDF_url: PDF_url,
+      SVGs: svgs
+    });
+
+  } else if( status === 'error' ){
+
+    res.json({
+      system_id: system_id,
+      status: status,
+      notes: system_settings.state.notes,
+      SVG_url: SVG_url,
+      PDF_url: PDF_url,
+      SVGs: []
+    });
+
+  }
 
 });
 
 
 
 ////////////////////////////////////////////
-router.get('/d/SVG_page', function(req, res) {
+router.get('/t/SVG_page', function(req, res) {
   var system_id = req.query.pv_system_id;
   //var system_id = req.params.system_id;
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
@@ -136,6 +121,49 @@ router.get('/d/SVG_page', function(req, res) {
 var pdfDirectory = process.env.PWD + '/private/.#pdf/';
 
 router.get('/d/PDF', function(req, res) {
+  var system_id = req.query.pv_system_id;
+  //var system_id = req.params.system_id;
+  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
+
+  var responce_string = req.method + ': ' + req.url;
+  console.log(responce_string);
+
+  // update system calculations
+  var system_settings = mk_settings(system_id);
+  system_settings.server.host = req.headers.host;
+  system_settings = process_system(system_settings);
+
+  // update drawing
+  system_settings = mk_drawing(system_settings);
+
+  var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
+
+  if( status === 'pass'){
+
+    mk_PDFs(system_settings, res);
+
+  }
+
+  /*
+  res.json({
+    system_id: system_id,
+    status: status,
+    notes: system_settings.state.notes,
+    SVG_url: SVG_url,
+    PDF_url: PDF_url,
+    SVGs: {
+      //1: [SVG string?],
+      //2: [SVG string?],
+      //3: [SVG string?]
+    }
+  });
+  */
+
+});
+
+
+router.get('/t/PDF', function(req, res) {
   var system_id = req.query.pv_system_id;
   //var system_id = req.params.system_id;
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
@@ -228,30 +256,25 @@ router.get('/d/PDF_test', function(req, res) {
 
 });
 
-////////////////////
-// Attachments
-/*
-router.get('/d/:system_id/attachments/:num', function(req, res) {
-  //var system_id = req.query.pv_system_id;
-  var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
-  var uint8Array = User_systems.findOne({system_id:this.params.system_id}).attachments[this.params.num].content;
-  var attachment = Buffer.from(uint8Array.buffer);
-  if( attachment ){
-    this.res.write(attachment);
-    this.res.end();
-  } else {
-    this.res.end();
-  }
+//'SELECT sysdate FROM dual',
+//'select count(*) from devices ',
+//'SELECT * FROM pvsystem_details WHERE device_id = 37',
+
+router.get('/t/db/date', function(req, res) {
+  get_DB_data('SELECT sysdate FROM dual', res);
 });
-*/
-router.get('/t/db', function(req, res) {
 
-  get_DB_data(res);
+router.get('/t/db/pvsystem_details', function(req, res) {
+  get_DB_data('SELECT * FROM pvsystem_details WHERE device_id = 37', res);
+});
 
+router.get('/t/db/pvsystem_modules_view', function(req, res) {
+  get_DB_data('SELECT * FROM pvsystem_modules_view WHERE pvsystem_id = 37', res);
+});
 
+router.get('/t/db/pvsystem_inverters_view', function(req, res) {
+  get_DB_data('SELECT * FROM pvsystem_inverters_view WHERE pvsystem_id = 37', res);
 });
 
 
