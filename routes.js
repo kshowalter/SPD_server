@@ -5,6 +5,7 @@ var mk_drawing = require('./lib/mk_drawing.js');
 var mk_settings = require('./lib/mk_settings.js');
 var process_system = require('./lib/process_system.js');
 var mk_PDFs = require('./lib/mk_PDFs.js');
+var get_DB_data = require('./lib/get_DB_data.js');
 
 
 /////////////////////////////////////////////////
@@ -229,7 +230,7 @@ router.get('/d/PDF_test', function(req, res) {
 
 ////////////////////
 // Attachments
-
+/*
 router.get('/d/:system_id/attachments/:num', function(req, res) {
   //var system_id = req.query.pv_system_id;
   var system_id = req.params.system_id;
@@ -245,7 +246,13 @@ router.get('/d/:system_id/attachments/:num', function(req, res) {
     this.res.end();
   }
 });
+*/
+router.get('/t/db', function(req, res) {
 
+  get_DB_data(res);
+
+
+});
 
 
 
