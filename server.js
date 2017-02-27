@@ -1,6 +1,8 @@
 // add timestamps in front of log messages
 require('console-stamp')(console, '[HH:MM:ss.l]');
 
+global.server_settings = require('./lib/server_settings.js')();
+
 var express = require('express');
 var http = require('http');
 var port = process.env.PORT || '3300';
