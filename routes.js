@@ -68,30 +68,55 @@ router.get('/t/SVG_page', function(req, res) {
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
-
-  console.log('server route', system_id);
+  var responce_string = req.method + ': ' + req.url;
+  console.log(responce_string);
 
   // update system calculations
   var system_settings = mk_settings(system_id);
   system_settings.server.host = req.headers.host;
   system_settings = process_system(system_settings);
 
-  // update drawing
-  system_settings = mk_drawing(system_settings);
+  var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
 
-  var svgs = system_settings.drawing.svgs;
-
-  var html = '<!doctype html><html><head></head><body style="width:1554px; height:1198px;"><div> ';
-  svgs.forEach(function(svg){
-    html += svg.outerHTML;
-    //htmls.push(html);
-  });
-
-  html += ' <iv></body></html>';
+  if( status === 'pass'){
+    // update drawing
+    system_settings = mk_drawing(system_settings);
 
 
+    var svgs = system_settings.drawing.svgs.map(function(svg){
+      return svg.outerHTML;
+    });
 
-  res.end(html);
+    var html = '<!doctype html><html><head></head><body style="width:1554px; height:1198px;"><div> ';
+
+    var svg_string = svgs[1];
+
+    if( svg_string ){
+      svg_string = svg_string.replace(/<svg /g, '<svg style="position:absolute; top:0px; left:0px;" ');
+      html += svg_string;
+
+      html += ' </div></body></html>';
+
+      res.end(html);
+
+    } else {
+      res.end();
+
+    }
+
+
+  } else if( status === 'error' ){
+
+    res.json({
+      system_id: system_id,
+      status: status,
+      notes: system_settings.state.notes,
+      SVG_url: SVG_url,
+      PDF_url: PDF_url,
+      SVGs: []
+    });
+  }
+
 
 });
 
