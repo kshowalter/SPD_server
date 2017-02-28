@@ -294,23 +294,7 @@ router.get('/t/db/pvsystem_inverters_view', function(req, res) {
 
 
 router.get('/t/db', function(req, res) {
-  //var system_id = req.query.pv_system_id;
-  var system_id = 37;
-
-
-  var queries = [
-    'SELECT * FROM pvsystem_details WHERE device_id = ' + system_id, 'system',
-    'SELECT * FROM pvsystem_modules_view WHERE pvsystem_id = ' + system_id, 'array',
-    'SELECT * FROM pvsystem_inverters_view WHERE pvsystem_id = ' + system_id, 'inverter'
-  ];
-
-  var run_function_when_all_queries_are_ready = f.mk_ready(queries, function(){
-
-
-
-  });
-
-
+  get_DB_data(req, res);
 });
 
 
