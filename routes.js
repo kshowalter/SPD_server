@@ -7,6 +7,7 @@ var process_system = require('./lib/process_system.js');
 var mk_PDFs = require('./lib/mk_PDFs.js');
 var get_DB_data = require('./lib/get_DB_data.js');
 
+var html_wrap_svg = require('./lib/html_wrap_svg.js');
 
 
 ///////////////////////////////////////////
@@ -82,20 +83,14 @@ router.get('/t/SVG_page', function(req, res) {
     // update drawing
     system_settings = mk_drawing(system_settings);
 
-
     var svgs = system_settings.drawing.svgs.map(function(svg){
       return svg.outerHTML;
     });
 
-    var html = '<!doctype html><html><head></head><body style="width:1554px; height:1198px;"><div> ';
-
     var svg_string = svgs[1];
 
     if( svg_string ){
-      svg_string = svg_string.replace(/<svg /g, '<svg style="position:absolute; top:0px; left:0px;" ');
-      html += svg_string;
-
-      html += ' </div></body></html>';
+      var html = html_wrap_svg(svg_string);
 
       res.end(html);
 
@@ -282,19 +277,40 @@ router.get('/d/PDF_test', function(req, res) {
 //'SELECT * FROM pvsystem_details WHERE device_id = 37',
 
 router.get('/t/db/date', function(req, res) {
-  get_DB_data('SELECT sysdate FROM dual', res);
+  get_DB_data('SELECT sysdate FROM dual', 'date', res);
 });
 
 router.get('/t/db/pvsystem_details', function(req, res) {
-  get_DB_data('SELECT * FROM pvsystem_details WHERE device_id = 37', res);
+  get_DB_data('SELECT * FROM pvsystem_details WHERE device_id = 37', 'system', res);
 });
 
 router.get('/t/db/pvsystem_modules_view', function(req, res) {
-  get_DB_data('SELECT * FROM pvsystem_modules_view WHERE pvsystem_id = 37', res);
+  get_DB_data('SELECT * FROM pvsystem_modules_view WHERE pvsystem_id = 37', 'array', res);
 });
 
 router.get('/t/db/pvsystem_inverters_view', function(req, res) {
-  get_DB_data('SELECT * FROM pvsystem_inverters_view WHERE pvsystem_id = 37', res);
+  get_DB_data('SELECT * FROM pvsystem_inverters_view WHERE pvsystem_id = 37', 'inverter', res);
+});
+
+
+router.get('/t/db', function(req, res) {
+  //var system_id = req.query.pv_system_id;
+  var system_id = 37;
+
+
+  var queries = [
+    'SELECT * FROM pvsystem_details WHERE device_id = ' + system_id, 'system',
+    'SELECT * FROM pvsystem_modules_view WHERE pvsystem_id = ' + system_id, 'array',
+    'SELECT * FROM pvsystem_inverters_view WHERE pvsystem_id = ' + system_id, 'inverter'
+  ];
+
+  var run_function_when_all_queries_are_ready = f.mk_ready(queries, function(){
+
+
+
+  });
+
+
 });
 
 
