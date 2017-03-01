@@ -272,26 +272,6 @@ router.get('/d/PDF_test', function(req, res) {
 });
 
 
-//'SELECT sysdate FROM dual',
-//'select count(*) from devices ',
-//'SELECT * FROM pvsystem_details WHERE device_id = 37',
-
-router.get('/t/db/date', function(req, res) {
-  get_DB_data('SELECT sysdate FROM dual', 'date', res);
-});
-
-router.get('/t/db/pvsystem_details', function(req, res) {
-  get_DB_data('SELECT * FROM pvsystem_details WHERE device_id = 37', 'system', res);
-});
-
-router.get('/t/db/pvsystem_modules_view', function(req, res) {
-  get_DB_data('SELECT * FROM pvsystem_modules_view WHERE pvsystem_id = 37', 'array', res);
-});
-
-router.get('/t/db/pvsystem_inverters_view', function(req, res) {
-  get_DB_data('SELECT * FROM pvsystem_inverters_view WHERE pvsystem_id = 37', 'inverter', res);
-});
-
 
 router.get('/t/db', function(req, res) {
   get_DB_data(req, res);
