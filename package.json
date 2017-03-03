@@ -24,6 +24,7 @@
     "shelljs": "^0.7.2",
     "jsdom": "^9.4.1",
     "oracledb": "latest",
-    "console-stamp": "latest"
+    "console-stamp": "latest",
+    "spreadsheet_functions": "https://github.com/kshowalter/spreadsheet_functions"
   }
 }
