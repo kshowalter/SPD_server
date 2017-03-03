@@ -39,6 +39,11 @@ On Linux you may need to set some environment variables:
 
 http://phantomjs.org/download.html
 
+### Install pdftk
+
+
+    sudo apt install pdftk
+
 ## Install the SPD server
 
 Use your Git GUI of your choice to download the repository.
