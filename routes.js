@@ -20,6 +20,19 @@ router.get('/d/SVG', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
 
+  get_DB_data(req, function(data){
+
+
+    res.json({
+      status: 'returned',
+      data: data
+    });
+
+    
+  });
+
+
+
   // update system calculations
   var system_settings = mk_settings(system_id);
   system_settings.server.host = req.headers.host;
@@ -274,7 +287,12 @@ router.get('/d/PDF_test', function(req, res) {
 
 
 router.get('/t/db', function(req, res) {
-  get_DB_data(req, res);
+  get_DB_data(req, function(data){
+    res.json({
+      status: 'returned',
+      data: data
+    });
+  });
 });
 
 
