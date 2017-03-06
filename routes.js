@@ -6,8 +6,15 @@ var mk_settings = require('./lib/mk_settings.js');
 var process_system = require('./lib/process_system.js');
 var mk_PDFs = require('./lib/mk_PDFs.js');
 var get_DB_data = require('./lib/get_DB_data.js');
-
 var html_wrap_svg = require('./lib/html_wrap_svg.js');
+
+
+var sample_DB_data = require('./TEMP/DB_sample.json');
+var TEST_get_DB_data = function(req, callback){
+  console.log('USING TEST DATABASE DATA');
+  callback(sample_DB_data.data);
+};
+
 
 
 ///////////////////////////////////////////
@@ -20,56 +27,57 @@ router.get('/d/SVG', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   console.log(responce_string);
 
-  get_DB_data(req, function(data){
+  //get_DB_data(req, function(data){
+  TEST_get_DB_data(req, function(data){
+
+    // update system calculations
+    var system_settings = mk_settings(data);
+    system_settings.server.host = req.headers.host;
+    system_settings = process_system(system_settings);
+
+    var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
+
+    if( status === 'pass'){
+      // update drawing
+      system_settings = mk_drawing(system_settings);
 
 
-    res.json({
-      status: 'returned',
-      data: data
-    });
+      var svgs = system_settings.drawing.svgs.map(function(svg){
+        return svg.outerHTML;
+      });
 
-    
+      res.json({
+        system_id: system_id,
+        status: status,
+        notes: system_settings.state.notes,
+        SVG_url: SVG_url,
+        PDF_url: PDF_url,
+        SVGs: svgs
+      });
+
+    } else if( status === 'error' ){
+
+      res.json({
+        system_id: system_id,
+        status: status,
+        notes: system_settings.state.notes,
+        SVG_url: SVG_url,
+        PDF_url: PDF_url,
+        SVGs: []
+      });
+
+    }
+
+
+
+
+
+
+
   });
 
 
 
-  // update system calculations
-  var system_settings = mk_settings(system_id);
-  system_settings.server.host = req.headers.host;
-  system_settings = process_system(system_settings);
-
-  var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
-
-  if( status === 'pass'){
-    // update drawing
-    system_settings = mk_drawing(system_settings);
-
-
-    var svgs = system_settings.drawing.svgs.map(function(svg){
-      return svg.outerHTML;
-    });
-
-    res.json({
-      system_id: system_id,
-      status: status,
-      notes: system_settings.state.notes,
-      SVG_url: SVG_url,
-      PDF_url: PDF_url,
-      SVGs: svgs
-    });
-
-  } else if( status === 'error' ){
-
-    res.json({
-      system_id: system_id,
-      status: status,
-      notes: system_settings.state.notes,
-      SVG_url: SVG_url,
-      PDF_url: PDF_url,
-      SVGs: []
-    });
-
-  }
 
 });
 
@@ -218,18 +226,18 @@ router.get('/t/PDF_download', function(req, res) {
 
   /*
   res.json({
-    system_id: system_id,
-    status: status,
-    notes: system_settings.state.notes,
-    SVG_url: SVG_url,
-    PDF_url: PDF_url,
-    SVGs: {
-      //1: [SVG string?],
-      //2: [SVG string?],
-      //3: [SVG string?]
-    }
-  });
-  */
+  system_id: system_id,
+  status: status,
+  notes: system_settings.state.notes,
+  SVG_url: SVG_url,
+  PDF_url: PDF_url,
+  SVGs: {
+  //1: [SVG string?],
+  //2: [SVG string?],
+  //3: [SVG string?]
+}
+});
+*/
 
 });
 
