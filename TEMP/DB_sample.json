@@ -55,7 +55,7 @@
       "max_ac_ouput_current_277": null,
       "max_ac_ouput_current_480": null
     },
-    "array": {
+    "module": {
       "device_model_number": "DCModelNumber",
       "device_name": "DCModelNumber",
       "manufacturer_name": "William's Corp",

@@ -65,20 +65,8 @@ router.get('/d/SVG', function(req, res) {
         PDF_url: PDF_url,
         SVGs: []
       });
-
     }
-
-
-
-
-
-
-
   });
-
-
-
-
 });
 
 
