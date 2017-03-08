@@ -198,7 +198,7 @@
     "inverter_OC_at_subpannel": null,
     "inverter_output_current_subpannel": null,
     "total_of_load_breakers_at_subpannel": null,
-    "main_panel_bussbar_rating": 200,
+    "bussbar_rating": 200,
     "main_panel_supply_ocpd_rating": 200,
     "sum_of_inverter_output_ocpd_devices": 50,
     "sum_of_inverter_output_circuit_current": 50,

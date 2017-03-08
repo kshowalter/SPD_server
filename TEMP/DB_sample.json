@@ -10,11 +10,11 @@
       "num_of_series_strings": null,
       "num_of_bat_per_string": null,
       "pvsystem_type_id": null,
-      "bussbar_rating": null,
-      "supply_ocpd_rating": null,
-      "inverter_ocpd_dev_sum": null,
-      "inverter_output_cur_sum": null,
-      "load_breaker_total": null
+      "bussbar_rating": 200,
+      "supply_ocpd_rating": 20,
+      "inverter_ocpd_dev_sum": 20,
+      "inverter_output_cur_sum": 20,
+      "load_breaker_total": 200
     },
     "inverter": {
       "device_model_number": "Sunny Boy 3000TL-US",

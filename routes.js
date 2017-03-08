@@ -7,6 +7,7 @@ var process_system = require('./lib/process_system.js');
 var mk_PDFs = require('./lib/mk_PDFs.js');
 var get_DB_data = require('./lib/get_DB_data.js');
 var html_wrap_svg = require('./lib/html_wrap_svg.js');
+var map_DB_data = require('./lib/map_DB_data.js');
 
 
 var sample_DB_data = require('./TEMP/DB_sample.json');
@@ -15,6 +16,63 @@ var TEST_get_DB_data = function(req, callback){
   callback(sample_DB_data.data);
 };
 
+
+
+///////////////////////////////////////////
+router.get('/t/check', function(req, res) {
+  var system_id = req.query.pv_system_id;
+  //var system_id = req.params.system_id;
+  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
+
+  var responce_string = req.method + ': ' + req.url;
+  console.log(responce_string);
+
+  //get_DB_data(req, function(data){
+  TEST_get_DB_data(req, function(data){
+    data = map_DB_data(data);
+
+
+    // update system calculations
+    var system_settings = mk_settings(data);
+    system_settings.server.host = req.headers.host;
+    system_settings = process_system(system_settings);
+
+    var settings_sections = Object.keys(system_settings.state.system);
+
+    res.json({
+      settings_sections: settings_sections,
+      state_system: system_settings.state.system
+    });
+
+  });
+});
+///////////////////////////////////////////
+router.get('/t/db_data', function(req, res) {
+  var system_id = req.query.pv_system_id;
+  //var system_id = req.params.system_id;
+  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
+  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
+
+  var responce_string = req.method + ': ' + req.url;
+  console.log(responce_string);
+
+  //get_DB_data(req, function(data){
+  TEST_get_DB_data(req, function(data){
+    data = map_DB_data(data);
+
+
+    // update system calculations
+    //var system_settings = mk_settings(data);
+    //system_settings.server.host = req.headers.host;
+    //system_settings = process_system(system_settings);
+
+    //var settings_sections = Object.keys(system_settings.state.system);
+
+    res.json(data);
+
+  });
+});
 
 
 ///////////////////////////////////////////
@@ -29,6 +87,8 @@ router.get('/d/SVG', function(req, res) {
 
   //get_DB_data(req, function(data){
   TEST_get_DB_data(req, function(data){
+    data = map_DB_data(data);
+
 
     // update system calculations
     var system_settings = mk_settings(data);
