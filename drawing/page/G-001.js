@@ -84,7 +84,7 @@ var mk_page = function(settings){
     [
       'System:',
       parseFloat(state.system.array.pmp).toFixed(0) + ' Pmp DC',
-      state.system.inverter.inverter_make + ' ' + state.system.inverter.inverter_model,
+      state.system.inverter.manufacturer_name + ' ' + state.system.inverter.device_model_number,
       state.system.array.module_make + ' ' + state.system.array.module_model,
     ],
     null,
@@ -99,7 +99,7 @@ var mk_page = function(settings){
     [x,y],
     [
       "System size: " + Math.round(state.system.array.pmp/1000, 1) + "kW",
-      state.system.inverter.inverter_make + ", " + state.system.inverter.inverter_model,
+      state.system.inverter.manufacturer_name + ", " + state.system.inverter.device_model_number,
       state.system.array.module_make + ", " + state.system.array.module_model,
     ],
     'text',

@@ -25,7 +25,7 @@ var mk_page = function(settings){
   //y -= size.string.h/2;
 
   // DC run from array to JB
-  for( var i in _.range(system.array.number_of_strings)) {
+  for( var i in _.range(system.array.num_of_strings)) {
     var offset_wire = size.wire_offset.min + ( size.wire_offset.base * i );
     d.block('string', [x,y]);
     // positive home run
@@ -127,7 +127,7 @@ var mk_page = function(settings){
 
 
   // DC JB to combiner
-  for( var i in _.range(system.array.number_of_strings)) {
+  for( var i in _.range(system.array.num_of_strings)) {
     var offset_wire = size.wire_offset.min + ( size.wire_offset.base * i );
 
     d.layer('DC_pos');
@@ -137,7 +137,7 @@ var mk_page = function(settings){
       [ loc.DC_jb_box.x + offset_wire , loc.DC_combiner.y - offset_wire],
       [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y - offset_wire],
     ]);
-    if( system.array.number_of_strings > 2){
+    if( system.array.num_of_strings > 2){
       d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire]);
     } else {
       d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire]);
@@ -348,8 +348,8 @@ var mk_page = function(settings){
   d.text(
     [loc.inverter.x, loc.inverter.top + size.inverter.text_gap ],
     [
-      state.system.inverter.inverter_make,
-      state.system.inverter.inverter_model
+      state.system.inverter.manufacturer_name,
+      state.system.inverter.device_model_number
     ],
     'text',
     'label'
