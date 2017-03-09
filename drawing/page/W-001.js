@@ -694,7 +694,7 @@ var mk_page = function(settings){
 
     if( system.conduits ){
       //console.log( system.conduits[f.name_to_id(conduit_name)+'_'+f.name_to_id('Insulation/Type')] );
-      t.cell(i+3,3).font('table_left').text( system.conduits[conduit_id+'_'+'conductors'].join(', ') );
+      //t.cell(i+3,3).font('table_left').text( system.conduits[conduit_id+'_'+'conductors'].join(', ') );
       t.cell(i+3,4).font('table_left').text( system.conduits[conduit_id+'_'+'type'] );
       t.cell(i+3,5).font('table_left').text( system.conduits[conduit_id+'_'+'material'] );
       t.cell(i+3,6).font('table_left').text( system.conduits[conduit_id+'_'+'minimum_size_awg'] );
