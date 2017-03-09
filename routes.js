@@ -40,7 +40,9 @@ router.get('/t/data', function(req, res) {
 
     res.json({
       settings_sections: settings_sections,
-      state_system: system_settings.state.system
+      state_system: system_settings.state.system,
+      //size: system_settings.drawing_settings.size,
+      //loc: system_settings.drawing_settings.loc,
     });
 
   });
