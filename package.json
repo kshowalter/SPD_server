@@ -4,7 +4,7 @@
   "description": "Nodejs server to generate PV drawings.",
   "main": "server.js",
   "scripts": {
-    "serve": ". ./oracle_setup_linux.sh | nodemon server.js"
+    "serve": ". ./oracle_setup_linux.sh && nodemon server.js"
   },
   "repository": {
     "type": "git",
