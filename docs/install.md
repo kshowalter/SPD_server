@@ -14,6 +14,9 @@ Linux:
 
 https://nodejs.org/en/
 
+Recommended install script:
+https://github.com/mklement0/n-install
+
 Linux:
 
     curl -L https://git.io/n-install | bash
@@ -23,6 +26,12 @@ Linux:
 
 Download the basic client, and the SDK.
 http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html
+
+Install the libaio package
+
+    sudo apt-get install libaio1
+
+
 
 Addtional install instructions.
 https://github.com/oracle/node-oracledb/blob/master/INSTALL.md
