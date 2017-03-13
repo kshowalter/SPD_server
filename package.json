@@ -26,5 +26,8 @@
     "phantom": "^4.0.0",
     "shelljs": "^0.7.2",
     "spreadsheet_functions": "https://github.com/kshowalter/spreadsheet_functions"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
