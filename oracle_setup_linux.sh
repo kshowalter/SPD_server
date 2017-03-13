@@ -14,6 +14,6 @@
 # https://www.npmjs.com/package/oracledb
 
 
-export LD_LIBRARY_PATH="/home/kshowalter/bin/instantclient_12_1:$LD_LIBRARY_PAT"
-export OCI_LIB_DIR="/home/kshowalter/bin/instantclient_12_1"
-export OCI_INC_DIR="/home/kshowalter/bin/instantclient_12_1/sdk/include"
+export LD_LIBRARY_PATH="/opt/oracle/instantclient:$LD_LIBRARY_PAT"
+export OCI_LIB_DIR="/opt/oracle/instantclient"
+export OCI_INC_DIR="/opt/oracle/instantclient/sdk/include"
