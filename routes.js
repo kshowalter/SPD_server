@@ -257,14 +257,6 @@ router.get('/d/PDF', function(req, res) {
 
 
 
-router.get('/t/db', function(req, res) {
-  get_DB_data(req, function(data){
-    res.json({
-      status: 'returned',
-      data: data
-    });
-  });
-});
 
 
 

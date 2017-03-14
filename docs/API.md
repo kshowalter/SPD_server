@@ -22,12 +22,6 @@ Runs the system calculations, creates the drawings.
 Returns a HTML page containing the SVGS.
 Used in development to test the output of the drawing generation.
 
-[host]__/t/PDF?pv_system_id=__[system_id]
-
-Runs the system calculations. If they pass it then creates the drawings.
-Generates the PDFs and saves them to the server as a file.
-Returns a PDF of the drawing.
-
 
 ## Returned status document
 
