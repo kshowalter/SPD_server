@@ -4,7 +4,8 @@
   "description": "Nodejs server to generate PV drawings.",
   "main": "server.js",
   "scripts": {
-    "serve": ". ./oracle_setup_linux.sh && nodemon server.js"
+    "serve_dev": ". ./oracle_setup_linux.sh && nodemon server.js",
+    "serve_production": ". ./oracle_setup_linux.sh && pm2 start server.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "spreadsheet_functions": "https://github.com/kshowalter/spreadsheet_functions"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "pm2": "^2.4.2"
   }
 }
