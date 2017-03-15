@@ -65,11 +65,11 @@
       "nominal_ac_output_power_240": 2500,
       "nominal_ac_output_power_277": 2500,
       "nominal_ac_output_power_480": 2500,
-      "max_ac_ouput_current_120": 15,
-      "max_ac_ouput_current_208": 15,
-      "max_ac_ouput_current_240": 15,
-      "max_ac_ouput_current_277": 15,
-      "max_ac_ouput_current_480": 15
+      "max_ac_output_current_120": 15,
+      "max_ac_output_current_208": 15,
+      "max_ac_output_current_240": 15,
+      "max_ac_output_current_277": 15,
+      "max_ac_output_current_480": 15
     },
     "module": {
       "device_model_number": "DCModelNumber",
