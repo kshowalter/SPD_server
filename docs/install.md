@@ -50,7 +50,6 @@ http://phantomjs.org/download.html
 
 ### Install pdftk
 
-
     sudo apt install pdftk
 
 ## Install the SPD server
@@ -65,11 +64,17 @@ or
 
 In the SPD server directory run:
 
-    npm install
+    sudo npm install
 
 
 ## Run SPD server
 
 In the SPD server directory run:
 
-    npm run server
+    sudo npm run serve_production
+
+Note: This runs a command stored in package.json. This command runs a script to setup some environment variables for the oracle module, then starts the [PM2](https://github.com/Unitech/pm2) process manager. PM2 runs a daemon to manage the nodejs server, and can be accessed with the pm2 command. Example commands below.
+
+    sudo pm2 list
+
+    sudo pm2 show 0
