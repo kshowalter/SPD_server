@@ -3,15 +3,15 @@ var mk_page = function(settings){
 
   var f = settings.f;
 
-  d = settings.f.Drawing(settings);
+  var d = settings.f.Drawing(settings);
 
   var size = settings.drawing_settings.size;
   var loc = settings.drawing_settings.loc;
 
-  x = size.sheet.frame_padding*6;
+  var x = size.sheet.frame_padding*6;
 
   var top = size.sheet.frame_padding*6 +10;
-  y = top;
+  var y = top;
 
   d.layer('table');
 
@@ -32,9 +32,9 @@ var mk_page = function(settings){
     var table_spacing = 30;
 
     var row_height = 15;
-    table_height = n_rows*row_height;
+    var table_height = n_rows*row_height;
 
-    if( (y+table_height+table_spacing) > ( settings.drawing_settings.size.sheet.h * 0.9 ) ) {
+    if( ( y+table_height+table_spacing) > ( settings.drawing_settings.size.sheet.h * 0.9 ) ) {
       y = top;
       x += table_width*1.1;
     }
@@ -45,14 +45,11 @@ var mk_page = function(settings){
     t.row_size('all', row_height).col_size(1, col_widths[1]).col_size(2, col_widths[2]);
 
     var r = 1;
-    for( var value_name in section ){
-      var label = settings.info.inputs[section_name] &&
-          settings.info.inputs[section_name][value_name] &&
-          settings.info.inputs[section_name][value_name].label;
-      var parameter_name = label || f.pretty_name(value_name);
-      t.cell(r,1).text( parameter_name );
+    for( var parameter_name in section ){
+      var parameter_label = f.pretty_name(parameter_name);
+      t.cell(r,1).text( parameter_label );
 
-      t.cell(r,2).text( state.system_display[section_name][value_name] );
+      t.cell(r,2).text( state.system_display[section_name][parameter_name] );
       r++;
 
     }
