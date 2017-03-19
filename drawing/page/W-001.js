@@ -712,6 +712,16 @@ var mk_page = function(settings){
 
 
 
+  for( var circuit_name in system.circuits ){
+    var circuit = system.circuits[circuit_name];
+
+    
+
+
+
+  }
+
+
   return d;
 };
 
