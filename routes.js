@@ -67,7 +67,7 @@ router.get('/d/SVG', function(req, res) {
   console.log(responce_string);
 
   //get_DB_data(req, function(data){
-  TEST_get_DB_data(req, function(data){
+  get_DB_data(req, function(data){
     data = map_DB_data(data);
 
     // update system calculations
@@ -132,7 +132,7 @@ router.get('/t/SVG', function(req, res) {
   console.log(responce_string);
 
   //get_DB_data(req, function(data){
-  get_DB_data(req, function(data){
+  TEST_get_DB_data(req, function(data){
     data = map_DB_data(data);
 
     // update system calculations

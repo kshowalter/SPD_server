@@ -629,6 +629,15 @@ var mk_page = function(settings){
 
 
 
+
+
+
+
+
+
+  ////////////////////////
+  // circuit table
+
   d.text(
     [ x + 5 , y - 10 ],
     [
@@ -638,14 +647,42 @@ var mk_page = function(settings){
     'label_left'
   );
 
+  var circuit_names = [
+    'PV DC SOURCE CIRCUITS',
+    'PV DC COMBINED OUTPUT CIRCUITS',
+    'INVERTER AC OUTPUT CIRCUIT',
+  ];
 
-  var n_rows = 6;
-  var n_cols = 9;
+  var font_letter_width = 7;
+
+  var circuit_parameter_list = [
+    'type_label',
+    'conductor_label',
+    'location_label',
+    'material_label',
+    'volt_rating',
+    'wet_temp_rating',
+    'conduit_type',
+    'ocpd_type',
+    'OCPD_min',
+  ];
+  var circuit_parameter_labels = {};
+  circuit_parameter_list.forEach(function(circuit_parameter_name){
+    circuit_parameter_labels[circuit_parameter_name] = [
+      circuit_parameter_name.length * font_letter_width,
+      f.table_name(circuit_parameter_name)
+    ];
+  });
+
+
+  var n_rows = 2 + circuit_names.length;
+  var n_cols = 2 + circuit_parameter_list.length;
   var row_height = 16;
   var row_width = 50;
 
-  h = n_rows*row_height;
 
+  h = n_rows*row_height;
+  console.log(n_rows,n_cols);
   var t = d.table(n_rows,n_cols).loc(x,y);
   t.row_size('all', row_height);
   t.col_size('all', row_width);
@@ -655,71 +692,56 @@ var mk_page = function(settings){
   });
 
 
-  [
-    [25,'SYM.'],
-    [170,'CIRCUIT'],
-    [85,'CONDUCTORS',''],
-    [75,'TYPE'],
-    [60,'MATERIAL'],
-    [100,'MIN. SIZE','(AWG)'],
-    [40,'TEMP','RATING'],
-    [80,'RACEWAY',''],
-    [40,'QTY.',''],
-    //[40,'MAX','LENGTH'],
-  ].forEach(function(label, i){
-    t.cell(1,i+1).border('B', false);
-    t.col_size(i+1, label[0]);
-    t.cell(1,i+1).font('table_center').text(label[1]);
-    t.cell(2,i+1).font('table_center').text(label[2]);
+
+
+
+
+  var row = 3;
+  for( var circuit_name in system.circuits ){
+    var circuit = system.circuits[circuit_name];
+
+    t.cell(row,1).font('table').text( String(row-2) );
+    t.cell(row,2).font('table_left').text( circuit_name );
+
+    var col = 3;
+    circuit_parameter_list.forEach(function(circuit_parameter_name){
+      var value = circuit[circuit_parameter_name];
+
+      var value_size = String(value).length * font_letter_width;
+      var current_column_size = circuit_parameter_labels[circuit_parameter_name][0];
+      circuit_parameter_labels[circuit_parameter_name][0] = value_size > current_column_size ? value_size : current_column_size;
+
+      t.cell(row,col).font('table_left').text( String(value) );
+
+      col++;
+    });
+    row++;
+  }
+
+
+
+  // Column setup
+
+  // Fixed columns
+  t.cell(1,1).font('table_center').text('SYM.');
+  t.col_size(1, 25);
+  t.cell(1,2).font('table_center').text('CIRCUIT');
+  t.col_size(2, 170);
+
+  // variable columns
+  circuit_parameter_list.forEach(function(circuit_parameter_name, i){
+    var label = circuit_parameter_labels[circuit_parameter_name];
+    t.cell(1,i+3).border('B', false);
+    t.col_size(i+3, label[0]);
+    t.cell(1,i+3).font('table_center').text(label[1]);
+    t.cell(2,i+3).font('table_center').text(label[2]);
   });
 
-  var wire_section_list = [
-    'INTERMODULE WIRING',
-    'PV DC SOURCE CIRCUITS',
-    'PV DC OUTPUT CIRCUITS',
-    //'INVERTER DC INPUT CIRCUIT', // (SAME AS PV OUTPUT CIRCUITS FOR SINGLE COMBINER)',
-    'INVERTER AC OUTPUT CIRCUIT',
-  ];
-
-  wire_section_list.forEach(function(label, i){
-    if( i+1 < 5 ){
-      t.cell(i+3,1).font('table').text( (i+1).toString() );
-    }
-    t.cell(i+3,2).font('table_left').text( label );
-  });
-
-  wire_section_list.forEach(function(conduit_name, i){
-    var conduit_id = f.name_to_id(conduit_name);
-
-
-    if( system.conduits ){
-      //console.log( system.conduits[f.name_to_id(conduit_name)+'_'+f.name_to_id('Insulation/Type')] );
-      //t.cell(i+3,3).font('table_left').text( system.conduits[conduit_id+'_'+'conductors'].join(', ') );
-      t.cell(i+3,4).font('table_left').text( system.conduits[conduit_id+'_'+'type'] );
-      t.cell(i+3,5).font('table_left').text( system.conduits[conduit_id+'_'+'material'] );
-      t.cell(i+3,6).font('table_left').text( system.conduits[conduit_id+'_'+'minimum_size_awg'] );
-      t.cell(i+3,7).font('table_left').text( system.conduits[conduit_id+'_'+'wet_temp_rating_°c'] );
-      t.cell(i+3,8).font('table_left').text( system.conduits[conduit_id+'_'+'location'] );
-      t.cell(i+3,9).font('table_left').text( system.conduits[conduit_id+'_'+'qty'].join(', ') );
-      //t.cell(i+3,10).font('table_left').text( 'x' );
-
-    }
-
-  });
-
-
+  //console.log(t.cells);
   t.mk();
 
 
 
-  for( var circuit_name in system.circuits ){
-    var circuit = system.circuits[circuit_name];
-
-    
-
-
-
-  }
 
 
   return d;
