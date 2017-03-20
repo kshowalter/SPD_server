@@ -13,7 +13,7 @@ var map_DB_data = require('./lib/map_DB_data.js');
 var sample_DB_data = require('./TEMP/DB_sample.json');
 var TEST_get_DB_data = function(req, callback){
   console.log('USING TEST DATABASE DATA');
-  callback(sample_DB_data.data);
+  callback(sample_DB_data);
 };
 
 
@@ -44,6 +44,23 @@ router.get('/t/data', function(req, res) {
       //size: system_settings.drawing_settings.size,
       //loc: system_settings.drawing_settings.loc,
     });
+
+  });
+});
+
+
+
+///////////////////////////////////////////
+router.get('/t/db', function(req, res) {
+  var system_id = req.query.pv_system_id;
+
+  var responce_string = req.method + ': ' + req.url;
+  console.log(responce_string);
+
+  //get_DB_data(req, function(data){
+  get_DB_data(req, function(data){
+
+    res.json(data);
 
   });
 });
