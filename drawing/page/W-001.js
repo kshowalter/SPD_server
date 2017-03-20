@@ -649,7 +649,7 @@ var mk_page = function(settings){
 
   var circuit_names = [
     'PV DC SOURCE CIRCUITS',
-    'PV DC COMBINED OUTPUT CIRCUITS',
+    'PV DC COMBINED CIRCUITS',
     'INVERTER AC OUTPUT CIRCUIT',
   ];
 
@@ -660,7 +660,6 @@ var mk_page = function(settings){
     'conductor_label',
     'location_label',
     'material_label',
-    'volt_rating',
     'wet_temp_rating',
     'conduit_type',
     'ocpd_type',
@@ -682,7 +681,6 @@ var mk_page = function(settings){
 
 
   h = n_rows*row_height;
-  console.log(n_rows,n_cols);
   var t = d.table(n_rows,n_cols).loc(x,y);
   t.row_size('all', row_height);
   t.col_size('all', row_width);
@@ -726,7 +724,7 @@ var mk_page = function(settings){
   t.cell(1,1).font('table_center').text('SYM.');
   t.col_size(1, 25);
   t.cell(1,2).font('table_center').text('CIRCUIT');
-  t.col_size(2, 170);
+  t.col_size(2, 165);
 
   // variable columns
   circuit_parameter_list.forEach(function(circuit_parameter_name, i){
