@@ -16,15 +16,22 @@ Returns a PDF of the drawing.
 
 #### Dev URLs
 
-[host]__/t/SVG_page?pv_system_id=__[system_id]
+To receive a response with stock, working system configuration (NOT the system configuration from the database that matches your system_id), replace the /d/ in the URL with a /t/. This works for those listed above and below. You can view the stock data [here](https://github.com/kshowalter/SPD_server/blob/master/TEMP/DB_sample.json), or the /t/ version of the first URL below.
 
-Runs the system calculations, creates the drawings.
-Returns a HTML page containing the SVGS.
-Used in development to test the output of the drawing generation.
+[host]__/d/db?pv_system_id=__[system_id]
+
+Returns raw results from the database queries.
+
+[host]__/d/data?pv_system_id=__[system_id]
+
+Runs the system calculations. Returns the raw system values.
+
+[host]__/d/SVG?pv_system_id=__[system_id]__&sheet_num=__[sheet number: 1,2]
+
+Returns one page of the drawing wrapped in HTML, and suitable for browser viewing.
 
 
 ## Returned status document
-
 
     {
         'system_id': [database id?],
@@ -40,6 +47,7 @@ Used in development to test the output of the drawing generation.
           1: [SVG string?],
           2: [SVG string?],
           3: [SVG string?]
-        }
+        },
+        "PDF_file_name": [PDF filename string]
 
     }
