@@ -1,7 +1,7 @@
 ## API
 
 ### URLs
-The base URL, or host, is represented as [host] below. It will be something like: “http://10.64.53.89/”.
+The base URL, or host, is represented as [host] below. It will be something like: “http://10.173.64.209:3300/”.
 
 [host]__/d/SVG?pv_system_id=__[system_id]
 
@@ -16,7 +16,7 @@ Returns a PDF of the drawing.
 
 #### Dev URLs
 
-To receive a response with stock, working system configuration (NOT the system configuration from the database that matches your system_id), replace the /d/ in the URL with a /t/. This works for those listed above and below. You can view the stock data [here](https://github.com/kshowalter/SPD_server/blob/master/TEMP/DB_sample.json), or the /t/ version of the first URL below.
+To receive a response with a stock, working system configuration (NOT the system configuration from the database that matches your system_id), replace the /d/ in the URL with a /t/. This works for those listed above and below. You can view the stock data [here](https://github.com/kshowalter/SPD_server/blob/master/TEMP/DB_sample.json), or the /t/ version of the first URL below.
 
 [host]__/d/db?pv_system_id=__[system_id]
 
