@@ -75,6 +75,14 @@ In the SPD server directory run:
 
 Note: This runs a command stored in package.json. This command runs a script to setup some environment variables for the oracle module, then starts the [PM2](https://github.com/Unitech/pm2) process manager. PM2 runs a daemon to manage the nodejs server, and can be accessed with the pm2 command. Example commands below.
 
+List active processes (should only be one: 0 )
+
     sudo pm2 list
 
+Show parameters for process 0
+
     sudo pm2 show 0
+
+Show log for system 0 (normal command-line output)
+
+    sudo pm2 logs 0
