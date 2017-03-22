@@ -1,7 +1,7 @@
 ## API
 
 ### URLs
-The base URL, or host, is represented as [host] below. It will be something like: “http://10.173.64.209:3300/”.
+The base URL, or host, is represented as [host] below. It will be something like: “http://10.173.64.250:3300/”.
 
 [host]__/d/SVG?pv_system_id=__[system_id]
 
