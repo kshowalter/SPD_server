@@ -34,4 +34,3 @@ app.use('/s', express.static('static'));
 app.use('/', router_d);
 
 logger.info('server started on http://localhost:'+port);
-logger.info('w server started on http://localhost:'+port);
