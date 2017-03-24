@@ -51,7 +51,7 @@
     "mppt_min": 100,
     "mppt_max": 550,
     "imax_total": null,
-    "imax_channel": 30,
+    "imax_channel": 10,
     "voltage_range_min": 100,
     "voltage_range_max": 550,
     "max_ac_ocpd": null,
