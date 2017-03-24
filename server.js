@@ -14,6 +14,7 @@ logger.add(logger.transports.File, {
   humanReadableUnhandledException: true
 });
 
+global.logger = logger;
 
 // Start express app
 var app = express();
@@ -32,5 +33,5 @@ var router_d = require('./routes.js');
 app.use('/s', express.static('static'));
 app.use('/', router_d);
 
-console.log('server started on http://localhost:'+port);
+logger.info('server started on http://localhost:'+port);
 logger.info('w server started on http://localhost:'+port);

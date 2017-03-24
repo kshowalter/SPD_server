@@ -19,7 +19,7 @@ load_data = function(){
 	};
 	//var connection_string = JSON.parse(Assets.getText('sensitive_data/db_connection.json'));
 
-	//console.log("connecting:", connection_string);
+	//logger.info("connecting:", connection_string);
   oracledb.getConnection(connection_string, Meteor.bindEnvironment(function(err, connection) {
     if (err) {
 			console.error("DB Connection Error:");
@@ -38,7 +38,7 @@ load_data = function(){
           Meteor.bindEnvironment(function(err, inverters) {
             if (err) { console.error(err.message); return; }
             var FSEC_database = { modules: modules.rows, inverters: inverters.rows };
-						//console.log(FSEC_database);
+						//logger.info(FSEC_database);
             processData(FSEC_database);
           }));
       }));
@@ -49,7 +49,7 @@ load_data = function(){
 /*
 // This is the importer for the older format
 processData = function(FSEC_database) {
-  console.log("[Loading FSEC_database] modules: %s, inverters: %s", FSEC_database.modules.length, FSEC_database.inverters.length);
+  logger.info("[Loading FSEC_database] modules: %s, inverters: %s", FSEC_database.modules.length, FSEC_database.inverters.length);
   //settings.components = f.load_database(FSEC_database);
   FSEC_database = f.lowercase_properties(FSEC_database);
   for( var type in FSEC_database ){
@@ -65,7 +65,7 @@ processData = function(FSEC_database) {
 */
 
 processData = function(FSEC_database) {
-  console.log("[Loading FSEC_database] modules: %s, inverters: %s", FSEC_database.modules.length, FSEC_database.inverters.length);
+  logger.info("[Loading FSEC_database] modules: %s, inverters: %s", FSEC_database.modules.length, FSEC_database.inverters.length);
   //settings.components = f.load_database(FSEC_database);
   FSEC_database = f.lowercase_properties(FSEC_database);
   for( var category in FSEC_database ){

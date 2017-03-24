@@ -735,7 +735,7 @@ var mk_page = function(settings){
     t.cell(2,i+3).font('table_center').text(label[2]);
   });
 
-  //console.log(t.cells);
+  //logger.info(t.cells);
   t.mk();
 
 

@@ -53,7 +53,7 @@ var mk_page = function(settings){
   y += 50;
 
 
-  //console.log( '|_ location', state.status.active_system, section_defined(state.status.active_system, 'location') );
+  //logger.info( '|_ location', state.status.active_system, section_defined(state.status.active_system, 'location') );
 
   d.text(
     [x,y],

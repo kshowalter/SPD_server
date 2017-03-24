@@ -12,7 +12,7 @@ var map_DB_data = require('./lib/map_DB_data.js');
 
 var sample_DB_data = require('./TEMP/DB_sample.json');
 var TEST_get_DB_data = function(req, callback){
-  console.log('USING TEST DATABASE DATA');
+  logger.info('USING TEST DATABASE DATA');
   callback(sample_DB_data);
 };
 
@@ -35,7 +35,7 @@ router.get('/d/SVG', function(req, res) {
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
-  console.log(responce_string);
+  logger.info(responce_string);
 
   //get_DB_data(req, function(data){
   get_DB_data(req, function(data){
@@ -100,7 +100,7 @@ router.get('/t/SVG', function(req, res) {
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
-  console.log(responce_string);
+  logger.info(responce_string);
 
   //get_DB_data(req, function(data){
   TEST_get_DB_data(req, function(data){
@@ -167,7 +167,7 @@ router.get('/d/PDF', function(req, res) {
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
-  console.log(responce_string);
+  logger.info(responce_string);
 
   //get_DB_data(req, function(data){
   get_DB_data(req, function(data){
@@ -233,7 +233,7 @@ router.get('/t/PDF', function(req, res) {
   var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
-  console.log(responce_string);
+  logger.info(responce_string);
 
   //get_DB_data(req, function(data){
   TEST_get_DB_data(req, function(data){
@@ -302,7 +302,7 @@ router.get('/d/data', function(req, res) {
   var system_id = req.query.pv_system_id;
 
   var responce_string = req.method + ': ' + req.url;
-  console.log(responce_string);
+  logger.info(responce_string);
 
   //get_DB_data(req, function(data){
   get_DB_data(req, function(data){
@@ -331,7 +331,7 @@ router.get('/t/data', function(req, res) {
   var system_id = req.query.pv_system_id;
 
   var responce_string = req.method + ': ' + req.url;
-  console.log(responce_string);
+  logger.info(responce_string);
 
   //get_DB_data(req, function(data){
   TEST_get_DB_data(req, function(data){
@@ -361,7 +361,7 @@ router.get('/d/db', function(req, res) {
   var system_id = req.query.pv_system_id;
 
   var responce_string = req.method + ': ' + req.url;
-  console.log(responce_string);
+  logger.info(responce_string);
 
   //get_DB_data(req, function(data){
   get_DB_data(req, function(data){
@@ -376,7 +376,7 @@ router.get('/t/db', function(req, res) {
   var system_id = req.query.pv_system_id;
 
   var responce_string = req.method + ': ' + req.url;
-  console.log(responce_string);
+  logger.info(responce_string);
 
   //get_DB_data(req, function(data){
   TEST_get_DB_data(req, function(data){
