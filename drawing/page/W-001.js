@@ -648,12 +648,13 @@ var mk_page = function(settings){
   );
 
   var circuit_names = [
+    'INTERMODULE WIRING',
     'PV DC SOURCE CIRCUITS',
     'PV DC COMBINED CIRCUITS',
     'INVERTER AC OUTPUT CIRCUIT',
   ];
 
-  var font_letter_width = 7;
+  var font_letter_width = 5.5;
 
   var circuit_parameter_list = [
     'type_label',
@@ -674,7 +675,7 @@ var mk_page = function(settings){
   });
 
 
-  var n_rows = 2 + circuit_names.length;
+  var n_rows = 1 + circuit_names.length;
   var n_cols = 2 + circuit_parameter_list.length;
   var row_height = 16;
   var row_width = 50;
@@ -694,11 +695,11 @@ var mk_page = function(settings){
 
 
 
-  var row = 3;
+  var row = 2;
   for( var circuit_name in system.circuits ){
     var circuit = system.circuits[circuit_name];
 
-    t.cell(row,1).font('table').text( String(row-2) );
+    t.cell(row,1).font('table').text( String(row-1) );
     t.cell(row,2).font('table_left').text( circuit_name );
 
     var col = 3;
@@ -729,10 +730,10 @@ var mk_page = function(settings){
   // variable columns
   circuit_parameter_list.forEach(function(circuit_parameter_name, i){
     var label = circuit_parameter_labels[circuit_parameter_name];
-    t.cell(1,i+3).border('B', false);
+    //t.cell(1,i+3).border('B', false);
     t.col_size(i+3, label[0]);
     t.cell(1,i+3).font('table_center').text(label[1]);
-    t.cell(2,i+3).font('table_center').text(label[2]);
+    //t.cell(2,i+3).font('table_center').text(label[2]);
   });
 
   //logger.info(t.cells);
