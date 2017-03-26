@@ -654,17 +654,17 @@ var mk_page = function(settings){
     'INVERTER AC OUTPUT CIRCUIT',
   ];
 
-  var font_letter_width = 5.5;
+  var font_letter_width = 6;
 
   var circuit_parameter_list = [
-    'type_label',
-    'conductor_label',
-    'location_label',
-    'material_label',
+    'type',
+    'conductor',
+    'location',
+    'material',
     'wet_temp_rating',
     'conduit_type',
     'ocpd_type',
-    'OCPD_min',
+    'OCPD',
   ];
   var circuit_parameter_labels = {};
   circuit_parameter_list.forEach(function(circuit_parameter_name){
@@ -689,10 +689,6 @@ var mk_page = function(settings){
   t.all_cells().forEach(function(cell){
     cell.font('table').border('all');
   });
-
-
-
-
 
 
   var row = 2;
