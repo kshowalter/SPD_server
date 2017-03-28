@@ -679,11 +679,14 @@ var mk_page = function(settings){
     'INVERTER AC OUTPUT CIRCUIT',
   ];
 
-  var font_letter_width = 6;
+  var font_letter_width = 5;
 
   var circuit_parameter_list = [
-    'type',
     'conductor',
+    'type',
+    'max_current',
+    'conductor_size_min',
+    'conductor_current',
     'location',
     'material',
     'wet_temp_rating',
@@ -726,12 +729,13 @@ var mk_page = function(settings){
     var col = 3;
     circuit_parameter_list.forEach(function(circuit_parameter_name){
       var value = circuit[circuit_parameter_name];
+      value = f.format_value(value);
 
-      var value_size = String(value).length * font_letter_width;
+      var value_size = value.length * font_letter_width;
       var current_column_size = circuit_parameter_labels[circuit_parameter_name][0];
       circuit_parameter_labels[circuit_parameter_name][0] = value_size > current_column_size ? value_size : current_column_size;
 
-      t.cell(row,col).font('table_left').text( String(value) );
+      t.cell(row,col).font('table_left').text( value );
 
       col++;
     });
@@ -743,9 +747,9 @@ var mk_page = function(settings){
   // Column setup
 
   // Fixed columns
-  t.cell(1,1).font('table_center').text('SYM.');
+  t.cell(1,1).font('table_col_title').text('SYM.');
   t.col_size(1, 25);
-  t.cell(1,2).font('table_center').text('CIRCUIT');
+  t.cell(1,2).font('table_col_title').text('CIRCUIT');
   t.col_size(2, 165);
 
   // variable columns
@@ -753,7 +757,7 @@ var mk_page = function(settings){
     var label = circuit_parameter_labels[circuit_parameter_name];
     //t.cell(1,i+3).border('B', false);
     t.col_size(i+3, label[0]);
-    t.cell(1,i+3).font('table_center').text(label[1]);
+    t.cell(1,i+3).font('table_col_title').text(label[1]);
     //t.cell(2,i+3).font('table_center').text(label[2]);
   });
 
