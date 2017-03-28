@@ -2,6 +2,7 @@
 require('console-stamp')(console, '[HH:MM:ss.l]');
 global._ = require('lodash');
 global.server_settings = require('./lib/server_settings.js')();
+global.f = require('./lib/functions/functions.js');
 
 var logger = require('winston');
 var express = require('express');
