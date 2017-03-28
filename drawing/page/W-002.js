@@ -17,7 +17,7 @@ var mk_page = function(settings){
 
   var col_widths = [
     null,
-    100,
+    125,
     125
   ];
   var table_width = col_widths[1] + col_widths[2];
@@ -57,6 +57,7 @@ var mk_page = function(settings){
     t.all_cells().forEach(function(cell){
       cell.font('table').border('all');
     });
+    t.border_layer('border_light');
 
     t.mk();
 
