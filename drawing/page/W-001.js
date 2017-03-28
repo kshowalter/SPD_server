@@ -27,13 +27,40 @@ var mk_page = function(settings){
   // DC run from array to JB
   for( var i in _.range(system.array.num_of_strings)) {
     var offset_wire = size.wire_offset.min + ( size.wire_offset.base * i );
-    d.block('string', [x,y]);
+
+    var x_string = x;
+    var y_string = y;
+
+
+    for( var r=0; r<settings.drawing.displayed_modules[i]; r++){
+      d.block('module', [x_string,y_string]);
+      x_string += size.module.w;
+    }
+
+    if( settings.drawing.break_string[i] ) {
+      d.line(
+        [
+          [x_string,y_string],
+          [x_string+size.string.gap_missing,y_string],
+        ],
+        'DC_intermodule'
+      );
+      x_string += size.string.gap_missing;
+      d.block('module', [x_string,y_string]);
+    }
+
+    //d.block('string', [x,y]);
+
+
+
+
+
     // positive home run
     d.layer('DC_pos');
     d.line([
-      [ loc.array.right , y],
-      [ loc.array.right + loc.array.offset + offset_wire, y ],
-      [ loc.array.right + loc.array.offset + offset_wire, loc.array.lower + offset_wire ],
+      [ loc.array.right[i] , y],
+      [ loc.array.right_max + loc.array.offset + offset_wire, y ],
+      [ loc.array.right_max + loc.array.offset + offset_wire, loc.array.lower + offset_wire ],
       [ loc.array.left - loc.array.offset + offset_wire, loc.array.lower  + offset_wire ],
       [ loc.array.left - loc.array.offset + offset_wire, loc.DC_jb_box.y],
       //[ loc.DC_jb_box.x , loc.DC_jb_box.y-offset_wire],
@@ -50,7 +77,7 @@ var mk_page = function(settings){
     ]);
 
     d.line([
-      [ loc.array.right, y + size.module.h*5/8 ],
+      [ loc.array.right[i], y + size.module.h*5/8 ],
       [ loc.array.left - loc.array.offset - size.wire_offset.ground , y + size.module.h*5/8 ],
     ], 'DC_ground');
 
