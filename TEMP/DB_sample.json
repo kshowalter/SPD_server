@@ -45,7 +45,7 @@
     "properties_updated_per_dev_id": 7862,
     "user_category_code": "Employee",
     "nominal_ac_output_power_120": null,
-    "mppt_channels": 4,
+    "mppt_channels": 3,
     "vmax": 600,
     "vstart": 125,
     "mppt_min": 100,
