@@ -71,7 +71,9 @@ router.get('/d/SVG', function(req, res) {
           notes: system_settings.state.notes,
           SVG_url: SVG_url,
           PDF_url: PDF_url,
-          SVGs: svgs
+          SVGs: svgs,
+          data: data,
+          state: system_settings.state.system,
         });
       }
 
@@ -83,7 +85,9 @@ router.get('/d/SVG', function(req, res) {
         notes: system_settings.state.notes,
         SVG_url: SVG_url,
         PDF_url: PDF_url,
-        SVGs: []
+        SVGs: [],
+        data: data,
+        state: system_settings.state.system,
       });
     }
   });
@@ -136,7 +140,9 @@ router.get('/t/SVG', function(req, res) {
           notes: system_settings.state.notes,
           SVG_url: SVG_url,
           PDF_url: PDF_url,
-          SVGs: svgs
+          SVGs: svgs,
+          data: data,
+          state: system_settings.state.system,
         });
       }
 
@@ -148,7 +154,9 @@ router.get('/t/SVG', function(req, res) {
         notes: system_settings.state.notes,
         SVG_url: SVG_url,
         PDF_url: PDF_url,
-        SVGs: []
+        SVGs: [],
+        data: data,
+        state: system_settings.state.system,
       });
     }
   });
