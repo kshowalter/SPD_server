@@ -184,7 +184,7 @@ var mk_page = function(settings){
       [ loc.DC_jb_box.x - offset_wire , loc.DC_combiner.y + offset_wire],
       [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
     ]);
-    if( system.array.num_of_strings > 2){
+    if( system.inverter.tranformerless && system.array.num_of_strings > 2){
       d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
     } else {
       d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
