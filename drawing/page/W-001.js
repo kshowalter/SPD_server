@@ -683,31 +683,46 @@ var mk_page = function(settings){
     'INVERTER AC OUTPUT CIRCUIT',
   ];
 
+  var text_cell_size_fixed = 12;
   var font_letter_width = 5;
 
-  var circuit_parameter_list = [
-    'conductor',
-    'type',
-    'max_current',
-    'conductor_size_min',
-    'conductor_current',
-    'location',
-    'material',
-    'wet_temp_rating',
-    'conduit_type',
-    'ocpd_type',
-    'OCPD',
-  ];
+  var circuit_parameters = {
+    'conductor': ['conductor'],
+    'type': ['type'],
+    'max_current': ['maximum', 'current'],
+    'conductor_size_min': ['conductor', 'size_min'],
+    'conductor_current': ['conductor','current'],
+    'location': ['location'],
+    'material': ['material'],
+    'wet_temp_rating': ['wet_temp','rating'],
+    'conduit_type': ['conduit', 'type'],
+    'ocpd_type': ['ocpd_type'],
+    'OCPD': [],
+  };
+  var circuit_parameter_list = Object.keys(circuit_parameters);
   var circuit_parameter_labels = {};
   circuit_parameter_list.forEach(function(circuit_parameter_name){
+    circuit_parameters[circuit_parameter_name] = circuit_parameters[circuit_parameter_name] || [];
+    circuit_parameters[circuit_parameter_name][0] = circuit_parameters[circuit_parameter_name][0] || circuit_parameter_name;
+    circuit_parameters[circuit_parameter_name][1] = circuit_parameters[circuit_parameter_name][1] || '';
+
+    var size;
+    var size0 = circuit_parameters[circuit_parameter_name][0].length * font_letter_width;
+    var size1 = circuit_parameters[circuit_parameter_name][1].length * font_letter_width;
+    if( size0 > size1 ) { size = size0; }
+    else { size = size1; }
+    size += text_cell_size_fixed;
+
     circuit_parameter_labels[circuit_parameter_name] = [
-      circuit_parameter_name.length * font_letter_width,
-      f.table_name(circuit_parameter_name)
+      size,
+      [
+        f.table_name(circuit_parameters[circuit_parameter_name][0]),
+        f.table_name(circuit_parameters[circuit_parameter_name][1])
+      ]
     ];
   });
 
-
-  var n_rows = 1 + circuit_names.length;
+  var n_rows = 2 + circuit_names.length;
   var n_cols = 2 + circuit_parameter_list.length;
   var row_height = 16;
   var row_width = 50;
@@ -723,7 +738,7 @@ var mk_page = function(settings){
   });
 
 
-  var row = 2;
+  var row = 3;
   for( var circuit_name in system.circuits ){
     var circuit = system.circuits[circuit_name];
 
@@ -736,6 +751,7 @@ var mk_page = function(settings){
       value = f.format_value(value);
 
       var value_size = value.length * font_letter_width;
+      value_size += text_cell_size_fixed;
       var current_column_size = circuit_parameter_labels[circuit_parameter_name][0];
       circuit_parameter_labels[circuit_parameter_name][0] = value_size > current_column_size ? value_size : current_column_size;
 
@@ -752,17 +768,22 @@ var mk_page = function(settings){
 
   // Fixed columns
   t.cell(1,1).font('table_col_title').text('SYM.');
+  t.cell(1,1).border('B', false);
   t.col_size(1, 25);
+
   t.cell(1,2).font('table_col_title').text('CIRCUIT');
+  t.cell(1,2).border('B', false);
   t.col_size(2, 165);
 
   // variable columns
   circuit_parameter_list.forEach(function(circuit_parameter_name, i){
-    var label = circuit_parameter_labels[circuit_parameter_name];
-    //t.cell(1,i+3).border('B', false);
-    t.col_size(i+3, label[0]);
-    t.cell(1,i+3).font('table_col_title').text(label[1]);
-    //t.cell(2,i+3).font('table_center').text(label[2]);
+
+    var size = circuit_parameter_labels[circuit_parameter_name][0];
+    var label = circuit_parameter_labels[circuit_parameter_name][1];
+    t.cell(1,i+3).border('B', false);
+    t.col_size(i+3, size);
+    t.cell(1,i+3).font('table_col_title').text(label[0]);
+    t.cell(2,i+3).font('table_col_title').text(label[1]);
   });
 
   //logger.info(t.cells);
