@@ -1,6 +1,6 @@
 // add timestamps in front of log messages
 require('console-stamp')(console, '[HH:MM:ss.l]');
-
+global._ = require('lodash');
 global.server_settings = require('./lib/server_settings.js')();
 
 var logger = require('winston');
