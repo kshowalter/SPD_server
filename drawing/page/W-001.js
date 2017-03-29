@@ -712,25 +712,29 @@ var mk_page = function(settings){
     },
     'max_current': {
       top:'max.',
-      bottom: 'current'
+      bottom: 'current',
+      units: 'A'
     },
     'conductor_size_min': {
       top:'cond.',
-      bottom: 'min. size'
+      bottom: 'min. size',
+      units: ' AWG'
     },
     'material': {
       top:'material'
     },
     'conductor_current': {
       top:'cond.',
-      bottom: 'current'
+      bottom: 'current',
+      units: 'A'
     },
     'location': {
       top:'location'
     },
     'wet_temp_rating': {
       top:'wet_temp',
-      bottom: 'rating'
+      bottom: 'rating',
+      units: ' F'
     },
     'conduit_type': {
       top:'conduit',
@@ -740,7 +744,7 @@ var mk_page = function(settings){
       top:'ocpd_type'
     },
     'OCPD': {
-
+      units: 'A'
     },
   };
   var circuit_parameter_list = Object.keys(circuit_parameters);
@@ -792,6 +796,9 @@ var mk_page = function(settings){
     var col = 3;
     circuit_parameter_list.forEach(function(circuit_parameter_name){
       var value = circuit[circuit_parameter_name];
+      var units = circuit_parameters[circuit_parameter_name].units;
+      if( ! units ){ units = ''; }
+      if( value === '-' || value === 'NA') { units = ''; }
       value = f.format_value(value);
 
       var value_size = value.length * font_letter_width;
@@ -799,7 +806,7 @@ var mk_page = function(settings){
       var current_column_size = circuit_parameter_labels[circuit_parameter_name][0];
       circuit_parameter_labels[circuit_parameter_name][0] = value_size > current_column_size ? value_size : current_column_size;
 
-      t.cell(row,col).font('table_left').text( value );
+      t.cell(row,col).font('table_left').text( value + units );
 
       col++;
     });
