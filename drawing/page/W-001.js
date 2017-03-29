@@ -683,17 +683,17 @@ var mk_page = function(settings){
     'INVERTER AC OUTPUT CIRCUIT',
   ];
 
-  var text_cell_size_fixed = 12;
-  var font_letter_width = 5;
+  var text_cell_size_fixed = 20;
+  var font_letter_width = 3.5;
 
   var circuit_parameters = {
     'conductor': ['conductor'],
     'type': ['type'],
-    'max_current': ['maximum', 'current'],
-    'conductor_size_min': ['conductor', 'size_min'],
-    'conductor_current': ['conductor','current'],
-    'location': ['location'],
+    'max_current': ['max.', 'current'],
+    'conductor_size_min': ['cond.', 'min. size'],
     'material': ['material'],
+    'conductor_current': ['cond.','current'],
+    'location': ['location'],
     'wet_temp_rating': ['wet_temp','rating'],
     'conduit_type': ['conduit', 'type'],
     'ocpd_type': ['ocpd_type'],
@@ -742,7 +742,7 @@ var mk_page = function(settings){
   for( var circuit_name in system.circuits ){
     var circuit = system.circuits[circuit_name];
 
-    t.cell(row,1).font('table').text( String(row-1) );
+    t.cell(row,1).font('table').text( String(row-2) );
     t.cell(row,2).font('table_left').text( circuit_name );
 
     var col = 3;
