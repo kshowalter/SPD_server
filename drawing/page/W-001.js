@@ -687,9 +687,9 @@ var mk_page = function(settings){
   // circuit table
 
   d.text(
-    [ x + 5 , y - 10 ],
+    [ x + 3 , y - 10 ],
     [
-      'CONDUCTOR RACEWAY SCHEDULE'
+      'CIRCUIT SCHEDULE'
     ],
     'text',
     'label_left'
