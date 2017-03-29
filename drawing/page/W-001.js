@@ -160,24 +160,24 @@ var mk_page = function(settings){
     d.line([
       [ loc.DC_jb_box.x + offset_wire , loc.DC_jb_box.y],
       [ loc.DC_jb_box.x + offset_wire , loc.DC_combiner.y - offset_wire],
-      [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y - offset_wire],
-    ]);
-    if( system.array.num_of_strings > 2){
-      d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire]);
-    } else {
-      d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire]);
-      d.line([
-        [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire],
-        [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y-offset_wire],
-      ]);
-    }
-    d.line([
-      [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y-offset_wire],
-      [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y-offset_wire],
-    ]);
-    //d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y-offset_wire]);
-    d.line([
-      [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y-offset_wire],
+    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y - offset_wire],
+    //]);
+    //if( system.array.num_of_strings > 2){
+    //  d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire]);
+    //} else {
+    //  d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire]);
+    //  d.line([
+    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire],
+    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y-offset_wire],
+    //  ]);
+    //}
+    //d.line([
+    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y-offset_wire],
+    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y-offset_wire],
+    //]);
+    ////d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y-offset_wire]);
+    //d.line([
+    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y-offset_wire],
       [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y-offset_wire],
     ], 'DC_pos');
     d.block( 'terminal', [ loc.inverter.left_terminal -size.disconect.l , loc.DC_combiner.y-offset_wire]);
@@ -191,24 +191,24 @@ var mk_page = function(settings){
     d.line([
       [ loc.DC_jb_box.x - offset_wire , loc.DC_jb_box.y],
       [ loc.DC_jb_box.x - offset_wire , loc.DC_combiner.y + offset_wire],
-      [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
-    ]);
-    if( system.inverter.tranformerless && system.array.num_of_strings > 2){
-      d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
-    } else {
-      d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
-      d.line([
-        [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
-        [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
-      ]);
-    }
-    d.line([
-      [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
-      [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
-    ]);
-    //d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire]);
-    d.line([
-      [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
+    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
+    //]);
+    //if( system.inverter.tranformerless && system.array.num_of_strings > 2){
+    //  d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
+    //} else {
+    //  d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
+    //  d.line([
+    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
+    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
+    //  ]);
+    //}
+    //d.line([
+    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
+    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
+    //]);
+    ////d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire]);
+    //d.line([
+    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
       [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y+offset_wire],
     ], 'DC_neg');
     d.block( 'terminal', [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y+offset_wire]);
@@ -226,7 +226,7 @@ var mk_page = function(settings){
     [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.DC_ground.y],
     [ loc.DC_combiner.x , loc.DC_ground.y],
   ],'DC_ground');
-  d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 , loc.DC_ground.y]);
+  //d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 , loc.DC_ground.y]);
 
 
 
@@ -234,7 +234,8 @@ var mk_page = function(settings){
   // Conduit callout: JB to combiner
   w = 15;
   h = 120;
-  x = loc.DC_combiner.x - size.DC_combiner.w/2 - w*2;
+  //x = loc.DC_combiner.x - size.DC_combiner.w/2 - w*2;
+  x = loc.DC_combiner.x + size.DC_combiner.w/2;
   y = loc.DC_combiner.y + size.DC_combiner.h/2 - h/2;
   d.ellipse([x, y],[w, h],'wire_callout');
   d.line(
@@ -259,18 +260,18 @@ var mk_page = function(settings){
   y = loc.DC_combiner.y;
   w = size.DC_combiner.w;
   h = size.DC_combiner.h;
-  label = ['COMBINER','BOX'];
-  d.rect(
-    [x,y],
-    [w,h],
-    'box'
-  );
-  d.text(
-    [ x, y - h/2 - 27],
-    label,
-    'text',
-    'label_center'
-  );
+  //label = ['COMBINER','BOX'];
+  //d.rect(
+  //  [x,y],
+  //  [w,h],
+  //  'box'
+  //);
+  //d.text(
+  //  [ x, y - h/2 - 27],
+  //  label,
+  //  'text',
+  //  'label_center'
+  //);
 
   //var x = x + size.DC_combiner.components_width/2 - size.bus_bar.w/2;
   //d.rect(
@@ -345,24 +346,24 @@ var mk_page = function(settings){
 
 
   // Conduit callout: combiner to disconect
-  w = 15;
-  h = 120;
-  x = loc.inverter.left - 42 ;
-  y = loc.inverter.bottom - h/2;
-  d.ellipse([x, y],[w, h],'wire_callout');
-  d.line(
-    [
-      [ x, y + h/2],
-      [ x + 16, y + h/2 + 32 ]
-    ],
-    'wire_callout'
-  );
-  d.text(
-    [ x + 16 + 10, y + h/2 + 32 ],
-    ['(3)'],
-    'text',
-    'label_center'
-  );
+  //w = 15;
+  //h = 120;
+  //x = loc.inverter.left - 42 ;
+  //y = loc.inverter.bottom - h/2;
+  //d.ellipse([x, y],[w, h],'wire_callout');
+  //d.line(
+  //  [
+  //    [ x, y + h/2],
+  //    [ x + 16, y + h/2 + 32 ]
+  //  ],
+  //  'wire_callout'
+  //);
+  //d.text(
+  //  [ x + 16 + 10, y + h/2 + 32 ],
+  //  ['(3)'],
+  //  'text',
+  //  'label_center'
+  //);
 
 
 
@@ -640,7 +641,8 @@ var mk_page = function(settings){
   d.text(
     [ loc.AC_disc.x , y + 60/2 + 30 ],
     [
-      '(4)'
+      //'(4)'
+      '(3)'
     ],
     'text',
     'label_center'
@@ -696,7 +698,7 @@ var mk_page = function(settings){
   var circuit_names = [
     'INTERMODULE WIRING',
     'PV DC SOURCE CIRCUITS',
-    'PV DC COMBINED CIRCUITS',
+    //'PV DC COMBINED CIRCUITS',
     'INVERTER AC OUTPUT CIRCUIT',
   ];
 
@@ -787,7 +789,7 @@ var mk_page = function(settings){
 
 
   var row = 3;
-  for( var circuit_name in system.circuits ){
+  circuit_names.forEach(function(circuit_name){
     var circuit = system.circuits[circuit_name];
 
     t.cell(row,1).font('table').text( String(row-2) );
@@ -811,7 +813,7 @@ var mk_page = function(settings){
       col++;
     });
     row++;
-  }
+  });
 
 
 
