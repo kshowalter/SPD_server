@@ -687,28 +687,55 @@ var mk_page = function(settings){
   var font_letter_width = 3.5;
 
   var circuit_parameters = {
-    'conductor': ['conductor'],
-    'type': ['type'],
-    'max_current': ['max.', 'current'],
-    'conductor_size_min': ['cond.', 'min. size'],
-    'material': ['material'],
-    'conductor_current': ['cond.','current'],
-    'location': ['location'],
-    'wet_temp_rating': ['wet_temp','rating'],
-    'conduit_type': ['conduit', 'type'],
-    'ocpd_type': ['ocpd_type'],
-    'OCPD': [],
+    'conductor': {
+      top:'conductor'
+    },
+    'type': {
+      top:'type'
+    },
+    'max_current': {
+      top:'max.',
+      bottom: 'current'
+    },
+    'conductor_size_min': {
+      top:'cond.',
+      bottom: 'min. size'
+    },
+    'material': {
+      top:'material'
+    },
+    'conductor_current': {
+      top:'cond.',
+      bottom: 'current'
+    },
+    'location': {
+      top:'location'
+    },
+    'wet_temp_rating': {
+      top:'wet_temp',
+      bottom: 'rating'
+    },
+    'conduit_type': {
+      top:'conduit',
+      bottom: 'type'
+    },
+    'ocpd_type': {
+      top:'ocpd_type'
+    },
+    'OCPD': {
+      
+    },
   };
   var circuit_parameter_list = Object.keys(circuit_parameters);
   var circuit_parameter_labels = {};
   circuit_parameter_list.forEach(function(circuit_parameter_name){
     circuit_parameters[circuit_parameter_name] = circuit_parameters[circuit_parameter_name] || [];
-    circuit_parameters[circuit_parameter_name][0] = circuit_parameters[circuit_parameter_name][0] || circuit_parameter_name;
-    circuit_parameters[circuit_parameter_name][1] = circuit_parameters[circuit_parameter_name][1] || '';
+    circuit_parameters[circuit_parameter_name].top = circuit_parameters[circuit_parameter_name].top || circuit_parameter_name;
+    circuit_parameters[circuit_parameter_name].bottom = circuit_parameters[circuit_parameter_name].bottom || '';
 
     var size;
-    var size0 = circuit_parameters[circuit_parameter_name][0].length * font_letter_width;
-    var size1 = circuit_parameters[circuit_parameter_name][1].length * font_letter_width;
+    var size0 = circuit_parameters[circuit_parameter_name].top.length * font_letter_width;
+    var size1 = circuit_parameters[circuit_parameter_name].bottom.length * font_letter_width;
     if( size0 > size1 ) { size = size0; }
     else { size = size1; }
     size += text_cell_size_fixed;
@@ -716,8 +743,8 @@ var mk_page = function(settings){
     circuit_parameter_labels[circuit_parameter_name] = [
       size,
       [
-        f.table_name(circuit_parameters[circuit_parameter_name][0]),
-        f.table_name(circuit_parameters[circuit_parameter_name][1])
+        f.table_name(circuit_parameters[circuit_parameter_name].top),
+        f.table_name(circuit_parameters[circuit_parameter_name].bottom)
       ]
     ];
   });
