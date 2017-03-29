@@ -45,11 +45,10 @@ var mk_page = function(settings){
     t.row_size('all', row_height).col_size(1, col_widths[1]).col_size(2, col_widths[2]);
 
     var r = 1;
-    for( var parameter_name in section ){
-      var parameter_label = f.pretty_name(parameter_name);
+    for( var parameter_label in section ){
       t.cell(r,1).text( parameter_label );
 
-      t.cell(r,2).text( state.system_display[section_name][parameter_name] );
+      t.cell(r,2).text( state.system_display[section_name][parameter_label] );
       r++;
 
     }

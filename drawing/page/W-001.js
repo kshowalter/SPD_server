@@ -696,7 +696,7 @@ var mk_page = function(settings){
   );
 
   var circuit_names = [
-    'INTERMODULE WIRING',
+    'EXPOSED SOURCE CIRUIT WIRING',
     'PV DC SOURCE CIRCUITS',
     //'PV DC COMBINED CIRCUITS',
     'INVERTER AC OUTPUT CIRCUIT',
@@ -706,16 +706,16 @@ var mk_page = function(settings){
   var font_letter_width = 3.5;
 
   var circuit_parameters = {
+    'max_current': {
+      top:'circuit',
+      bottom: 'current',
+      units: 'A'
+    },
     'conductor': {
       top:'conductor'
     },
     'type': {
       top:'type'
-    },
-    'max_current': {
-      top:'max.',
-      bottom: 'current',
-      units: 'A'
     },
     'conductor_size_min': {
       top:'cond.',
@@ -726,17 +726,17 @@ var mk_page = function(settings){
       top:'material'
     },
     'conductor_current': {
-      top:'cond.',
+      top:'max. cond.',
       bottom: 'current',
       units: 'A'
-    },
-    'location': {
-      top:'location'
     },
     'wet_temp_rating': {
       top:'wet_temp',
       bottom: 'rating',
       units: ' F'
+    },
+    'location': {
+      top:'location'
     },
     'conduit_type': {
       top:'conduit',
