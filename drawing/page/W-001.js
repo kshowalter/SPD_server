@@ -466,7 +466,7 @@ var mk_page = function(settings){
     [loc.AC_disc.x, loc.AC_disc.y - size.AC_disc.h/2 - 27 ],
     [
       'AC',
-      'DISCONECT'
+      'DISCONNECT'
     ],
     'text',
     'label_center'
