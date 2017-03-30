@@ -702,8 +702,8 @@ var mk_page = function(settings){
     'INVERTER AC OUTPUT CIRCUIT',
   ];
 
-  var text_cell_size_fixed = 20;
-  var font_letter_width = 3.5;
+  var text_cell_size_fixed = 25;
+  var font_letter_width = 3.75;
 
   var circuit_parameters = {
     'max_current': {
