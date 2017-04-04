@@ -9,11 +9,27 @@ var express = require('express');
 var http = require('http');
 var port = process.env.PORT || '3300';
 
+/*
 logger.add(logger.transports.File, {
   filename: 'spd_server.log',
+  json: false,
   handleExceptions: true,
   humanReadableUnhandledException: true
 });
+*/
+logger.configure({
+  transports: [
+    new logger.transports.File({
+      filename: 'spd_server.log',
+      json: false,
+      handleExceptions: true,
+      humanReadableUnhandledException: true
+    }),
+    new logger.transports.Console()
+  ],
+  exitOnError: false
+});
+
 
 global.logger = logger;
 

@@ -28,6 +28,7 @@
     "$": true,
     "_": true,
     "f": true,
-    "module": true
+    "module": true,
+    "logger": true
   }
 }
