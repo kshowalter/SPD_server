@@ -56,6 +56,12 @@ router.get('/d/SVG', function(req, res) {
         return svg.outerHTML;
       });
 
+      var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
+
+      mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
+        logger.info( 'pdf_write_success: ', pdf_write_success);
+      });
+
       if(sheet_num){
         var svg_string = svgs[sheet_num-1];
         if( svg_string ){
@@ -72,10 +78,12 @@ router.get('/d/SVG', function(req, res) {
           SVG_url: SVG_url,
           PDF_url: PDF_url,
           SVGs: svgs,
+          PDF_file_name: PDF_file_name,
           data: data,
           state: system_settings.state.system,
         });
       }
+
 
     } else if( status === 'error' ){
 
@@ -92,8 +100,6 @@ router.get('/d/SVG', function(req, res) {
     }
   });
 });
-
-
 
 ///////////////////////////////////////////
 router.get('/t/SVG', function(req, res) {
@@ -125,6 +131,12 @@ router.get('/t/SVG', function(req, res) {
         return svg.outerHTML;
       });
 
+      var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
+
+      mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
+        logger.info( 'pdf_write_success: ', pdf_write_success);
+      });
+
       if(sheet_num){
         var svg_string = svgs[sheet_num-1];
         if( svg_string ){
@@ -141,10 +153,12 @@ router.get('/t/SVG', function(req, res) {
           SVG_url: SVG_url,
           PDF_url: PDF_url,
           SVGs: svgs,
+          PDF_file_name: PDF_file_name,
           data: data,
           state: system_settings.state.system,
         });
       }
+
 
     } else if( status === 'error' ){
 
@@ -161,6 +175,8 @@ router.get('/t/SVG', function(req, res) {
     }
   });
 });
+
+
 
 
 
@@ -205,7 +221,9 @@ router.get('/d/PDF', function(req, res) {
       //  res.end();
       //}
 
-      mk_PDFs(system_settings, function(PDF_file_name){
+      var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
+
+      mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
         res.json({
           system_id: system_id,
           status: status,
@@ -271,7 +289,9 @@ router.get('/t/PDF', function(req, res) {
       //  res.end();
       //}
 
-      mk_PDFs(system_settings, function(PDF_file_name){
+      var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
+
+      mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
         res.json({
           system_id: system_id,
           status: status,
@@ -297,6 +317,7 @@ router.get('/t/PDF', function(req, res) {
     }
   });
 });
+
 
 
 
