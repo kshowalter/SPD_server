@@ -39,65 +39,83 @@ router.get('/d/SVG', function(req, res) {
 
   //get_DB_data(req, function(data){
   get_DB_data(req, function(data){
-    data = map_DB_data(data);
+    if( data ){
+      data = map_DB_data(data);
 
-    // update system calculations
-    var system_settings = mk_settings(data);
-    system_settings.server.host = req.headers.host;
-    system_settings = process_system(system_settings);
+      // update system calculations
+      var system_settings = mk_settings(data);
+      system_settings.server.host = req.headers.host;
+      system_settings = process_system(system_settings);
 
-    var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
+      var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
 
-    if( status === 'pass'){
-      // update drawing
-      system_settings = mk_drawing(system_settings);
+      if( status === 'pass'){
+        // update drawing
+        system_settings = mk_drawing(system_settings);
 
-      var svgs = system_settings.drawing.svgs.map(function(svg){
-        return svg.outerHTML;
-      });
+        var svgs = system_settings.drawing.svgs.map(function(svg){
+          return svg.outerHTML;
+        });
 
-      var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
+        var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
 
-      mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
-        logger.info( 'pdf_write_success: ', pdf_write_success);
-      });
+        mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
+          logger.info( 'pdf_write_success: ', pdf_write_success);
+        });
 
-      if(sheet_num){
-        var svg_string = svgs[sheet_num-1];
-        if( svg_string ){
-          var html = html_wrap_svg(svg_string);
-          res.end(html);
+        if(sheet_num){
+          var svg_string = svgs[sheet_num-1];
+          if( svg_string ){
+            var html = html_wrap_svg(svg_string);
+            res.end(html);
+          } else {
+            res.end();
+          }
         } else {
-          res.end();
+          res.json({
+            system_id: system_id,
+            status: status,
+            notes: system_settings.state.notes,
+            SVG_url: SVG_url,
+            PDF_url: PDF_url,
+            SVGs: svgs,
+            PDF_file_name: PDF_file_name,
+            data: data,
+            state: system_settings.state.system,
+          });
         }
-      } else {
+
+
+      } else if( status === 'error' ){
+
         res.json({
           system_id: system_id,
           status: status,
           notes: system_settings.state.notes,
           SVG_url: SVG_url,
           PDF_url: PDF_url,
-          SVGs: svgs,
-          PDF_file_name: PDF_file_name,
+          SVGs: [],
           data: data,
           state: system_settings.state.system,
         });
       }
 
-
-    } else if( status === 'error' ){
-
+    } else {
       res.json({
         system_id: system_id,
-        status: status,
-        notes: system_settings.state.notes,
+        status: 'DB data not available',
+        notes: false,
         SVG_url: SVG_url,
         PDF_url: PDF_url,
-        SVGs: [],
-        data: data,
-        state: system_settings.state.system,
+        SVGs: false,
+        data: false,
+        state: false,
       });
+
     }
+
+
+
   });
 });
 
@@ -195,58 +213,73 @@ router.get('/d/PDF', function(req, res) {
 
   //get_DB_data(req, function(data){
   get_DB_data(req, function(data){
-    data = map_DB_data(data);
+    if( data ){
+      data = map_DB_data(data);
 
-    // update system calculations
-    var system_settings = mk_settings(data);
-    system_settings.server.host = req.headers.host;
-    system_settings.system_id = system_id;
-    system_settings = process_system(system_settings);
+      // update system calculations
+      var system_settings = mk_settings(data);
+      system_settings.server.host = req.headers.host;
+      system_settings.system_id = system_id;
+      system_settings = process_system(system_settings);
 
-    var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
+      var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
 
-    if( status === 'pass'){
-      // update drawing
-      system_settings = mk_drawing(system_settings);
+      if( status === 'pass'){
+        // update drawing
+        system_settings = mk_drawing(system_settings);
 
-      var svgs = system_settings.drawing.svgs.map(function(svg){
-        return svg.outerHTML;
-      });
+        var svgs = system_settings.drawing.svgs.map(function(svg){
+          return svg.outerHTML;
+        });
 
-      //var svg_string = svgs[1];
-      //if( svg_string ){
-      //  var html = html_wrap_svg(svg_string);
-      //  res.end(html);
-      //} else {
-      //  res.end();
-      //}
+        //var svg_string = svgs[1];
+        //if( svg_string ){
+        //  var html = html_wrap_svg(svg_string);
+        //  res.end(html);
+        //} else {
+        //  res.end();
+        //}
 
-      var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
+        var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
 
-      mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
+        mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
+          res.json({
+            system_id: system_id,
+            status: status,
+            notes: system_settings.state.notes,
+            SVG_url: SVG_url,
+            PDF_url: PDF_url,
+            SVGs: svgs,
+            PDF_file_name: PDF_file_name
+          });
+        });
+
+      } else if( status === 'error' ){
+
         res.json({
           system_id: system_id,
           status: status,
           notes: system_settings.state.notes,
           SVG_url: SVG_url,
           PDF_url: PDF_url,
-          SVGs: svgs,
-          PDF_file_name: PDF_file_name
+          SVGs: [],
+          PDF_file_name: false
         });
-      });
+      }
 
-    } else if( status === 'error' ){
-
+    } else {
       res.json({
         system_id: system_id,
-        status: status,
-        notes: system_settings.state.notes,
+        status: 'DB data not available',
+        notes: false,
         SVG_url: SVG_url,
         PDF_url: PDF_url,
-        SVGs: [],
-        PDF_file_name: false
+        SVGs: false,
+        data: false,
+        state: false,
       });
     }
+
   });
 });
 
