@@ -28,6 +28,7 @@ var TEST_get_DB_data = function(req, callback){
 
 ///////////////////////////////////////////
 router.get('/d/SVG', function(req, res) {
+  var start_time = new Date();
   var system_id = req.query.pv_system_id;
   var sheet_num = req.query.sheet_num;
   //var system_id = req.params.system_id;
@@ -75,6 +76,7 @@ router.get('/d/SVG', function(req, res) {
           res.json({
             system_id: system_id,
             status: status,
+            time: ( new Date() - start_time )/1000,
             notes: system_settings.state.notes,
             SVG_url: SVG_url,
             PDF_url: PDF_url,
@@ -91,6 +93,7 @@ router.get('/d/SVG', function(req, res) {
         res.json({
           system_id: system_id,
           status: status,
+          time: ( new Date() - start_time )/1000,
           notes: system_settings.state.notes,
           SVG_url: SVG_url,
           PDF_url: PDF_url,
@@ -104,6 +107,7 @@ router.get('/d/SVG', function(req, res) {
       res.json({
         system_id: system_id,
         status: 'DB data not available',
+        time: ( new Date() - start_time )/1000,
         notes: false,
         SVG_url: SVG_url,
         PDF_url: PDF_url,
@@ -121,6 +125,7 @@ router.get('/d/SVG', function(req, res) {
 
 ///////////////////////////////////////////
 router.get('/t/SVG', function(req, res) {
+  var start_time = new Date();
   var system_id = req.query.pv_system_id;
   var sheet_num = req.query.sheet_num;
   //var system_id = req.params.system_id;
@@ -167,6 +172,7 @@ router.get('/t/SVG', function(req, res) {
         res.json({
           system_id: system_id,
           status: status,
+          time: ( new Date() - start_time )/1000,
           notes: system_settings.state.notes,
           SVG_url: SVG_url,
           PDF_url: PDF_url,
@@ -183,6 +189,7 @@ router.get('/t/SVG', function(req, res) {
       res.json({
         system_id: system_id,
         status: status,
+        time: ( new Date() - start_time )/1000,
         notes: system_settings.state.notes,
         SVG_url: SVG_url,
         PDF_url: PDF_url,
@@ -203,6 +210,7 @@ router.get('/t/SVG', function(req, res) {
 
 ///////////////////////////////////////////
 router.get('/d/PDF', function(req, res) {
+  var start_time = new Date();
   var system_id = req.query.pv_system_id;
   //var system_id = req.params.system_id;
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
@@ -246,6 +254,7 @@ router.get('/d/PDF', function(req, res) {
           res.json({
             system_id: system_id,
             status: status,
+            time: ( new Date() - start_time )/1000,
             notes: system_settings.state.notes,
             SVG_url: SVG_url,
             PDF_url: PDF_url,
@@ -259,6 +268,7 @@ router.get('/d/PDF', function(req, res) {
         res.json({
           system_id: system_id,
           status: status,
+          time: ( new Date() - start_time )/1000,
           notes: system_settings.state.notes,
           SVG_url: SVG_url,
           PDF_url: PDF_url,
@@ -271,6 +281,7 @@ router.get('/d/PDF', function(req, res) {
       res.json({
         system_id: system_id,
         status: 'DB data not available',
+        time: ( new Date() - start_time )/1000,
         notes: false,
         SVG_url: SVG_url,
         PDF_url: PDF_url,
@@ -286,6 +297,7 @@ router.get('/d/PDF', function(req, res) {
 
 ///////////////////////////////////////////
 router.get('/t/PDF', function(req, res) {
+  var start_time = new Date();
   var system_id = req.query.pv_system_id;
   //var system_id = req.params.system_id;
   var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
@@ -328,6 +340,7 @@ router.get('/t/PDF', function(req, res) {
         res.json({
           system_id: system_id,
           status: status,
+          time: ( new Date() - start_time )/1000,
           notes: system_settings.state.notes,
           SVG_url: SVG_url,
           PDF_url: PDF_url,
@@ -341,6 +354,7 @@ router.get('/t/PDF', function(req, res) {
       res.json({
         system_id: system_id,
         status: status,
+        time: ( new Date() - start_time )/1000,
         notes: system_settings.state.notes,
         SVG_url: SVG_url,
         PDF_url: PDF_url,
@@ -361,6 +375,7 @@ router.get('/t/PDF', function(req, res) {
 
 ///////////////////////////////////////////
 router.get('/d/data', function(req, res) {
+  var start_time = new Date();
   var system_id = req.query.pv_system_id;
 
   var responce_string = req.method + ': ' + req.url;
@@ -379,6 +394,7 @@ router.get('/d/data', function(req, res) {
 
     res.json({
       settings_sections: settings_sections,
+      time: ( new Date() - start_time )/1000,
       state_system: system_settings.state.system,
       //size: system_settings.drawing_settings.size,
       //loc: system_settings.drawing_settings.loc,
@@ -390,6 +406,7 @@ router.get('/d/data', function(req, res) {
 
 ///////////////////////////////////////////
 router.get('/t/data', function(req, res) {
+  var start_time = new Date();
   var system_id = req.query.pv_system_id;
 
   var responce_string = req.method + ': ' + req.url;
@@ -408,6 +425,7 @@ router.get('/t/data', function(req, res) {
 
     res.json({
       settings_sections: settings_sections,
+      time: ( new Date() - start_time )/1000,
       state_system: system_settings.state.system,
       //size: system_settings.drawing_settings.size,
       //loc: system_settings.drawing_settings.loc,
@@ -420,6 +438,7 @@ router.get('/t/data', function(req, res) {
 
 ///////////////////////////////////////////
 router.get('/d/db', function(req, res) {
+  var start_time = new Date();
   var system_id = req.query.pv_system_id;
 
   var responce_string = req.method + ': ' + req.url;
@@ -427,14 +446,26 @@ router.get('/d/db', function(req, res) {
 
   //get_DB_data(req, function(data){
   get_DB_data(req, function(data){
-
-    res.json(data);
+    if( data ){
+      res.json({
+        status: 'success',
+        time: ( new Date() - start_time )/1000,
+        data: data,
+      });
+    } else {
+      res.json({
+        status: 'fail',
+        time: ( new Date() - start_time )/1000,
+        data: data,
+      });
+    }
 
   });
 });
 
 ///////////////////////////////////////////
 router.get('/t/db', function(req, res) {
+  var start_time = new Date();
   var system_id = req.query.pv_system_id;
 
   var responce_string = req.method + ': ' + req.url;
@@ -442,8 +473,19 @@ router.get('/t/db', function(req, res) {
 
   //get_DB_data(req, function(data){
   TEST_get_DB_data(req, function(data){
-
-    res.json(data);
+    if( data ){
+      res.json({
+        status: 'success',
+        time: ( new Date() - start_time )/1000,
+        data: data,
+      });
+    } else {
+      res.json({
+        status: 'fail',
+        time: ( new Date() - start_time )/1000,
+        data: data,
+      });
+    }
 
   });
 });
