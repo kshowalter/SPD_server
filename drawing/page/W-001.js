@@ -696,10 +696,10 @@ var mk_page = function(settings){
   );
 
   var circuit_names = [
-    'EXPOSED SOURCE CIRUIT WIRING',
-    'PV DC SOURCE CIRCUITS',
+    'exposed source circuit wiring',
+    'pv dc source circuits',
     //'PV DC COMBINED CIRCUITS',
-    'INVERTER AC OUTPUT CIRCUIT',
+    'inverter ac output circuit',
   ];
 
   var text_cell_size_fixed = 25;
@@ -793,7 +793,7 @@ var mk_page = function(settings){
     var circuit = system.circuits[circuit_name];
 
     t.cell(row,1).font('table').text( String(row-2) );
-    t.cell(row,2).font('table_left').text( circuit_name );
+    t.cell(row,2).font('table_left').text( circuit_name.toUpperCase() );
 
     var col = 3;
     circuit_parameter_list.forEach(function(circuit_parameter_name){
