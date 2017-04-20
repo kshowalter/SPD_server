@@ -698,7 +698,6 @@ var mk_page = function(settings){
   var circuit_names = [
     'exposed source circuit wiring',
     'pv dc source circuits',
-    //'PV DC COMBINED CIRCUITS',
     'inverter ac output circuit',
   ];
 
