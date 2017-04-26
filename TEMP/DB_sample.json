@@ -27,9 +27,9 @@
     "num_of_bat_per_string": null,
     "pvsystem_type_id": 1,
     "bussbar_rating": 200,
-    "supply_ocpd_rating": 20,
-    "inverter_ocpd_dev_sum": 20,
-    "inverter_output_cur_sum": 20,
+    "supply_ocpd_rating": 200,
+    "inverter_ocpd_dev_sum": null,
+    "inverter_output_cur_sum": 0,
     "load_breaker_total": 100
   },
   "inverter": {
