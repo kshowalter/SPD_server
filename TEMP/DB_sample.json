@@ -30,7 +30,7 @@
     "supply_ocpd_rating": 200,
     "inverter_ocpd_dev_sum": null,
     "inverter_output_cur_sum": 0,
-    "load_breaker_total": 100
+    "load_breaker_total": 142
   },
   "inverter": {
     "device_model_number": "SB5.0-1SP-US-40",
@@ -93,7 +93,7 @@
     "pmp": 250,
     "power_tolerance": 2,
     "voc": 37.49,
-    "isc": 8.71,
+    "isc": 9.09,
     "vmp": 30.76,
     "vnoct": 28.89,
     "vlow": null,
