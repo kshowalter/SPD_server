@@ -742,10 +742,10 @@ var mk_page = function(settings){
       top:'conduit',
       bottom: 'type'
     },
-    //'min_conduit_size': {
-    //  top:'conduit',
-    //  bottom: 'size'
-    //},
+    'min_conduit_size': {
+      top:'conduit',
+      bottom: 'size'
+    },
     'ocpd_type': {
       top:'ocpd_type'
     },
@@ -806,6 +806,7 @@ var mk_page = function(settings){
       if( ! units ){ units = ''; }
       if( value === '-' || value === 'NA') { units = ''; }
       value = f.format_value(value);
+      //value = value.replace('/', '/');
 
       var value_size = value.length * font_letter_width;
       value_size += text_cell_size_fixed;
