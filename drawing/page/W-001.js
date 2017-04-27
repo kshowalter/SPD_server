@@ -742,6 +742,10 @@ var mk_page = function(settings){
       top:'conduit',
       bottom: 'type'
     },
+    //'min_conduit_size': {
+    //  top:'conduit',
+    //  bottom: 'size'
+    //},
     'ocpd_type': {
       top:'ocpd_type'
     },
