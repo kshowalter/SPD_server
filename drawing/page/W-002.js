@@ -17,7 +17,7 @@ var mk_page = function(settings){
 
   var col_widths = [
     null,
-    125,
+    140,
     125
   ];
   var table_width = col_widths[1] + col_widths[2];
