@@ -702,7 +702,7 @@ var mk_page = function(settings){
     'inverter ac output circuit',
   ];
 
-  var text_cell_size_fixed = 25;
+  var text_cell_size_fixed = 20;
   var font_letter_width = 3.75;
 
   var circuit_parameters = {
