@@ -371,7 +371,7 @@ var mk_page = function(settings){
 
   ///////////////////////////////
   //#inverter
-  d.section("inverter");
+  d.section('inverter');
 
   x = loc.inverter.x;
   y = loc.inverter.y;
@@ -404,7 +404,7 @@ var mk_page = function(settings){
   d.layer();
 
   //#inverter symbol
-  d.section("inverter symbol");
+  d.section('inverter symbol');
 
   x = loc.inverter.x;
   y = loc.inverter.y + size.inverter.symbol_h/2;
@@ -413,7 +413,6 @@ var mk_page = function(settings){
   h = size.inverter.symbol_h;
 
   var space = w*1/12;
-
 
   // Inverter symbol
   d.layer('box');
@@ -460,7 +459,7 @@ var mk_page = function(settings){
 
 
 
-  d.section("AC_discconect");
+  d.section('AC_discconect');
 
   d.text(
     [loc.AC_disc.x, loc.AC_disc.y - size.AC_disc.h/2 - 45 ],
@@ -490,7 +489,7 @@ var mk_page = function(settings){
 
 
   //#AC load center
-  d.section("AC load center");
+  d.section('AC load center');
 
   x = loc.AC_loadcenter.x;
   y = loc.AC_loadcenter.y;
@@ -540,7 +539,7 @@ var mk_page = function(settings){
 
 
   // AC lines
-  d.section("AC lines");
+  d.section('AC lines');
 
   x = loc.inverter.right_terminal;
   y = loc.inverter.bottom_right.y;
@@ -669,7 +668,7 @@ var mk_page = function(settings){
 
 
   // Wire table
-  d.section("Wire table");
+  d.section('Wire table');
 
   ///*
 

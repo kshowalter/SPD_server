@@ -29,9 +29,9 @@ var mk_page = function(settings){
     var x_string = x;
     var y_string = y;
 
-
     for( var r=0; r<settings.drawing.displayed_modules[i]; r++){
-      d.block('module', [x_string,y_string]);
+      d.block('module microinverter', [x_string,y_string]);
+
       x_string += size.module.w;
     }
 
@@ -44,7 +44,8 @@ var mk_page = function(settings){
         'DC_intermodule'
       );
       x_string += size.string.gap_missing;
-      d.block('module', [x_string,y_string]);
+      d.block('module microinverter', [x_string,y_string]);
+
     }
 
     //d.block('string', [x,y]);
@@ -53,30 +54,17 @@ var mk_page = function(settings){
 
 
 
-    // positive home run
-    d.layer('DC_pos');
-    d.line([
-      [ loc.array.right[i] , y],
-      [ loc.array.right_max + loc.array.offset + offset_wire, y ],
-      [ loc.array.right_max + loc.array.offset + offset_wire, loc.array.lower + offset_wire ],
-      [ loc.array.left - loc.array.offset + offset_wire, loc.array.lower  + offset_wire ],
-      [ loc.array.left - loc.array.offset + offset_wire, loc.DC_jb_box.y],
-      //[ loc.DC_jb_box.x , loc.DC_jb_box.y-offset_wire],
-    ]);
 
-    // negative home run
-    d.layer('DC_neg');
     d.line([
-      [ loc.array.left, y],
-      [ loc.array.left - loc.array.offset - offset_wire, y ],
-      [ loc.array.left - loc.array.offset - offset_wire, loc.array.lower + offset_wire ],
+      [ loc.array.right[i], y + size.module.h*6.5/8 ],
+      [ loc.array.left - loc.array.offset - offset_wire, y + size.module.h*6.5/8 ],
       [ loc.array.left - loc.array.offset - offset_wire, loc.DC_jb_box.y],
-      //[ loc.DC_jb_box.x , loc.DC_jb_box.y+offset_wire],
-    ]);
+
+    ], 'AC_cable');
 
     d.line([
-      [ loc.array.right[i], y + size.module.h*5/8 ],
-      [ loc.array.left - loc.array.offset - size.wire_offset.ground , y + size.module.h*5/8 ],
+      [ loc.array.right[i], y + size.module.h*7/8 ],
+      [ loc.array.left - loc.array.offset - size.wire_offset.ground , y + size.module.h*7/8 ],
     ], 'DC_ground');
 
     y -= size.string.h;
@@ -87,7 +75,7 @@ var mk_page = function(settings){
   // DC ground run from array to JB
   d.layer('DC_ground');
   d.line([
-    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.array.upper + size.module.h*5/8 ],
+    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.array.upper + size.module.h*7/8 ],
     [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.DC_jb_box.y ]
   ]);
   d.layer();
@@ -151,39 +139,9 @@ var mk_page = function(settings){
 
 
 
-  // DC JB to -combiner- inverter
+  // microinverter cable
   for( var i in _.range(system.array.num_of_strings)) {
     var offset_wire = size.wire_offset.min + ( size.wire_offset.base * i );
-
-    d.layer('DC_pos');
-    d.block( 'terminal', [ loc.DC_jb_box.x + offset_wire , loc.DC_jb_box.y]);
-    d.line([
-      [ loc.DC_jb_box.x + offset_wire , loc.DC_jb_box.y],
-      [ loc.DC_jb_box.x + offset_wire , loc.DC_combiner.y - offset_wire],
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y - offset_wire],
-    //]);
-    //if( system.array.num_of_strings > 2){
-    //  d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire]);
-    //} else {
-    //  d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire]);
-    //  d.line([
-    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire],
-    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y-offset_wire],
-    //  ]);
-    //}
-    //d.line([
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y-offset_wire],
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y-offset_wire],
-    //]);
-    ////d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y-offset_wire]);
-    //d.line([
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y-offset_wire],
-      [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y-offset_wire],
-    ], 'DC_pos');
-    d.block( 'terminal', [ loc.inverter.left_terminal -size.disconect.l , loc.DC_combiner.y-offset_wire]);
-
-
-
 
     // negative home run
     d.layer('DC_neg');
@@ -191,29 +149,9 @@ var mk_page = function(settings){
     d.line([
       [ loc.DC_jb_box.x - offset_wire , loc.DC_jb_box.y],
       [ loc.DC_jb_box.x - offset_wire , loc.DC_combiner.y + offset_wire],
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
-    //]);
-    //if( system.inverter.tranformerless && system.array.num_of_strings > 2){
-    //  d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
-    //} else {
-    //  d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
-    //  d.line([
-    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
-    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
-    //  ]);
-    //}
-    //d.line([
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
-    //]);
-    ////d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire]);
-    //d.line([
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
       [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y+offset_wire],
     ], 'DC_neg');
     d.block( 'terminal', [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y+offset_wire]);
-
-
 
     d.layer();
 
@@ -255,206 +193,66 @@ var mk_page = function(settings){
 
 
 
-  // DC_combiner
-  x = loc.DC_combiner.x;
-  y = loc.DC_combiner.y;
-  w = size.DC_combiner.w;
-  h = size.DC_combiner.h;
-  //label = ['COMBINER','BOX'];
-  //d.rect(
-  //  [x,y],
-  //  [w,h],
-  //  'box'
-  //);
-  //d.text(
-  //  [ x, y - h/2 - 27],
-  //  label,
-  //  'text',
-  //  'label_center'
-  //);
+  //#AC combiner
+  d.section("AC combiner");
 
-  //var x = x + size.DC_combiner.components_width/2 - size.bus_bar.w/2;
-  //d.rect(
-  //  [ x, y + (size.wire_offset.min + ( size.wire_offset.base * 5 ))/2 + size.wire_offset.min/2],
-  //  [ size.bus_bar.w,      size.wire_offset.min + ( size.wire_offset.base * 5 )                         ],
-  //  'DC_neg'
-  //);
-  //d.rect(
-  //  [ x, y - (size.wire_offset.min + ( size.wire_offset.base * 5 ))/2 - size.wire_offset.min/2],
-  //  [ size.bus_bar.w,      size.wire_offset.min + ( size.wire_offset.base * 5 )                         ],
-  //  'DC_pos'
-  //);
+  x = loc.AC_combiner.x;
+  y = loc.AC_combiner.y;
+  w = size.AC_combiner.w;
+  h = size.AC_combiner.h;
 
-
-
-
-
-  var offset_wire = size.wire_offset.max + ( size.wire_offset.base * 0 );
-
-
-  d.text(
-    [ loc.inverter.left-18 , loc.DC_combiner.y-offset_wire],
-    'DC+',
-    'text',
-    'line_label_left'
+  d.rect([x,y],
+    [w,h],
+    'box'
   );
+
   d.text(
-    [ loc.inverter.left-18 , loc.DC_combiner.y+offset_wire],
-    'DC-',
+    [ x, y-h/2-27 ],
+    [
+      'AC COMBINER',
+    ],
     'text',
-    'line_label_left'
+    'label_center'
   );
-  d.text(
-    [ loc.inverter.left-18 , loc.DC_ground.y+size.terminal_diam+1],
-    'G',
-    'text',
-    'line_label_left'
+
+  // AC bus bars
+  w = 5;
+  h = 100;
+  x = loc.AC_combiner.x - size.AC_combiner.w/2;
+
+  x = loc.AC_combiner.N;
+  d.rect(
+    [ x, loc.AC_combiner.bottom - h/2 - w*4 ],
+    [w,h],
+    'box'
+  );
+  x = loc.AC_combiner.L1;
+  d.rect(
+    [ x, loc.AC_combiner.bottom -  h/2 - w*4 ],
+    [w,h],
+    'box'
+  );
+  x = loc.AC_combiner.L2;
+  d.rect(
+    [ x, loc.AC_combiner.bottom -  h/2 - w*4 ],
+    [w,h],
+    'box'
   );
 
 
-  // DC possative run from combiner to inverter
-  //d.line([
-  //  [ loc.DC_combiner.x + size.DC_combiner.components_width/2, loc.DC_combiner.y-offset_wire],
-  //  [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y-offset_wire],
-  //], 'DC_pos');
-  //d.block( 'disconect', [ loc.inverter.left_terminal -size.disconect.l , loc.DC_combiner.y-offset_wire]);
 
 
-  // DC negative run from combiner to inverter
-  //d.line([
-  //  [ loc.DC_combiner.x + size.DC_combiner.components_width/2, loc.DC_combiner.y+offset_wire],
-  //  [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y+offset_wire],
-  //], 'DC_neg');
-  //d.block( 'disconect', [ loc.inverter.left_terminal -size.disconect.l , loc.DC_combiner.y+offset_wire]);
+
+
+
 
   // DC ground run from DC_combiner to inverter
   d.line([
     [ loc.DC_combiner.x, loc.DC_ground.y],
-    [ loc.DC_disconect.x, loc.DC_ground.y],
-  ], 'DC_ground');
-  //d.block( 'terminal', [ loc.inverter.left_terminal , loc.DC_ground.y]);
-  d.line([
-    [ loc.DC_disconect.x , loc.DC_ground.y],
     [ loc.inverter.right_terminal , loc.DC_ground.y],
   ], 'DC_ground');
   //d.block( 'terminal', [ loc.inverter.x , loc.DC_ground.y]);
 
-
-
-
-
-
-
-  // Conduit callout: combiner to disconect
-  //w = 15;
-  //h = 120;
-  //x = loc.inverter.left - 42 ;
-  //y = loc.inverter.bottom - h/2;
-  //d.ellipse([x, y],[w, h],'wire_callout');
-  //d.line(
-  //  [
-  //    [ x, y + h/2],
-  //    [ x + 16, y + h/2 + 32 ]
-  //  ],
-  //  'wire_callout'
-  //);
-  //d.text(
-  //  [ x + 16 + 10, y + h/2 + 32 ],
-  //  ['(3)'],
-  //  'text',
-  //  'label_center'
-  //);
-
-
-
-
-
-  ///////////////////////////////
-  //#inverter
-  d.section("inverter");
-
-  x = loc.inverter.x;
-  y = loc.inverter.y;
-
-  //frame
-  d.layer('box');
-  d.rect(
-    [x,y],
-    [size.inverter.w, size.inverter.h]
-  );
-  // Label at top (Inverter, make, model, ...)
-  d.layer('text');
-  d.text(
-    [loc.inverter.x, loc.inverter.top - 27/2 ],
-    [
-      'INVERTER',
-    ],
-    'text',
-    'label'
-  );
-  d.text(
-    [loc.inverter.x, loc.inverter.top + size.inverter.text_gap ],
-    [
-      state.system.inverter.manufacturer_name,
-      state.system.inverter.device_model_number
-    ],
-    'text',
-    'label'
-  );
-  d.layer();
-
-  //#inverter symbol
-  d.section("inverter symbol");
-
-  x = loc.inverter.x;
-  y = loc.inverter.y + size.inverter.symbol_h/2;
-
-  w = size.inverter.symbol_w;
-  h = size.inverter.symbol_h;
-
-  var space = w*1/12;
-
-
-  // Inverter symbol
-  d.layer('box');
-  // box
-  d.rect(
-    [x,y],
-    [w, h]
-  );
-  // diaganal
-  d.line([
-    [x-w/2, y+h/2],
-    [x+w/2, y-h/2],
-  ]);
-  // DC
-  d.line([
-    [x - w/2 + space, y - h/2 + space],
-    [x - w/2 + space*6, y - h/2 + space],
-  ]);
-  d.line([
-    [x - w/2 + space, y - h/2 + space*2],
-    [x - w/2 + space*2, y - h/2 + space*2],
-  ]);
-  d.line([
-    [x - w/2 + space*3, y - h/2 + space*2],
-    [x - w/2 + space*4, y - h/2 + space*2],
-  ]);
-  d.line([
-    [x - w/2 + space*5, y - h/2 + space*2],
-    [x - w/2 + space*6, y - h/2 + space*2],
-  ]);
-  // AC
-
-  x = x + 3.5;
-  y = y + 3.5;
-
-  d.path(
-    'm '+x+','+y+' c 0,5 7.5,5 7.5,0 0,-5 7.5,-5 7.5,0',
-    'box'
-  );
-
-  d.layer();
 
 
 
