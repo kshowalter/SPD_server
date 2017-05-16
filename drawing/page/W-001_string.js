@@ -24,7 +24,7 @@ var mk_page = function(settings){
 
   // DC run from array to JB
   for( var i in _.range(system.array.num_of_strings)) {
-    var offset_wire = size.wire_offset.min + ( size.wire_offset.base * i );
+    var offset_wire = size.DC_wire_offset.min + ( size.DC_wire_offset.base * i );
 
     var x_string = x;
     var y_string = y;
@@ -76,7 +76,7 @@ var mk_page = function(settings){
 
     d.line([
       [ loc.array.right[i], y + size.module.h*5/8 ],
-      [ loc.array.left - loc.array.offset - size.wire_offset.ground , y + size.module.h*5/8 ],
+      [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground , y + size.module.h*5/8 ],
     ], 'DC_ground');
 
     y -= size.string.h;
@@ -87,8 +87,8 @@ var mk_page = function(settings){
   // DC ground run from array to JB
   d.layer('DC_ground');
   d.line([
-    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.array.upper + size.module.h*5/8 ],
-    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.DC_jb_box.y ]
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.array.upper + size.module.h*5/8 ],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.DC_jb_box.y ]
   ]);
   d.layer();
 
@@ -153,7 +153,7 @@ var mk_page = function(settings){
 
   // DC JB to -combiner- inverter
   for( var i in _.range(system.array.num_of_strings)) {
-    var offset_wire = size.wire_offset.min + ( size.wire_offset.base * i );
+    var offset_wire = size.DC_wire_offset.min + ( size.DC_wire_offset.base * i );
 
     d.layer('DC_pos');
     d.block( 'terminal', [ loc.DC_jb_box.x + offset_wire , loc.DC_jb_box.y]);
@@ -222,8 +222,8 @@ var mk_page = function(settings){
 
   // DC ground run from JB to combiner
   d.line([
-    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.DC_jb_box.y ],
-    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.DC_ground.y],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.DC_jb_box.y ],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.DC_ground.y],
     [ loc.DC_combiner.x , loc.DC_ground.y],
   ],'DC_ground');
   //d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 , loc.DC_ground.y]);
@@ -275,13 +275,13 @@ var mk_page = function(settings){
 
   //var x = x + size.DC_combiner.components_width/2 - size.bus_bar.w/2;
   //d.rect(
-  //  [ x, y + (size.wire_offset.min + ( size.wire_offset.base * 5 ))/2 + size.wire_offset.min/2],
-  //  [ size.bus_bar.w,      size.wire_offset.min + ( size.wire_offset.base * 5 )                         ],
+  //  [ x, y + (size.DC_wire_offset.min + ( size.DC_wire_offset.base * 5 ))/2 + size.DC_wire_offset.min/2],
+  //  [ size.bus_bar.w,      size.DC_wire_offset.min + ( size.DC_wire_offset.base * 5 )                         ],
   //  'DC_neg'
   //);
   //d.rect(
-  //  [ x, y - (size.wire_offset.min + ( size.wire_offset.base * 5 ))/2 - size.wire_offset.min/2],
-  //  [ size.bus_bar.w,      size.wire_offset.min + ( size.wire_offset.base * 5 )                         ],
+  //  [ x, y - (size.DC_wire_offset.min + ( size.DC_wire_offset.base * 5 ))/2 - size.DC_wire_offset.min/2],
+  //  [ size.bus_bar.w,      size.DC_wire_offset.min + ( size.DC_wire_offset.base * 5 )                         ],
   //  'DC_pos'
   //);
 
@@ -289,7 +289,7 @@ var mk_page = function(settings){
 
 
 
-  var offset_wire = size.wire_offset.max + ( size.wire_offset.base * 0 );
+  var offset_wire = size.DC_wire_offset.max + ( size.DC_wire_offset.base * 0 );
 
 
   d.text(

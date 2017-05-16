@@ -24,14 +24,13 @@ var mk_page = function(settings){
 
   // DC run from array to JB
   for( var i in _.range(system.array.num_of_strings)) {
-    var offset_wire = size.wire_offset.min + ( size.wire_offset.base * i );
+    var offset_wire = size.DC_wire_offset.min + ( size.DC_wire_offset.base * i );
 
     var x_string = x;
     var y_string = y;
 
     for( var r=0; r<settings.drawing.displayed_modules[i]; r++){
       d.block('module microinverter', [x_string,y_string]);
-
       x_string += size.module.w;
     }
 
@@ -45,26 +44,24 @@ var mk_page = function(settings){
       );
       x_string += size.string.gap_missing;
       d.block('module microinverter', [x_string,y_string]);
-
     }
-
-    //d.block('string', [x,y]);
-
-
-
-
-
 
     d.line([
       [ loc.array.right[i], y + size.module.h*6.5/8 ],
       [ loc.array.left - loc.array.offset - offset_wire, y + size.module.h*6.5/8 ],
       [ loc.array.left - loc.array.offset - offset_wire, loc.DC_jb_box.y],
-
     ], 'AC_cable');
+
+    d.block( 'terminal', [ loc.DC_jb_box.x - offset_wire , loc.DC_jb_box.y]);
+    d.line([
+      [ loc.DC_jb_box.x - offset_wire , loc.DC_jb_box.y],
+      [ loc.DC_jb_box.x - offset_wire , loc.DC_jb_box.y],
+    ], 'AC_neutral');
+
 
     d.line([
       [ loc.array.right[i], y + size.module.h*7/8 ],
-      [ loc.array.left - loc.array.offset - size.wire_offset.ground , y + size.module.h*7/8 ],
+      [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground , y + size.module.h*7/8 ],
     ], 'DC_ground');
 
     y -= size.string.h;
@@ -75,8 +72,8 @@ var mk_page = function(settings){
   // DC ground run from array to JB
   d.layer('DC_ground');
   d.line([
-    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.array.upper + size.module.h*7/8 ],
-    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.DC_jb_box.y ]
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.array.upper + size.module.h*7/8 ],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.DC_jb_box.y ]
   ]);
   d.layer();
 
@@ -141,27 +138,25 @@ var mk_page = function(settings){
 
   // microinverter cable
   for( var i in _.range(system.array.num_of_strings)) {
-    var offset_wire = size.wire_offset.min + ( size.wire_offset.base * i );
+    var offset_wire = size.DC_wire_offset.min + ( size.DC_wire_offset.base * i );
 
     // negative home run
     d.layer('DC_neg');
-    d.block( 'terminal', [ loc.DC_jb_box.x - offset_wire , loc.DC_jb_box.y]);
+
     d.line([
       [ loc.DC_jb_box.x - offset_wire , loc.DC_jb_box.y],
       [ loc.DC_jb_box.x - offset_wire , loc.DC_combiner.y + offset_wire],
       [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y+offset_wire],
     ], 'DC_neg');
     d.block( 'terminal', [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y+offset_wire]);
-
     d.layer();
 
-    x -= size.string.w;
   }
 
   // DC ground run from JB to combiner
   d.line([
-    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.DC_jb_box.y ],
-    [ loc.array.left - loc.array.offset - size.wire_offset.ground, loc.DC_ground.y],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.DC_jb_box.y ],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.DC_ground.y],
     [ loc.DC_combiner.x , loc.DC_ground.y],
   ],'DC_ground');
   //d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 , loc.DC_ground.y]);
