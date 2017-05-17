@@ -260,17 +260,35 @@ var mk_page = function(settings){
     [w,h],
     'box'
   );
+  d.text(
+    [ x, y-h/2-6 ],
+    'N',
+    'text',
+    'table_col_title'
+  );
   x = loc.AC_combiner.L1 + w/2;
   d.rect(
     [x,y],
     [w,h],
     'box'
   );
+  d.text(
+    [ x, y-h/2-6 ],
+    'L1',
+    'text',
+    'table_col_title'
+  );
   x = loc.AC_combiner.L2 + w/2;
   d.rect(
     [x,y],
     [w,h],
     'box'
+  );
+  d.text(
+    [ x, y-h/2-6 ],
+    'L2',
+    'text',
+    'table_col_title'
   );
 
 
@@ -350,16 +368,34 @@ var mk_page = function(settings){
     [5,50],
     'box'
   );
+  d.text(
+    [ loc.AC_loadcenter.x-10, loc.AC_loadcenter.bottom - 50 - 7 - size.terminal_diam*5 ],
+    'L1',
+    'text',
+    'table_col_title'
+  );
   d.rect(
     [ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - 25  - size.terminal_diam*5 ],
     [5,50],
     'box'
+  );
+  d.text(
+    [ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - 50 - 7 - size.terminal_diam*5 ],
+    'L2',
+    'text',
+    'table_col_title'
   );
 
   var s, l;
   l = loc.AC_loadcenter.neutralbar;
   s = size.AC_loadcenter.neutralbar;
   d.rect([l.x,l.y], [s.w,s.h], 'AC_neutral' );
+  d.text(
+    [l.x,l.y-s.h/2-7],
+    'N',
+    'text',
+    'table_col_title'
+  );
 
   l = loc.AC_loadcenter.groundbar;
   s = size.AC_loadcenter.groundbar;
