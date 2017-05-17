@@ -20,15 +20,18 @@ var mk_page = function(settings){
 
   var micro_array_offset = 50;
   x = loc.array.left + micro_array_offset;
-  y = loc.array.lower - size.module.h;
+  y = loc.array.lower - size.module.h/2 - size.string.h*system.array.num_of_strings;
   //y -= size.string.h/2;
+  var y_string = y;
+  var s = 7.5;
+  var ground_left = loc.array.left - loc.array.offset - size.DC_wire_offset.ground + size.AC_wire_offset/2;
+  var ground_bottom = loc.DC_ground.y - size.AC_wire_offset*3;
 
   // DC run from array to JB
   for( var i in _.range(system.array.num_of_strings)) {
     var offset_wire = size.AC_wire_offset + (size.AC_wire_offset * 2) * i;
 
     var x_string = x;
-    var y_string = y;
 
     for( var r=0; r<settings.drawing.displayed_modules[i]; r++){
       d.block('module microinverter', [x_string,y_string]);
@@ -48,43 +51,38 @@ var mk_page = function(settings){
     }
 
     d.line([
-      [ loc.array.right[i]+micro_array_offset, y + size.module.h*6.5/8 ],
-      [ loc.AC_jb_box.right - offset_wire, y + size.module.h*6.5/8 ],
-      [ loc.AC_jb_box.right - offset_wire, loc.AC_jb_box.y],
+      [ loc.array.right[i]+micro_array_offset, y_string + size.module.h*6.5/8 ],
+      [ ground_left + offset_wire, y_string + size.module.h*6.5/8 ],
+      [ ground_left + offset_wire, loc.AC_jb_box.y],
     ], 'AC_cable');
 
 
-    var s = 7.5;
-
-    var y_local = loc.AC_jb_box.y + size.AC_jb_box.h/2 + size.AC_wire_offset*2;
-
     d.line([
-      [ loc.AC_jb_box.right - offset_wire , loc.AC_jb_box.y],
-      [ loc.AC_jb_box.right - offset_wire -s , loc.AC_jb_box.y +s],
-      [ loc.AC_jb_box.right - offset_wire -s, y_local +s + offset_wire],
-      [ loc.AC_combiner.N, y_local +s +offset_wire],
+      [ ground_left + offset_wire , loc.AC_jb_box.y],
+      [ ground_left + offset_wire -s , loc.AC_jb_box.y +s],
+      [ ground_left + offset_wire -s, ground_bottom +s - offset_wire],
+      [ loc.AC_combiner.N, ground_bottom  +s -offset_wire],
     ], 'AC_neutral');
     d.line([
-      [ loc.AC_jb_box.right - offset_wire , loc.AC_jb_box.y],
-      [ loc.AC_jb_box.right - offset_wire , loc.AC_jb_box.y +s],
-      [ loc.AC_jb_box.right - offset_wire , y_local + offset_wire],
-      [ loc.AC_combiner.L1, y_local+offset_wire],
+      [ ground_left + offset_wire , loc.AC_jb_box.y],
+      [ ground_left + offset_wire , loc.AC_jb_box.y +s],
+      [ ground_left + offset_wire , ground_bottom - offset_wire],
+      [ loc.AC_combiner.L1, ground_bottom -offset_wire],
     ], 'AC_L1');
     d.line([
-      [ loc.AC_jb_box.right - offset_wire , loc.AC_jb_box.y],
-      [ loc.AC_jb_box.right - offset_wire +s , loc.AC_jb_box.y +s],
-      [ loc.AC_jb_box.right - offset_wire +s, y_local -s + offset_wire],
-      [ loc.AC_combiner.L2, y_local -s +offset_wire],
+      [ ground_left + offset_wire , loc.AC_jb_box.y],
+      [ ground_left + offset_wire +s , loc.AC_jb_box.y +s],
+      [ ground_left + offset_wire +s, ground_bottom -s - offset_wire],
+      [ loc.AC_combiner.L2, ground_bottom  -s -offset_wire],
     ], 'AC_L2');
-
-    d.block( 'terminal', [ loc.AC_jb_box.right - offset_wire , loc.AC_jb_box.y]);
+    d.block( 'terminal', [ ground_left + offset_wire , loc.AC_jb_box.y]);
 
     d.line([
-      [ loc.array.right[i]+micro_array_offset, y + size.module.h*7/8 ],
-      [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground , y + size.module.h*7/8 ],
+      [ loc.array.right[i]+micro_array_offset, y_string + size.module.h*7/8 ],
+      [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground , y_string + size.module.h*7/8 ],
     ], 'DC_ground');
 
-    y -= size.string.h;
+    y_string += size.string.h;
   }
 
 
@@ -92,7 +90,7 @@ var mk_page = function(settings){
   // DC ground run from array to JB
   d.layer('DC_ground');
   d.line([
-    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.array.upper + size.module.h*7/8 ],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, y + size.module.h*7/8 ],
     [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y ]
   ]);
   d.layer();
