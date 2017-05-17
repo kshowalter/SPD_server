@@ -63,18 +63,36 @@ var mk_page = function(settings){
       [ ground_left + offset_wire -s, ground_bottom +s - offset_wire],
       [ loc.AC_combiner.N, ground_bottom  +s -offset_wire],
     ], 'AC_neutral');
+
     d.line([
       [ ground_left + offset_wire , loc.AC_jb_box.y],
       [ ground_left + offset_wire , loc.AC_jb_box.y +s],
       [ ground_left + offset_wire , ground_bottom - offset_wire],
+      [ loc.AC_combiner.left + size.AC_wire_offset - size.circuit_breaker.w/2, ground_bottom -offset_wire],
+    ], 'AC_L1');
+    d.block('circuit_breaker', [ loc.AC_combiner.left + size.AC_wire_offset, ground_bottom -offset_wire] );
+    d.line([
+      [ loc.AC_combiner.left + size.AC_wire_offset + size.circuit_breaker.w/2, ground_bottom -offset_wire],
       [ loc.AC_combiner.L1, ground_bottom -offset_wire],
     ], 'AC_L1');
+
     d.line([
       [ ground_left + offset_wire , loc.AC_jb_box.y],
       [ ground_left + offset_wire +s , loc.AC_jb_box.y +s],
       [ ground_left + offset_wire +s, ground_bottom -s - offset_wire],
+      [ loc.AC_combiner.left + size.AC_wire_offset - size.circuit_breaker.w/2, ground_bottom -s -offset_wire],
+    ], 'AC_L2');
+    d.block('circuit_breaker', [ loc.AC_combiner.left + size.AC_wire_offset, ground_bottom -s -offset_wire] );
+    d.line([
+      [ loc.AC_combiner.left + size.AC_wire_offset + size.circuit_breaker.w/2, ground_bottom -s -offset_wire],
       [ loc.AC_combiner.L2, ground_bottom  -s -offset_wire],
     ], 'AC_L2');
+
+    d.line([
+      [ loc.AC_combiner.left + size.AC_wire_offset  , ground_bottom -s -offset_wire - size.circuit_breaker.h/2 -1 ],
+      [ loc.AC_combiner.left + size.AC_wire_offset  , ground_bottom    -offset_wire - size.circuit_breaker.h/2 -1 ],
+    ], 'circuit_breaker_connector');
+
     d.block( 'terminal', [ ground_left + offset_wire , loc.AC_jb_box.y]);
 
     d.line([
