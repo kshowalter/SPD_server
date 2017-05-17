@@ -448,8 +448,13 @@ var mk_page = function(settings){
       ]);
       d.line([
         [ x, y ],
+        [ loc.AC_loadcenter.left + size.terminal_diam, y ],
+      ]);
+      d.line([
+        [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w , y ],
         [ loc.AC_loadcenter.x-10 -5/2, y ]
       ]);
+      d.block('circuit_breaker', [ loc.AC_loadcenter.left + size.circuit_breaker.w/2 + size.terminal_diam, y ] );
     } else if( line_name === 'L2' ){
       d.line([
         [ loc.AC_combiner.L2 + 5, y ],
@@ -457,14 +462,23 @@ var mk_page = function(settings){
       ]);
       d.line([
         [ x, y ],
-        [ loc.AC_loadcenter.x+10 -5/2, y ]
+        [ loc.AC_loadcenter.left + size.terminal_diam, y ],
       ]);
+      d.line([
+        [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w , y ],
+        [ loc.AC_loadcenter.x+10 -5/2, y ],
+      ]);
+      d.block('circuit_breaker', [ loc.AC_loadcenter.left + size.circuit_breaker.w/2 + size.terminal_diam, y ] );
     }
-    /*
-    */
+
+
     y -= size.terminal_diam *2;
     d.layer();
   }
+  d.line([
+    [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w/2, loc.AC_loadcenter.bottom - size.terminal_diam*6 - size.circuit_breaker.h/2 -3],
+    [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w/2, loc.AC_loadcenter.bottom - size.terminal_diam*8 - size.circuit_breaker.h/2 -3],
+  ], 'circuit_breaker_connector');
 
 
 
