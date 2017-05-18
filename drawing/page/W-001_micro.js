@@ -727,20 +727,26 @@ var mk_page = function(settings){
   t.cell(1,2).border('B', false);
   t.col_size(2, 165);
 
+
+
   // variable columns
   circuit_parameter_list.forEach(function(circuit_parameter_name, i){
 
     var size = circuit_parameter_labels[circuit_parameter_name][0];
     var label = circuit_parameter_labels[circuit_parameter_name][1];
+    console.log(i+3, circuit_parameter_name, size);
     t.cell(1,i+3).border('B', false);
     t.col_size(i+3, size);
     t.cell(1,i+3).font('table_col_title').text(label[0]);
     t.cell(2,i+3).font('table_col_title').text(label[1]);
   });
 
+  var size = circuit_parameter_labels['conductor'][0];
+  t.col_size(4, size + 5);
+  var size = circuit_parameter_labels['conductor_size_min'][0];
+  t.col_size(6, size + 10);
   //logger.info(t.cells);
   t.mk();
-
 
 
 
