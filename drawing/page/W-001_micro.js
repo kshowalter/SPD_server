@@ -20,10 +20,10 @@ var mk_page = function(settings){
 
   var micro_array_offset = 50;
   x = loc.array.left + micro_array_offset;
-  y = loc.array.lower - size.string.h*system.array.num_of_strings;
+  y = loc.array.lower - size.string.h*system.array.num_of_strings - 20;
   //y -= size.string.h/2;
   var y_string = y;
-  var s = 7.5;
+  var s = size.AC_wire_offset*2/3;
   var ground_left = loc.array.left - loc.array.offset - size.DC_wire_offset.ground + size.AC_wire_offset/2;
   var ground_bottom = loc.DC_ground.y - size.AC_wire_offset*3;
 
@@ -67,6 +67,7 @@ var mk_page = function(settings){
       [ ground_left + offset_wire -s, ground_bottom +s - offset_wire],
       [ loc.AC_combiner.N, ground_bottom  +s -offset_wire],
     ], 'AC_neutral');
+    d.block( 'terminal', [ ground_left + offset_wire -s, loc.AC_jb_box.y +s]);
 
     d.line([
       [ ground_left + offset_wire , loc.AC_jb_box.y],
@@ -74,11 +75,12 @@ var mk_page = function(settings){
       [ ground_left + offset_wire , ground_bottom - offset_wire],
       [ loc.AC_combiner.left + size.AC_wire_offset - size.circuit_breaker.w/2, ground_bottom -offset_wire],
     ], 'AC_L1');
-    d.block('circuit_breaker', [ loc.AC_combiner.left + size.AC_wire_offset, ground_bottom -offset_wire] );
+    d.block( 'terminal', [ ground_left + offset_wire, loc.AC_jb_box.y +s]);
     d.line([
       [ loc.AC_combiner.left + size.AC_wire_offset + size.circuit_breaker.w/2, ground_bottom -offset_wire],
       [ loc.AC_combiner.L1, ground_bottom -offset_wire],
     ], 'AC_L1');
+    d.block('circuit_breaker', [ loc.AC_combiner.left + size.AC_wire_offset, ground_bottom -offset_wire] );
 
     d.line([
       [ ground_left + offset_wire , loc.AC_jb_box.y],
@@ -86,18 +88,41 @@ var mk_page = function(settings){
       [ ground_left + offset_wire +s, ground_bottom -s - offset_wire],
       [ loc.AC_combiner.left + size.AC_wire_offset - size.circuit_breaker.w/2, ground_bottom -s -offset_wire],
     ], 'AC_L2');
-    d.block('circuit_breaker', [ loc.AC_combiner.left + size.AC_wire_offset, ground_bottom -s -offset_wire] );
+    d.block( 'terminal', [ ground_left + offset_wire +s , loc.AC_jb_box.y +s]);
     d.line([
       [ loc.AC_combiner.left + size.AC_wire_offset + size.circuit_breaker.w/2, ground_bottom -s -offset_wire],
       [ loc.AC_combiner.L2, ground_bottom  -s -offset_wire],
     ], 'AC_L2');
+    d.block('circuit_breaker', [ loc.AC_combiner.left + size.AC_wire_offset, ground_bottom -s -offset_wire] );
 
     d.line([
       [ loc.AC_combiner.left + size.AC_wire_offset  , ground_bottom -s -offset_wire - size.circuit_breaker.h/2 -1 ],
       [ loc.AC_combiner.left + size.AC_wire_offset  , ground_bottom    -offset_wire - size.circuit_breaker.h/2 -1 ],
     ], 'circuit_breaker_connector');
 
-    d.block( 'terminal', [ ground_left + offset_wire , loc.AC_jb_box.y]);
+    d.line([
+      [ ground_left + offset_wire , loc.AC_jb_box.y],
+      [ ground_left + offset_wire -s , loc.AC_jb_box.y-s/2*i],
+    ], 'DC_ground');
+    /*
+    d.block( 'terminal', [ ground_left+offset_wire-s , loc.AC_jb_box.y]);
+    console.log(i, offset_wire);
+    if( i != 0 ){
+      var path_string = 'm'+(ground_left+offset_wire-s*2)+' '+(loc.AC_jb_box.y-s/2*i)+' ';
+      path_string += 'c '+(0)+' '+(-s)+', '+(-s *2)+' '+(-s)+', '+(-s *2)+' '+(0)+' ';
+      d.path(path_string, 'DC_ground');
+    }
+    */
+    d.line([
+      [ ground_left+offset_wire-s , loc.AC_jb_box.y-s/2*i],
+      [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y-s/2*i],
+    ], 'DC_ground');
+
+    d.rect(
+      [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y-s/2*i],
+      [3,8],
+      'AC_ground_block'
+    );
 
     d.line([
       [ loc.array.right[i]+micro_array_offset, y_string + size.module.h*7.2/8 ],
@@ -111,6 +136,10 @@ var mk_page = function(settings){
 
   // DC ground run from array to JB
   d.layer('DC_ground');
+  //d.line([
+  //  [ ground_left + offset_wire , loc.AC_jb_box.y],
+  //  [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y],
+  //]);
   d.line([
     [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, y + size.module.h*7.2/8 ],
     [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y ]
@@ -254,9 +283,10 @@ var mk_page = function(settings){
 
   // AC bus bars
   w = 5;
-  h = h - 5 - 15;
+  h = 140;
   x = loc.AC_combiner.x - size.AC_combiner.w/2;
-  y = loc.AC_combiner.bottom - h/2 - 3
+  //y = loc.AC_combiner.bottom - h/2 - 3;
+  y = loc.DC_ground.y - size.AC_wire_offset/2 - h/2;
 
   x = loc.AC_combiner.N + w/2;
   d.rect(
@@ -446,6 +476,14 @@ var mk_page = function(settings){
       [ loc.AC_disc.left + ( size.AC_disc.w - size.disconect.l )/2, y ]
     ]);
     x = loc.AC_disc.left + ( size.AC_disc.w - size.disconect.l )/2; // move to start of disconect
+    d.line([
+      [ x + size.disconect.l, y ],
+      [ loc.AC_disc.right, y ]
+    ]);
+    d.line([
+      [ loc.AC_disc.right, y ],
+      [ loc.AC_loadcenter.left, y ]
+    ]);
     if( ['ground', 'neutral'].indexOf(line_name)+1 ){
       d.line([
         [ x, y ],
@@ -457,14 +495,6 @@ var mk_page = function(settings){
         y: y
       });
     }
-    d.line([
-      [ x + size.disconect.l, y ],
-      [ loc.AC_disc.right, y ]
-    ]);
-    d.line([
-      [ loc.AC_disc.right, y ],
-      [ loc.AC_loadcenter.left, y ]
-    ]);
 
     x = loc.AC_loadcenter.left;
     if( line_name === 'ground' ){
