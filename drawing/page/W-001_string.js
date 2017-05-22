@@ -2,7 +2,7 @@ var mk_page = function(settings){
   var state = settings.state;
 
   var f = settings.f;
-  var d = f.Drawing(settings);
+  var d = f.Drawing(settings.drawing_settings);
 
 
   var system = state.system;

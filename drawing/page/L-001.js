@@ -78,7 +78,7 @@ var mk_page = function(settings){
 
   var f = settings.f;
 
-  var d = settings.f.Drawing(settings);
+  var d = settings.f.Drawing(settings.drawing_settings);
 
   var size = settings.drawing_settings.size;
   var loc = settings.drawing_settings.loc;
