@@ -4,8 +4,8 @@
   "description": "Nodejs server to generate PV drawings.",
   "main": "server.js",
   "scripts": {
-    "serve_dev": ". ./oracle_setup_linux.sh && nodemon server.js",
-    "serve_production": ". ./oracle_setup_linux.sh && pm2 start server.js"
+    "serve_dev": ". ./oracle_setup_linux.sh && export PORT=3333 && nodemon server.js",
+    "serve_production": ". ./oracle_setup_linux.sh && export port=3300 && pm2 start server.js"
   },
   "repository": {
     "type": "git",

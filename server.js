@@ -7,7 +7,10 @@ global.f = require('./lib/functions/functions.js');
 var logger = require('winston');
 var express = require('express');
 var http = require('http');
-var port = process.env.PORT || '3300';
+
+
+var port = process.env.NODE_ENV === 'dev' ? '3333' : '3300'
+port = process.env.PORT || port;
 
 /*
 logger.add(logger.transports.File, {
