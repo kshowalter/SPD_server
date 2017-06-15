@@ -36,6 +36,7 @@
     "device_model_number": "SB5.0-1SP-US-40",
     "device_name": "SB5.0-1SP-US-40",
     "manufacturer_name": "SMA",
+    "device_type_id": 53,
     "pvsystem_id": 533,
     "inverter_id": 414,
     "num_of_inverters": 1,
