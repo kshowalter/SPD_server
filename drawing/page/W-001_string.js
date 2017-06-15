@@ -223,10 +223,10 @@ var mk_page = function(settings){
   // DC ground run from JB to combiner
   d.line([
     [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.DC_jb_box.y ],
-    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.DC_ground.y],
-    [ loc.DC_combiner.x , loc.DC_ground.y],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.ground.y],
+    [ loc.DC_combiner.x , loc.ground.y],
   ],'DC_ground');
-  //d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 , loc.DC_ground.y]);
+  //d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 , loc.ground.y]);
 
 
 
@@ -305,7 +305,7 @@ var mk_page = function(settings){
     'line_label_left'
   );
   d.text(
-    [ loc.inverter.left-18 , loc.DC_ground.y+size.terminal_diam+1],
+    [ loc.inverter.left-18 , loc.ground.y+size.terminal_diam+1],
     'G',
     'text',
     'line_label_left'
@@ -329,15 +329,15 @@ var mk_page = function(settings){
 
   // DC ground run from DC_combiner to inverter
   d.line([
-    [ loc.DC_combiner.x, loc.DC_ground.y],
-    [ loc.DC_disconect.x, loc.DC_ground.y],
+    [ loc.DC_combiner.x, loc.ground.y],
+    [ loc.DC_disconect.x, loc.ground.y],
   ], 'DC_ground');
-  //d.block( 'terminal', [ loc.inverter.left_terminal , loc.DC_ground.y]);
+  //d.block( 'terminal', [ loc.inverter.left_terminal , loc.ground.y]);
   d.line([
-    [ loc.DC_disconect.x , loc.DC_ground.y],
-    [ loc.inverter.right_terminal , loc.DC_ground.y],
+    [ loc.DC_disconect.x , loc.ground.y],
+    [ loc.inverter.right_terminal , loc.ground.y],
   ], 'DC_ground');
-  //d.block( 'terminal', [ loc.inverter.x , loc.DC_ground.y]);
+  //d.block( 'terminal', [ loc.inverter.x , loc.ground.y]);
 
 
 
@@ -513,20 +513,44 @@ var mk_page = function(settings){
 
   // AC bus bars
   d.rect(
-    [ loc.AC_loadcenter.x-10, loc.AC_loadcenter.bottom - 25 - size.terminal_diam*5 ],
-    [5,50],
+    [ loc.AC_loadcenter.x-10, loc.AC_loadcenter.bar.y ],
+    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
     'box'
+  );
+  d.text(
+    //[ loc.AC_loadcenter.x-10, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h - 7 - size.terminal_diam*5 ],
+    [ loc.AC_loadcenter.x-10, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 7 ],
+    'L1',
+    'text',
+    'table_col_title'
   );
   d.rect(
-    [ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - 25  - size.terminal_diam*5 ],
-    [5,50],
+    //[ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h/2  - size.terminal_diam*5 ],
+    [ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bar.y ],
+    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
     'box'
   );
+  d.text(
+    [ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 7 ],
+    //[ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h - 7 - size.terminal_diam*5 ],
+    'L2',
+    'text',
+    'table_col_title'
+  );
+
 
   var s, l;
-  l = loc.AC_loadcenter.neutralbar;
-  s = size.AC_loadcenter.neutralbar;
-  d.rect([l.x,l.y], [s.w,s.h], 'AC_neutral' );
+  d.rect(
+    [ loc.AC_loadcenter.bar.x, loc.AC_loadcenter.bar.y ],
+    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
+    'AC_neutral'
+  );
+  d.text(
+    [ loc.AC_loadcenter.bar.x, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 7 ],
+    'N',
+    'text',
+    'table_col_title'
+  );
 
   l = loc.AC_loadcenter.groundbar;
   s = size.AC_loadcenter.groundbar;
@@ -542,8 +566,9 @@ var mk_page = function(settings){
   d.section('AC lines');
 
   x = loc.inverter.right_terminal;
-  y = loc.inverter.bottom_right.y;
-  y -= size.terminal_diam *2;
+  //y = loc.inverter.bottom_right.y;
+  //y -= size.terminal_diam *2;
+  y = loc.ground.y;
 
   padding = size.terminal_diam;
   //var AC_d.layer_names = ['AC_ground', 'AC_neutral', 'AC_L1', 'AC_L2', 'AC_L2'];
@@ -607,20 +632,33 @@ var mk_page = function(settings){
     } else if( line_name === 'L1' ){
       d.line([
         [ x, y ],
+        [ loc.AC_loadcenter.left + size.terminal_diam, y ],
+      ]);
+      d.line([
+        [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w , y ],
         [ loc.AC_loadcenter.x-10 -5/2, y ]
       ]);
+      d.block('circuit_breaker', [ loc.AC_loadcenter.left + size.circuit_breaker.w/2 + size.terminal_diam, y ] );
     } else if( line_name === 'L2' ){
       d.line([
         [ x, y ],
-        [ loc.AC_loadcenter.x+10 -5/2, y ]
+        [ loc.AC_loadcenter.left + size.terminal_diam, y ],
       ]);
+      d.line([
+        [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w , y ],
+        [ loc.AC_loadcenter.x+10 -5/2, y ],
+      ]);
+      d.block('circuit_breaker', [ loc.AC_loadcenter.left + size.circuit_breaker.w/2 + size.terminal_diam, y ] );
     }
     /*
     */
     y -= size.terminal_diam *2;
     d.layer();
   }
-
+  d.line([
+    [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w/2, loc.AC_loadcenter.bottom - size.terminal_diam*6 - size.circuit_breaker.h/3],
+    [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w/2, loc.AC_loadcenter.bottom - size.terminal_diam*8 - size.circuit_breaker.h/3],
+  ], 'circuit_breaker_connector');
 
 
   // Conduit callout: inverter to AC diconect
