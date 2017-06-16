@@ -136,10 +136,10 @@ var mk_page = function(settings){
   y += h + label_spacing;
   title = undefined;
   text_list = [
-    [['MAXIMUM POWER-','POINT CURRENT (Imp)'], f.format_value(system.source.imp), 'A' ],
-    [['MAXIMUM POWER-', 'POINT VOLTAGE (Vmp)'], f.format_value(system.source.vmp), 'V'],
+    [['MAXIMUM POWER-','POINT CURRENT (Imp)'], f.format_value(system.array.imp), 'A' ],
+    [['MAXIMUM POWER-', 'POINT VOLTAGE (Vmp)'], f.format_value(system.array.vmp), 'V'],
     [['MAXIMUM SYSTEM', 'VOLTAGE (Voc)'], f.format_value(system.array.max_sys_voltage), 'V'],
-    [['SHORT-CIRCUIT', 'CURRENT (Isc)'], f.format_value(system.source.isc), 'A'],
+    [['SHORT-CIRCUIT', 'CURRENT (Isc)'], f.format_value(system.array.isc), 'A'],
   ];
   notes = [
     'Per Code:',
