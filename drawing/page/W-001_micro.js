@@ -212,10 +212,10 @@ var mk_page = function(settings){
     'wire_callout'
   );
   d.text(
-    [ x + w/2 + 16 + 10, y ],
-    ['(1)'],
+    [ x + w/2 + 16 + 5, y ],
+    ['MANUFACTURER SUPPLIED CABLE'],
     'text',
-    'label_center'
+    'label_left'
   );
 
 
@@ -254,7 +254,7 @@ var mk_page = function(settings){
   );
   d.text(
     [ x + 16 + 10, y + h/2 + 32 ],
-    ['(2)'],
+    ['(1)'],
     'text',
     'label_center'
   );
@@ -380,9 +380,7 @@ var mk_page = function(settings){
 
 
   var circuit_names = [
-    'exposed source circuit wiring',
-    'pv dc source circuits',
-    'inverter ac output circuit',
+    'PV Microinverter AC source circuits',
   ];
 
   var text_cell_size_fixed = 20;
@@ -515,7 +513,7 @@ var mk_page = function(settings){
 
   t.cell(1,2).font('table_col_title').text('CIRCUIT');
   t.cell(1,2).border('B', false);
-  t.col_size(2, 165);
+  t.col_size(2, 190);
   w += 165;
 
   circuit_parameter_labels['conductor'][0] += 5;
