@@ -380,26 +380,33 @@ var mk_page = function(settings){
 
 
   var circuit_names = [
-    'PV Microinverter AC source circuits',
+    'PV Microinverter AC sources',
   ];
 
   var text_cell_size_fixed = 20;
-  var font_letter_width = 3.75;
+  var font_letter_width = 3.6;
 
   var circuit_parameters = {
     'max_current': {
       top:'circuit',
       bottom: 'current',
-      units: 'A'
+      units: 'A',
+      col_size: 50
     },
     'conductor': {
       top:'conductor'
     },
     'type': {
-      top:'type'
+      top:'type',
+      col_size: 45
     },
     'conductor_size_min': {
       top:'cond.',
+      bottom: 'min. size',
+      units: ' AWG'
+    },
+    'ground_size_min': {
+      top:'EGC',
       bottom: 'min. size',
       units: ' AWG'
     },
@@ -441,12 +448,14 @@ var mk_page = function(settings){
     circuit_parameters[circuit_parameter_name].top = circuit_parameters[circuit_parameter_name].top || circuit_parameter_name;
     circuit_parameters[circuit_parameter_name].bottom = circuit_parameters[circuit_parameter_name].bottom || '';
 
-    var col_size;
-    var size0 = circuit_parameters[circuit_parameter_name].top.length * font_letter_width;
-    var size1 = circuit_parameters[circuit_parameter_name].bottom.length * font_letter_width;
-    if( size0 > size1 ) { col_size = size0; }
-    else { col_size = size1; }
-    col_size += text_cell_size_fixed;
+    var col_size = circuit_parameters[circuit_parameter_name].col_size;
+    if( ! col_size ){
+      var size0 = circuit_parameters[circuit_parameter_name].top.length * font_letter_width;
+      var size1 = circuit_parameters[circuit_parameter_name].bottom.length * font_letter_width;
+      if( size0 > size1 ) { col_size = size0; }
+      else { col_size = size1; }
+      col_size += text_cell_size_fixed;
+    }
 
     circuit_parameter_labels[circuit_parameter_name] = [
       col_size,
@@ -513,7 +522,7 @@ var mk_page = function(settings){
 
   t.cell(1,2).font('table_col_title').text('CIRCUIT');
   t.cell(1,2).border('B', false);
-  t.col_size(2, 190);
+  t.col_size(2, 160);
   w += 165;
 
   circuit_parameter_labels['conductor'][0] += 5;
