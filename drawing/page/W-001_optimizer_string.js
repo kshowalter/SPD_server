@@ -31,7 +31,7 @@ var mk_page = function(settings){
 
 
     for( var r=0; r<settings.drawing.displayed_modules[i]; r++){
-      d.block('module', [x_string,y_string]);
+      d.block('module optimizer', [x_string,y_string]);
       x_string += size.module.w;
     }
 
