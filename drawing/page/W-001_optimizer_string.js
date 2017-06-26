@@ -56,8 +56,8 @@ var mk_page = function(settings){
     // positive home run
     d.layer('DC_pos');
     d.line([
-      [ loc.array.right[i] , y],
-      [ loc.array.right_max + loc.array.offset + offset_wire, y ],
+      [ loc.array.right[i] , y  + size.module.h*5/8 ],
+      [ loc.array.right_max + loc.array.offset + offset_wire, y  + size.module.h*5/8 ],
       [ loc.array.right_max + loc.array.offset + offset_wire, loc.array.lower + offset_wire ],
       [ loc.array.left - loc.array.offset + offset_wire, loc.array.lower  + offset_wire ],
       [ loc.array.left - loc.array.offset + offset_wire, loc.DC_jb_box.y],
@@ -67,16 +67,16 @@ var mk_page = function(settings){
     // negative home run
     d.layer('DC_neg');
     d.line([
-      [ loc.array.left, y],
-      [ loc.array.left - loc.array.offset - offset_wire, y ],
+      [ loc.array.left, y  + size.module.h*5/8 ],
+      [ loc.array.left - loc.array.offset - offset_wire, y  + size.module.h*5/8 ],
       [ loc.array.left - loc.array.offset - offset_wire, loc.array.lower + offset_wire ],
       [ loc.array.left - loc.array.offset - offset_wire, loc.DC_jb_box.y],
       //[ loc.DC_jb_box.x , loc.DC_jb_box.y+offset_wire],
     ]);
 
     d.line([
-      [ loc.array.right[i], y + size.module.h*5/8 ],
-      [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground , y + size.module.h*5/8 ],
+      [ loc.array.right[i], y + size.module.h*7.2/8 ],
+      [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground , y + size.module.h*7.2/8 ],
     ], 'DC_ground');
 
     y -= size.string.h;
@@ -87,7 +87,7 @@ var mk_page = function(settings){
   // DC ground run from array to JB
   d.layer('DC_ground');
   d.line([
-    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.array.upper + size.module.h*5/8 ],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.array.upper + size.module.h*7.2/8 ],
     [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.DC_jb_box.y ]
   ]);
   d.layer();
