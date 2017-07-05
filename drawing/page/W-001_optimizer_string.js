@@ -139,7 +139,7 @@ var mk_page = function(settings){
     [ x, y ],
     [
       'OPTIMIZER:',
-      state.system.optimizer.manufacturer,
+      state.system.optimizer.manufacturer_name,
       state.system.optimizer.name,
     ],
     'text',

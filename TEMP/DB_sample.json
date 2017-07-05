@@ -80,7 +80,7 @@
     "max_unitsperbranch": 17,
     "max_watts_per_string": 3840,
     "opti_id": 300,
-    "opti_manufacturer": "SolarEdge",
+    "opti_manufacturer_name": "SolarEdge",
     "opti_name": "P300",
     "opti_rated_max_power": 300,
     "opti_max_input_voltage": 48,
