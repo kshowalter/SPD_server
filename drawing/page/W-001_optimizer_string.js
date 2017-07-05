@@ -129,6 +129,24 @@ var mk_page = function(settings){
   );
 
 
+  // Optimizer details
+  x += 200;
+  y += -60;
+  d.block('optimizer', [x,y]);
+  x += 15;
+  y += -15;
+  d.text(
+    [ x, y ],
+    [
+      'OPTIMIZER:',
+      state.system.optimizer.manufacturer,
+      state.system.optimizer.name,
+    ],
+    'text',
+    'label_left'
+  );
+
+
   // Conduit callout: array to JB
   w = 120;
   h = 15;
