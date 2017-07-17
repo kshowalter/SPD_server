@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "serve_dev": ". ./oracle_setup_linux.sh && export PORT=3333 && nodemon server.js",
-    "serve_production": ". ./oracle_setup_linux.sh && export port=3300 && pm2 start server.js"
+    "serve_production": ". ./oracle_setup_linux.sh && export port=3300 && pm2 start server.js",
+    "test": "./node_modules/.bin/mocha --reporter spec || exit 0"
   },
   "repository": {
     "type": "git",
@@ -20,16 +21,18 @@
   "dependencies": {
     "console-stamp": "^0.2.5",
     "express": "^4.14.1",
+    "functions": "kshowalter/functions",
     "jsdom": "^9.4.1",
     "lodash": "^4.17.4",
     "mathjs": "^3.10.0",
+    "mkDrawing": "kshowalter/mkDrawing",
+    "mocha": "^3.4.2",
     "moment": "^2.17.1",
     "oracledb": "^1.12.2",
     "phantom": "^4.0.0",
+    "request": "^2.81.0",
     "shelljs": "^0.7.2",
     "spreadsheet_functions": "kshowalter/spreadsheet_functions",
-    "functions": "kshowalter/functions",
-    "mkDrawing": "kshowalter/mkDrawing",
     "winston": "^2.3.1"
   },
   "devDependencies": {
