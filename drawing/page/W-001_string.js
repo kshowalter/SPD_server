@@ -790,8 +790,8 @@ var mk_page = function(settings){
     circuit_parameter_labels[circuit_parameter_name] = [
       col_size,
       [
-        f.table_name(circuit_parameters[circuit_parameter_name].top),
-        f.table_name(circuit_parameters[circuit_parameter_name].bottom)
+        f.pretty_name(circuit_parameters[circuit_parameter_name].top).toUpperCase(),
+        f.pretty_name(circuit_parameters[circuit_parameter_name].bottom).toUpperCase()
       ]
     ];
   });
