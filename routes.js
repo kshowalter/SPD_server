@@ -5,7 +5,8 @@ var mk_drawing = require('./lib/mk_drawing.js');
 var mk_settings = require('./lib/mk_settings.js');
 var process_system = require('./lib/process_system.js');
 var mk_PDFs = require('./lib/mk_PDFs.js');
-var get_DB_data = require('./lib/get_DB_data.js');
+var get_DB_data = require('./lib/get_DB_data.js').get_DB_data;
+var get_DB_system_ids = require('./lib/get_DB_data.js').get_DB_system_ids;
 var html_wrap_svg = require('./lib/html_wrap_svg.js');
 var map_DB_data = require('./lib/map_DB_data.js');
 
@@ -21,6 +22,10 @@ var TEST_get_DB_data = function(req, callback){
 
 
 
+///////////////////////////////////////////
+router.get('/status', function(req, res) {
+  res.end('running');
+});
 
 
 
@@ -120,6 +125,32 @@ router.get('/d/SVG', function(req, res) {
 
 
 
+  });
+});
+
+
+///////////////////////////////////////////
+router.get('/d/system_id_list', function(req, res) {
+  var start_time = new Date();
+
+  var responce_string = req.method + ': ' + req.url;
+  logger.info(responce_string);
+
+  //get_DB_data(req, function(data){
+  get_DB_system_ids(req, function(data){
+    if( data ){
+      res.json({
+        data: data,
+        status: 'DB list returned',
+        time: ( new Date() - start_time )/1000,
+      });
+    } else {
+      res.json({
+        data: false,
+        status: 'DB list NOT returned',
+        time: ( new Date() - start_time )/1000,
+      });
+    }
   });
 });
 
