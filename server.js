@@ -1,10 +1,16 @@
 global.project = require('./package.json');
 
+var fs = require('fs');
+var path = require('path');
+var local_path = __dirname;
+
 // add timestamps in front of log messages
 require('console-stamp')(console, '[HH:MM:ss.l]');
 global._ = require('lodash');
 global.server_settings = require('./lib/server_settings.js')();
 global.f = require('functions');
+
+global.server_start_time = new Date();
 
 var logger = require('winston');
 var express = require('express');
@@ -37,6 +43,31 @@ logger.configure({
 
 
 global.logger = logger;
+
+////////////////////////
+/// version history
+var version_history_path = path.join(local_path, 'test_data/version_history.json');
+var version_history = {};
+if( fs.existsSync(version_history_path) ){
+  var version_history_string = fs.readFileSync(version_history_path, {encoding: 'utf8'}).trim();
+  if( version_history_string ){
+    version_history = JSON.parse( version_history_string );
+  } else {
+    version_history = {};
+  }
+}
+if( ! version_history.versions ){ version_history.versions = {}; }
+if( ! version_history.order ){ version_history.order = []; }
+if( ! version_history.versions[global.project.version] ){
+  var date = new Date();
+  version_history.versions[global.project.version] = {
+    first_run: date.toISOString(),
+  };
+  version_history.order.push(global.project.version);
+}
+global.project.version_history = version_history;
+fs.writeFileSync(version_history_path, JSON.stringify(version_history, null, '  '), {encoding: 'utf8'});
+
 
 // Start express app
 var app = express();
