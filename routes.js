@@ -23,9 +23,18 @@ var sample_DB_data = {
 
 
 var TEST_get_DB_data = function(req, callback){
-  var system_type = req.query.system_type || 'string';
   logger.info('USING TEST DATABASE DATA');
-  callback(sample_DB_data[system_type]);
+  var system_type = req.query.system_type || 'string';
+
+  var input_data = sample_DB_data[system_type];
+  var input_data_dir = path.join(local_path, 'test_data/'+global.project.version+'/input');
+  if( ! fs.existsSync(input_data_dir) ){
+    fs.mkdirSync(input_data_dir);
+  }
+  var input_data_path = path.join(input_data_dir, 'DB_sample_'+system_type+'.json');
+  fs.writeFileSync(input_data_path, JSON.stringify(input_data, null, '  '), {encoding: 'utf8'});
+
+  callback(input_data);
 };
 
 
@@ -194,7 +203,7 @@ router.get('/t/SVG', function(req, res) {
   logger.info(responce_string);
 
   //get_DB_data(req, function(data){
-    TEST_get_DB_data(req, function(data){
+  TEST_get_DB_data(req, function(data){
     data = map_DB_data(data);
 
     // update system calculations
@@ -208,12 +217,11 @@ router.get('/t/SVG', function(req, res) {
       // update drawing
       system_settings = mk_drawing(system_settings);
 
-      var output_data_dir = path.join(local_path, 'test_data/'+global.project.version);
-      /*
-      if ( ! fs.existsSync(output_data_dir) ){
+      var input_data_dir = path.join(local_path, 'test_data/'+global.project.version+'/input');
+      var output_data_dir = path.join(local_path, 'test_data/'+global.project.version+'/output');
+      if( ! fs.existsSync(output_data_dir) ){
         fs.mkdirSync(output_data_dir);
       }
-      */
       var output_data_path = path.join(output_data_dir, 'DB_sample_'+system_type+'_data.json');
       fs.writeFileSync(output_data_path, JSON.stringify(data, null, '  '), {encoding: 'utf8'});
       console.log(output_data_path);
