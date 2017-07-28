@@ -1,3 +1,5 @@
+global.project = require('./package.json');
+
 // add timestamps in front of log messages
 require('console-stamp')(console, '[HH:MM:ss.l]');
 global._ = require('lodash');

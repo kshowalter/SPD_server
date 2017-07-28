@@ -1,6 +1,6 @@
 {
   "name": "spd_server",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "Nodejs server to generate PV drawings.",
   "main": "server.js",
   "scripts": {
