@@ -36,9 +36,12 @@ var TEST_get_DB_data = function(req, callback){
 ///////////////////////////////////////////
 router.get('/status', function(req, res) {
   var start_time = new Date();
+  var uptime_miliseconds = start_time - global.server_start_time;
+
   res.json({
     data: {
       version: global.project.version,
+      uptime: f.format_milliseconds(uptime_miliseconds)
     },
     status: 'Running',
     time: ( new Date() - start_time )/1000,
