@@ -16,9 +16,9 @@ var path = require('path');
 var local_path = __dirname;
 
 var sample_DB_data = {
-  'string': require('./TEMP/DB_sample_string.json'),
-  'micro': require('./TEMP/DB_sample_micro.json'),
-  'optimizer': require('./TEMP/DB_sample_optimizer.json'),
+  'string': require('./test_data/DB_sample_string.json'),
+  'micro': require('./test_data/DB_sample_micro.json'),
+  'optimizer': require('./test_data/DB_sample_optimizer.json'),
 };
 
 
@@ -205,7 +205,7 @@ router.get('/t/SVG', function(req, res) {
       // update drawing
       system_settings = mk_drawing(system_settings);
 
-      var output_data_dir = path.join(local_path, 'TEMP/'+global.project.version);
+      var output_data_dir = path.join(local_path, 'test_data/'+global.project.version);
       /*
       if ( ! fs.existsSync(output_data_dir) ){
         fs.mkdirSync(output_data_dir);

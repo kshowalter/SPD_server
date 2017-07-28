@@ -4,7 +4,7 @@
   "description": "Nodejs server to generate PV drawings.",
   "main": "server.js",
   "scripts": {
-    "serve_dev": ". ./oracle_setup_linux.sh && export PORT=3333 && nodemon server.js",
+    "serve_dev": ". ./oracle_setup_linux.sh && export PORT=3333 && nodemon server.js --ignore 'test_data/*'",
     "serve_production": ". ./oracle_setup_linux.sh && export port=3300 && pm2 start server.js",
     "test": "./node_modules/.bin/mocha --reporter spec || exit 0"
   },
