@@ -34,7 +34,11 @@ var get_DB_data_LOCAL_TEST = function(req, callback){
   var system_type = req.query.system_type || 'string';
 
   var input_data = sample_DB_data[system_type];
-  var input_data_dir = path.join(local_path, 'test_data/'+global.project.version+'/input');
+  var test_data_dir = path.join(local_path, 'test_data/'+global.project.version);
+  if( ! fs.existsSync(test_data_dir) ){
+    fs.mkdirSync(test_data_dir);
+  }
+  var input_data_dir = path.join(test_data_dir, 'input');
   if( ! fs.existsSync(input_data_dir) ){
     fs.mkdirSync(input_data_dir);
   }
@@ -288,8 +292,26 @@ router.get('/test', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(system_id, function(data){
-  get_DB_data_LOCAL_TEST(req, function(data){
+  for( var system_type in sample_DB_data ){
+    var input_data = sample_DB_data[system_type];
+    var test_data_dir = path.join(local_path, 'test_data/'+global.project.version);
+    if( ! fs.existsSync(test_data_dir) ){
+      fs.mkdirSync(test_data_dir);
+    }
+    var input_data_dir = path.join(test_data_dir, 'input');
+    if( ! fs.existsSync(input_data_dir) ){
+      fs.mkdirSync(input_data_dir);
+    }
+    var output_data_dir = path.join(test_data_dir, 'output');
+    if( ! fs.existsSync(output_data_dir) ){
+      fs.mkdirSync(output_data_dir);
+    }
+
+    var input_data_path = path.join(input_data_dir, 'DB_sample_'+system_type+'.json');
+    fs.writeFileSync(input_data_path, JSON.stringify(input_data, null, '  '), {encoding: 'utf8'});
+
+    var data = input_data;
+
     data = map_DB_data(data);
 
     // update system calculations
@@ -303,63 +325,34 @@ router.get('/test', function(req, res) {
       // update drawing
       system_settings = mk_drawing(system_settings);
 
-      var input_data_dir = path.join(local_path, 'test_data/'+global.project.version+'/input');
-      var output_data_dir = path.join(local_path, 'test_data/'+global.project.version+'/output');
-      if( ! fs.existsSync(output_data_dir) ){
-        fs.mkdirSync(output_data_dir);
-      }
       var output_data_path = path.join(output_data_dir, 'DB_sample_'+system_type+'_data.json');
       fs.writeFileSync(output_data_path, JSON.stringify(data, null, '  '), {encoding: 'utf8'});
       console.log(output_data_path);
 
       var svgs = system_settings.drawing.svgs.map(function(svg){
-
-        console.log('SENDING' );
         return svg.outerHTML;
       });
 
+      /*
       var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
-
       mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
         logger.info( 'pdf_write_success: ', pdf_write_success);
       });
+      */
 
-
-      if(sheet_num){
-        var svg_string = svgs[sheet_num-1];
-        if( svg_string ){
-          var html = html_wrap_svg(svg_string);
-          res.end(html);
-        } else {
-          res.end();
-        }
-      } else {
-        res.json({
-          system_id: system_id,
-          status: status,
-          time: ( new Date() - start_time )/1000,
-          notes: system_settings.state.notes,
-          SVGs: svgs,
-          PDF_file_name: PDF_file_name,
-          data: data,
-          state: system_settings.state.system,
-        });
-      }
-
-
-    } else if( status === 'error' ){
-
-      res.json({
-        system_id: system_id,
-        status: status,
-        time: ( new Date() - start_time )/1000,
-        notes: system_settings.state.notes,
-        SVGs: [],
-        data: data,
-        state: system_settings.state.system,
-      });
     }
+
+  }
+
+  res.json({
+    status: status,
+    time: ( new Date() - start_time )/1000,
+    notes: system_settings.state.notes,
+    SVGs: [],
+    data: data,
+    state: system_settings.state.system,
   });
+
 });
 
 
