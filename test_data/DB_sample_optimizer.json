@@ -38,7 +38,7 @@
     "device_name": "M250-60-2LL-S22",
     "manufacturer_name": "PowerMaker",
     "device_type_id": 56,
-    "device_type_name": "Microinverter",
+    "device_type_name": "DC-DC",
     "pvsystem_id": 1445,
     "inverter_id": 1306,
     "num_of_inverters": 1,

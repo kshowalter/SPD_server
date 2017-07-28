@@ -24,7 +24,7 @@ var sample_DB_data = {
 
 var get_DB_data_LOCAL = function(system_type, callback){
   logger.info('USING TEST DATABASE DATA');
-  var system_type = req.query.system_type || 'string';
+  system_type = system_type || 'string';
   var input_data = sample_DB_data[system_type];
   callback(input_data);
 };
@@ -88,7 +88,7 @@ router.get('/d/SVG', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
   var sheet_num = req.query.sheet_num;
-  //var system_id = req.params.system_id;
+  //var system_id = req.query.system_id;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
@@ -164,10 +164,93 @@ router.get('/d/SVG', function(req, res) {
         data: false,
         state: false,
       });
-
     }
 
+  });
+});
 
+///////////////////////////////////////////
+router.get('/t/SVG', function(req, res) {
+  var start_time = new Date();
+  var system_id = req.query.pv_system_id;
+  var sheet_num = req.query.sheet_num;
+  var system_type = req.query.system_type;
+
+  var responce_string = req.method + ': ' + req.url;
+  logger.info(responce_string);
+
+  //get_DB_data(system_id, function(data){
+  get_DB_data_LOCAL(system_type, function(data){
+    if( data ){
+      data = map_DB_data(data);
+
+      // update system calculations
+      var system_settings = mk_settings(data);
+      system_settings.server.host = req.headers.host;
+      system_settings = process_system(system_settings);
+
+      var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
+
+      if( status === 'pass'){
+        // update drawing
+        system_settings = mk_drawing(system_settings);
+
+        var svgs = system_settings.drawing.svgs.map(function(svg){
+          return svg.outerHTML;
+        });
+
+        var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
+
+        mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
+          logger.info( 'pdf_write_success: ', pdf_write_success);
+        });
+
+        if(sheet_num){
+          var svg_string = svgs[sheet_num-1];
+          if( svg_string ){
+            var html = html_wrap_svg(svg_string);
+            res.end(html);
+          } else {
+            res.end();
+          }
+        } else {
+          res.json({
+            system_id: system_id,
+            status: status,
+            time: ( new Date() - start_time )/1000,
+            notes: system_settings.state.notes,
+            SVGs: svgs,
+            PDF_file_name: PDF_file_name,
+            data: data,
+            state: system_settings.state.system,
+          });
+        }
+
+
+      } else if( status === 'error' ){
+
+        res.json({
+          system_id: system_id,
+          status: status,
+          time: ( new Date() - start_time )/1000,
+          notes: system_settings.state.notes,
+          SVGs: [],
+          data: data,
+          state: system_settings.state.system,
+        });
+      }
+
+    } else {
+      res.json({
+        system_id: system_id,
+        status: 'DB data not available',
+        time: ( new Date() - start_time )/1000,
+        notes: false,
+        SVGs: false,
+        data: false,
+        state: false,
+      });
+    }
 
   });
 });
@@ -199,18 +282,14 @@ router.get('/d/system_id_list', function(req, res) {
 });
 
 ///////////////////////////////////////////
-router.get('/t/SVG', function(req, res) {
+router.get('/test', function(req, res) {
   var start_time = new Date();
-  var system_id = req.query.pv_system_id;
-  var sheet_num = req.query.sheet_num;
-  var system_type = req.query.system_type || 'string';
-  //var system_id = req.params.system_id;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(req, function(data){
-  TEST_get_DB_data(req, function(data){
+  //get_DB_data(system_id, function(data){
+  get_DB_data_LOCAL_TEST(req, function(data){
     data = map_DB_data(data);
 
     // update system calculations
@@ -294,7 +373,7 @@ router.get('/t/SVG', function(req, res) {
 router.get('/d/PDF', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
-  //var system_id = req.params.system_id;
+  //var system_id = req.query.system_id;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
@@ -373,7 +452,7 @@ router.get('/d/PDF', function(req, res) {
 router.get('/t/PDF', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
-  var system_type = req.params.system_type;
+  var system_type = req.query.system_type;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
