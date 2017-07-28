@@ -1,4 +1,4 @@
-var moment = require('moment');
+var Moment = require('moment');
 
 var mk_page = function(settings){
   var state = settings.state;
@@ -29,7 +29,7 @@ var mk_page = function(settings){
   d.text(
     [x,y],
     [
-      'Created on: ' + moment().format('YYYY-MM-DD'),
+      'Created on: ' + Moment().format('YYYY-MM-DD'),
       'Based on ' + settings.info.building_code,
     ],
     'text',
