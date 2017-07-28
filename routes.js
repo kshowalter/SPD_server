@@ -22,7 +22,14 @@ var sample_DB_data = {
 };
 
 
-var TEST_get_DB_data = function(req, callback){
+var get_DB_data_LOCAL = function(system_type, callback){
+  logger.info('USING TEST DATABASE DATA');
+  var system_type = req.query.system_type || 'string';
+  var input_data = sample_DB_data[system_type];
+  callback(input_data);
+};
+
+var get_DB_data_LOCAL_TEST = function(req, callback){
   logger.info('USING TEST DATABASE DATA');
   var system_type = req.query.system_type || 'string';
 
@@ -86,8 +93,8 @@ router.get('/d/SVG', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(req, function(data){
-  get_DB_data(req, function(data){
+  //get_DB_data(system_id, function(data){
+  get_DB_data(system_id, function(data){
     if( data ){
       data = map_DB_data(data);
 
@@ -173,8 +180,8 @@ router.get('/d/system_id_list', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(req, function(data){
-  get_DB_system_ids(req, function(data){
+  //get_DB_data(system_id, function(data){
+  get_DB_system_ids(function(data){
     if( data ){
       res.json({
         data: data,
@@ -292,8 +299,8 @@ router.get('/d/PDF', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(req, function(data){
-  get_DB_data(req, function(data){
+  //get_DB_data(system_id, function(data){
+  get_DB_data(system_id, function(data){
     if( data ){
       data = map_DB_data(data);
 
@@ -366,13 +373,13 @@ router.get('/d/PDF', function(req, res) {
 router.get('/t/PDF', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
-  //var system_id = req.params.system_id;
+  var system_type = req.params.system_type;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(req, function(data){
-  TEST_get_DB_data(req, function(data){
+  //get_DB_data(system_id, function(data){
+  get_DB_data_LOCAL(system_type, function(data){
     data = map_DB_data(data);
 
     // update system calculations
@@ -442,8 +449,8 @@ router.get('/d/data', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(req, function(data){
-  get_DB_data(req, function(data){
+  //get_DB_data(system_id, function(data){
+  get_DB_data(system_id, function(data){
     data = map_DB_data(data);
 
     // update system calculations
@@ -468,13 +475,13 @@ router.get('/d/data', function(req, res) {
 ///////////////////////////////////////////
 router.get('/t/data', function(req, res) {
   var start_time = new Date();
-  var system_id = req.query.pv_system_id;
+  var system_type = req.query.pv_system_type;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(req, function(data){
-  TEST_get_DB_data(req, function(data){
+  //get_DB_data(system_id, function(data){
+  get_DB_data_LOCAL(system_type, function(data){
     data = map_DB_data(data);
 
     // update system calculations
@@ -505,8 +512,8 @@ router.get('/d/db', function(req, res) {
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(req, function(data){
-  get_DB_data(req, function(data){
+  //get_DB_data(system_id, function(data){
+  get_DB_data(system_id, function(data){
     if( data ){
       res.json({
         status: 'success',
@@ -527,13 +534,13 @@ router.get('/d/db', function(req, res) {
 ///////////////////////////////////////////
 router.get('/t/db', function(req, res) {
   var start_time = new Date();
-  var system_id = req.query.pv_system_id;
+  var system_type = req.query.pv_system_type;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
-  //get_DB_data(req, function(data){
-  TEST_get_DB_data(req, function(data){
+  //get_DB_data(system_id, function(data){
+  get_DB_data_LOCAL(system_type, function(data){
     if( data ){
       res.json({
         status: 'success',
