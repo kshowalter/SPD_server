@@ -10,11 +10,22 @@ var get_DB_system_ids = require('./lib/get_DB_data.js').get_DB_system_ids;
 var html_wrap_svg = require('./lib/html_wrap_svg.js');
 var map_DB_data = require('./lib/map_DB_data.js');
 
+var fs = require('fs');
+var path = require('path');
 
-var sample_DB_data = require('./TEMP/DB_sample.json');
+var local_path = __dirname;
+
+var sample_DB_data = {
+  'string': require('./TEMP/DB_sample_string.json'),
+  'micro': require('./TEMP/DB_sample_micro.json'),
+  'optimizer': require('./TEMP/DB_sample_optimizer.json'),
+};
+
+
 var TEST_get_DB_data = function(req, callback){
+  var system_type = req.query.system_type || 'string';
   logger.info('USING TEST DATABASE DATA');
-  callback(sample_DB_data);
+  callback(sample_DB_data[system_type]);
 };
 
 
@@ -24,7 +35,29 @@ var TEST_get_DB_data = function(req, callback){
 
 ///////////////////////////////////////////
 router.get('/status', function(req, res) {
-  res.end('running');
+  var start_time = new Date();
+  res.json({
+    data: {
+      version: global.project.version,
+    },
+    status: 'Running',
+    time: ( new Date() - start_time )/1000,
+  });
+});
+
+///////////////////////////////////////////
+router.get('/api', function(req, res) {
+  var start_time = new Date();
+  res.json({
+    data: {
+      Status_url: req.headers.host+'/status',
+      API_url: req.headers.host+'/api',
+      SVG_url: req.headers.host+'/d/SVG?pv_system_id=<system_id>',
+      PDF_url: req.headers.host+'/d/PDF?pv_system_id=<system_id>',
+    },
+    status: 'Running',
+    time: ( new Date() - start_time )/1000,
+  });
 });
 
 
@@ -37,8 +70,6 @@ router.get('/d/SVG', function(req, res) {
   var system_id = req.query.pv_system_id;
   var sheet_num = req.query.sheet_num;
   //var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
@@ -83,8 +114,6 @@ router.get('/d/SVG', function(req, res) {
             status: status,
             time: ( new Date() - start_time )/1000,
             notes: system_settings.state.notes,
-            SVG_url: SVG_url,
-            PDF_url: PDF_url,
             SVGs: svgs,
             PDF_file_name: PDF_file_name,
             data: data,
@@ -100,8 +129,6 @@ router.get('/d/SVG', function(req, res) {
           status: status,
           time: ( new Date() - start_time )/1000,
           notes: system_settings.state.notes,
-          SVG_url: SVG_url,
-          PDF_url: PDF_url,
           SVGs: [],
           data: data,
           state: system_settings.state.system,
@@ -114,8 +141,6 @@ router.get('/d/SVG', function(req, res) {
         status: 'DB data not available',
         time: ( new Date() - start_time )/1000,
         notes: false,
-        SVG_url: SVG_url,
-        PDF_url: PDF_url,
         SVGs: false,
         data: false,
         state: false,
@@ -159,15 +184,14 @@ router.get('/t/SVG', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
   var sheet_num = req.query.sheet_num;
+  var system_type = req.query.system_type || 'string';
   //var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
 
   //get_DB_data(req, function(data){
-  TEST_get_DB_data(req, function(data){
+    TEST_get_DB_data(req, function(data){
     data = map_DB_data(data);
 
     // update system calculations
@@ -181,7 +205,19 @@ router.get('/t/SVG', function(req, res) {
       // update drawing
       system_settings = mk_drawing(system_settings);
 
+      var output_data_dir = path.join(local_path, 'TEMP/'+global.project.version);
+      /*
+      if ( ! fs.existsSync(output_data_dir) ){
+        fs.mkdirSync(output_data_dir);
+      }
+      */
+      var output_data_path = path.join(output_data_dir, 'DB_sample_'+system_type+'_data.json');
+      fs.writeFileSync(output_data_path, JSON.stringify(data, null, '  '), {encoding: 'utf8'});
+      console.log(output_data_path);
+
       var svgs = system_settings.drawing.svgs.map(function(svg){
+
+        console.log('SENDING' );
         return svg.outerHTML;
       });
 
@@ -190,6 +226,7 @@ router.get('/t/SVG', function(req, res) {
       mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
         logger.info( 'pdf_write_success: ', pdf_write_success);
       });
+
 
       if(sheet_num){
         var svg_string = svgs[sheet_num-1];
@@ -205,8 +242,6 @@ router.get('/t/SVG', function(req, res) {
           status: status,
           time: ( new Date() - start_time )/1000,
           notes: system_settings.state.notes,
-          SVG_url: SVG_url,
-          PDF_url: PDF_url,
           SVGs: svgs,
           PDF_file_name: PDF_file_name,
           data: data,
@@ -222,8 +257,6 @@ router.get('/t/SVG', function(req, res) {
         status: status,
         time: ( new Date() - start_time )/1000,
         notes: system_settings.state.notes,
-        SVG_url: SVG_url,
-        PDF_url: PDF_url,
         SVGs: [],
         data: data,
         state: system_settings.state.system,
@@ -244,8 +277,6 @@ router.get('/d/PDF', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
   //var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
@@ -287,8 +318,6 @@ router.get('/d/PDF', function(req, res) {
             status: status,
             time: ( new Date() - start_time )/1000,
             notes: system_settings.state.notes,
-            SVG_url: SVG_url,
-            PDF_url: PDF_url,
             SVGs: svgs,
             PDF_file_name: PDF_file_name
           });
@@ -301,8 +330,6 @@ router.get('/d/PDF', function(req, res) {
           status: status,
           time: ( new Date() - start_time )/1000,
           notes: system_settings.state.notes,
-          SVG_url: SVG_url,
-          PDF_url: PDF_url,
           SVGs: [],
           PDF_file_name: false
         });
@@ -314,8 +341,6 @@ router.get('/d/PDF', function(req, res) {
         status: 'DB data not available',
         time: ( new Date() - start_time )/1000,
         notes: false,
-        SVG_url: SVG_url,
-        PDF_url: PDF_url,
         SVGs: false,
         data: false,
         state: false,
@@ -331,8 +356,6 @@ router.get('/t/PDF', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
   //var system_id = req.params.system_id;
-  var SVG_url = req.headers.host+'/d/SVG?pv_system_id='+system_id;
-  var PDF_url = req.headers.host+'/d/PDF?pv_system_id='+system_id;
 
   var responce_string = req.method + ': ' + req.url;
   logger.info(responce_string);
@@ -373,8 +396,6 @@ router.get('/t/PDF', function(req, res) {
           status: status,
           time: ( new Date() - start_time )/1000,
           notes: system_settings.state.notes,
-          SVG_url: SVG_url,
-          PDF_url: PDF_url,
           SVGs: svgs,
           PDF_file_name: PDF_file_name
         });
@@ -387,8 +408,6 @@ router.get('/t/PDF', function(req, res) {
         status: status,
         time: ( new Date() - start_time )/1000,
         notes: system_settings.state.notes,
-        SVG_url: SVG_url,
-        PDF_url: PDF_url,
         SVGs: [],
         PDF_file_name: false
       });

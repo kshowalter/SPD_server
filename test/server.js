@@ -23,11 +23,15 @@ var urls = {
   },
 };
 
+var date = new Date();
+
+console.log('  TEST: ' + date.toISOString() );
+
 for( var server_name in urls ){
   describe(server_name, function(){
     var server = urls[server_name];
     var url = server.url;
-    var system_id = server.valid_system_id;
+    //var system_id = server.valid_system_id;
 
     var request_result_SVG;
     var request_result_DB;
@@ -36,7 +40,7 @@ for( var server_name in urls ){
 
     describe('Server functions with sample data', function(){
       before('Requests', function load_request(done){
-        request( url+'/t/SVG?pv_system_id='+system_id, function(error, response, body) {
+        request( url+'/t/SVG', function(error, response, body) {
           request_result_SVG = {
             error: error,
             response: response,
@@ -94,28 +98,34 @@ for( var server_name in urls ){
 
 
 
-    describe('DB connected test, with system: '+system_id, function(){
+    describe('DB connected test', function(){
       before('Request DB', function load_request(done){
-        if( system_id ){
-          this.timeout(10000);
-          request( url+'/d/db?pv_system_id='+system_id, function(error, response, body) {
-            request_result_DB = {
-              error: error,
-              response: response,
-              body: body
-            };
-            if( body ){
-              result_DB = JSON.parse(body);
-            } else {
-              result_DB = false;
-            }
-            done();
-          });
+        request( url+'/d/system_id_list', function(error, response, body) {
+          var system_lists = JSON.parse(body).data;
+          var system_type = Object.keys(system_lists)[0];
+          var system_id = system_lists[system_type][0].system_id;
+          if( system_id ){
+            this.timeout(10000);
+            request( url+'/d/db?pv_system_id='+system_id, function(error, response, body) {
+              request_result_DB = {
+                error: error,
+                response: response,
+                body: body
+              };
+              if( body ){
+                result_DB = JSON.parse(body);
+              } else {
+                result_DB = false;
+              }
+              done();
+            });
 
-        } else {
-          request_result_DB = false;
-          done();
-        }
+          } else {
+            request_result_DB = false;
+            done();
+          }
+
+        });
       });
 
 
