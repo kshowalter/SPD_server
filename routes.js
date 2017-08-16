@@ -94,8 +94,7 @@ router.get('/d/SVG', function(req, res) {
   var sheet_num = req.query.sheet_num;
   //var system_id = req.query.system_id;
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   //get_DB_data(system_id, function(data){
   get_DB_data(system_id, function(data){
@@ -180,8 +179,7 @@ router.get('/t/SVG', function(req, res) {
   var sheet_num = req.query.sheet_num;
   var system_type = req.query.system_type;
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   //get_DB_data(system_id, function(data){
   get_DB_data_LOCAL(system_type, function(data){
@@ -264,8 +262,7 @@ router.get('/t/SVG', function(req, res) {
 router.get('/d/system_id_list', function(req, res) {
   var start_time = new Date();
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   //get_DB_data(system_id, function(data){
   get_DB_system_ids(function(data){
@@ -285,12 +282,14 @@ router.get('/d/system_id_list', function(req, res) {
   });
 });
 
+
+
+
 ///////////////////////////////////////////
 router.get('/test', function(req, res) {
   var start_time = new Date();
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   for( var system_type in sample_DB_data ){
     var input_data = sample_DB_data[system_type];
@@ -368,8 +367,7 @@ router.get('/d/PDF', function(req, res) {
   var system_id = req.query.pv_system_id;
   //var system_id = req.query.system_id;
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   //get_DB_data(system_id, function(data){
   get_DB_data(system_id, function(data){
@@ -447,8 +445,7 @@ router.get('/t/PDF', function(req, res) {
   var system_id = req.query.pv_system_id;
   var system_type = req.query.system_type;
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   //get_DB_data(system_id, function(data){
   get_DB_data_LOCAL(system_type, function(data){
@@ -518,8 +515,7 @@ router.get('/d/data', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   //get_DB_data(system_id, function(data){
   get_DB_data(system_id, function(data){
@@ -549,8 +545,7 @@ router.get('/t/data', function(req, res) {
   var start_time = new Date();
   var system_type = req.query.pv_system_type;
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   //get_DB_data(system_id, function(data){
   get_DB_data_LOCAL(system_type, function(data){
@@ -581,8 +576,7 @@ router.get('/d/db', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   //get_DB_data(system_id, function(data){
   get_DB_data(system_id, function(data){
@@ -608,8 +602,7 @@ router.get('/t/db', function(req, res) {
   var start_time = new Date();
   var system_type = req.query.pv_system_type;
 
-  var responce_string = req.method + ': ' + req.url;
-  logger.info(responce_string);
+  logger.info(req.method + ': ' + req.url);
 
   //get_DB_data(system_id, function(data){
   get_DB_data_LOCAL(system_type, function(data){
