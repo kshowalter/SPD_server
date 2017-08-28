@@ -413,9 +413,9 @@ var mk_page = function(settings){
     'material': {
       top:'material'
     },
-    'conductor_current': {
+    'conductor_current_cor': {
       top:'max. cond.',
-      bottom: 'current',
+      bottom: 'current (corr.)',
       units: 'A'
     },
     'wet_temp_rating': {
