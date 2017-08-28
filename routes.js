@@ -18,7 +18,7 @@ var local_path = __dirname;
 var sample_DB_data = {
   'string': require('./test_data/DB_sample_string.json'),
   'micro': require('./test_data/DB_sample_micro.json'),
-  'optimizer': require('./test_data/DB_sample_optimizer.json'),
+  'optimizer': require('./test_data/DB_sample_optimizer.json')
 };
 
 
