@@ -388,56 +388,52 @@ var mk_page = function(settings){
 
   var circuit_parameters = {
     'max_current': {
-      top:'circuit',
-      bottom: 'current',
+      top:'CIRCUIT',
+      bottom: 'CURRENT',
       units: 'A',
       col_size: 50
     },
     'conductor': {
-      top:'conductor'
+      top:'CONDUCTOR'
     },
     'type': {
-      top:'type',
+      top:'TYPE',
       col_size: 45
     },
     'conductor_size_min': {
-      top:'cond.',
-      bottom: 'min. size',
-      units: ' AWG'
-    },
-    'ground_size_min': {
-      top:'EGC',
-      bottom: 'min. size',
+      top:'COND.',
+      bottom: 'MIN. SIZE',
       units: ' AWG'
     },
     'material': {
-      top:'material'
+      top:'MATERIAL'
     },
     'conductor_current_cor': {
-      top:'max. cond.',
-      bottom: 'current (corr.)',
+      top:'MAX. COND.',
+      bottom: 'CURRENT (CORR.)',
       units: 'A'
     },
     'wet_temp_rating': {
-      top:'wet_temp',
-      bottom: 'rating',
+      top:'WET_TEMP',
+      bottom: 'RATING',
       units: ' F'
     },
     'location': {
-      top:'location'
+      top:'LOCATION'
     },
     'conduit_type': {
-      top:'conduit',
-      bottom: 'type'
+      top:'CONDUIT',
+      bottom: 'TYPE'
     },
     'min_conduit_size': {
-      top:'conduit',
-      bottom: 'size'
+      top:'CONDUIT',
+      bottom: 'SIZE'
     },
     'ocpd_type': {
-      top:'ocpd_type'
+      top:'OCPD TYPE'
     },
     'OCPD': {
+      top:'OCPD',
       units: 'A'
     },
   };
@@ -445,7 +441,7 @@ var mk_page = function(settings){
   var circuit_parameter_labels = {};
   circuit_parameter_list.forEach(function(circuit_parameter_name){
     circuit_parameters[circuit_parameter_name] = circuit_parameters[circuit_parameter_name] || [];
-    circuit_parameters[circuit_parameter_name].top = circuit_parameters[circuit_parameter_name].top || circuit_parameter_name;
+    circuit_parameters[circuit_parameter_name].top = circuit_parameters[circuit_parameter_name].top || f.pretty_name(circuit_parameter_name).toUpperCase();
     circuit_parameters[circuit_parameter_name].bottom = circuit_parameters[circuit_parameter_name].bottom || '';
 
     var col_size = circuit_parameters[circuit_parameter_name].col_size;
@@ -460,8 +456,8 @@ var mk_page = function(settings){
     circuit_parameter_labels[circuit_parameter_name] = [
       col_size,
       [
-        f.pretty_name(circuit_parameters[circuit_parameter_name].top).toUpperCase(),
-        f.pretty_name(circuit_parameters[circuit_parameter_name].bottom).toUpperCase()
+        circuit_parameters[circuit_parameter_name].top,
+        circuit_parameters[circuit_parameter_name].bottom
       ]
     ];
   });
