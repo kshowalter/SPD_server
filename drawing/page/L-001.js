@@ -102,51 +102,53 @@ var mk_page = function(settings){
   y = size.sheet.frame_padding*6;
 
 
+  if( system.config.system_type !== 'micro'){
+
+    x += 0;
+    y += 0;
+    title = 'WARNING';
+    text_list = [
+      ['PHOTOVOLTAIC POWER SOURCE'],
+    ];
+    notes = [
+      'Per Code:',
+      'NEC 690.31.G.3',
+    ];
+    h = mk_label(d, x, y, title, text_list, notes);
 
 
-  x += 0;
-  y += 0;
-  title = 'WARNING';
-  text_list = [
-    ['PHOTOVOLTAIC POWER SOURCE'],
-  ];
-  notes = [
-    'Per Code:',
-    'NEC 690.31.G.3',
-  ];
-  h = mk_label(d, x, y, title, text_list, notes);
+    x += 0;
+    y += h + label_spacing;
+    title = [
+      'PHOTOVOLTAIC DC',
+      'DISCONNECT'
+    ];
+    text_list = [];
+    notes = [
+      'Per Code:',
+      'NEC 690.14.C.2',
+    ];
+    h = mk_label(d, x, y, title, text_list, notes);
 
 
-  x += 0;
-  y += h + label_spacing;
-  title = [
-    'PHOTOVOLTAIC DC',
-    'DISCONNECT'
-  ];
-  text_list = [];
-  notes = [
-    'Per Code:',
-    'NEC 690.14.C.2',
-  ];
-  h = mk_label(d, x, y, title, text_list, notes);
+    x += 0;
+    y += h + label_spacing;
+    title = undefined;
+    text_list = [
+      [['MAXIMUM POWER-','POINT CURRENT (Imp)'], f.format_value(system.array.imp), 'A' ],
+      [['MAXIMUM POWER-', 'POINT VOLTAGE (Vmp)'], f.format_value(system.array.vmp), 'V'],
+      [['MAXIMUM SYSTEM', 'VOLTAGE (Voc)'], f.format_value(system.array.max_sys_voltage), 'V'],
+      [['SHORT-CIRCUIT', 'CURRENT (Isc)'], f.format_value(system.array.isc), 'A'],
+    ];
+    notes = [
+      'Per Code:',
+      'NEC 690.53'
+    ];
+    h = mk_label(d, x, y, title, text_list, notes);
 
-
-
-  x += 0;
-  y += h + label_spacing;
-  title = undefined;
-  text_list = [
-    [['MAXIMUM POWER-','POINT CURRENT (Imp)'], f.format_value(system.array.imp), 'A' ],
-    [['MAXIMUM POWER-', 'POINT VOLTAGE (Vmp)'], f.format_value(system.array.vmp), 'V'],
-    [['MAXIMUM SYSTEM', 'VOLTAGE (Voc)'], f.format_value(system.array.max_sys_voltage), 'V'],
-    [['SHORT-CIRCUIT', 'CURRENT (Isc)'], f.format_value(system.array.isc), 'A'],
-  ];
-  notes = [
-    'Per Code:',
-    'NEC 690.53'
-  ];
-  h = mk_label(d, x, y, title, text_list, notes);
-
+  } else {
+    h = -label_spacing;
+  }
 
   x += 0;
   y += h + label_spacing;
