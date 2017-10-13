@@ -211,7 +211,7 @@ var mk_page = function(settings){
   y += h + label_spacing;
   title = undefined;
   text_list = [
-    [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(system.inverter.max_ac_output_current), 'A'],
+    [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(system.interconnection.max_ac_current), 'A'],
     [['MAXIMUM AC', 'OPERATING VOLTAGE'], f.format_value(system.interconnection.grid_voltage ), 'V'],
   ];
   notes = [
