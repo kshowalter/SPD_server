@@ -138,7 +138,7 @@ var mk_page = function(settings){
       [['MAXIMUM POWER-','POINT CURRENT (Imp)'], f.format_value(system.array.imp), 'A' ],
       [['MAXIMUM POWER-', 'POINT VOLTAGE (Vmp)'], f.format_value(system.array.vmp), 'V'],
       [['MAXIMUM SYSTEM', 'VOLTAGE (Voc)'], f.format_value(system.array.max_sys_voltage), 'V'],
-      [['SHORT-CIRCUIT', 'CURRENT (Isc)'], f.format_value(system.array.isc), 'A'],
+      [['MAXIMUM', 'CURRENT (Isc)'], f.format_value(system.array.max_sys_current), 'A'],
     ];
     notes = [
       'Per Code:',
