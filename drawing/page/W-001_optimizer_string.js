@@ -128,10 +128,61 @@ var mk_page = function(settings){
     'label_center'
   );
 
+  x = loc.DC_jb_box.x;
+  y = loc.DC_jb_box.y + size.DC_jb_box.h/2 + 10;
+  var text_offset = 11;
+  // array details
+  x += 225;
+  y += -100;
+  d.text(
+    [ x, y ],
+    [state.system.array.num_of_strings + ' strings:'],
+    'text',
+    'label_right'
+  );
+  y += system.array.num_of_strings * text_offset + text_offset/2;
+  d.text(
+    [ x, y ],
+    ['Total modules:'],
+    'text',
+    'label_right'
+  );
+  x += 13;
+  d.text(
+    [ x, y ],
+    [state.system.array.num_of_modules],
+    'text',
+    'label_center'
+  );
+  y -= text_offset;
+  d.line(
+    [
+      [ x - 8, y + text_offset/4 ],
+      [ x + 8, y + text_offset/4 ]
+    ],
+    'text'
+  );
+  y -= text_offset/2;
+  for( var i in _.range(system.array.num_of_strings)) {
+    var num_of_modules_in_string = settings.drawing.displayed_modules[i];
+    d.text(
+      [ x, y ],
+      ['['+num_of_modules_in_string+']'],
+      'text',
+      'label_center'
+    );
+    y -= text_offset
+  }
+
+
+
+
+  x = loc.DC_jb_box.x;
+  y = loc.DC_jb_box.y + size.DC_jb_box.h/2 + 10;
 
   // Optimizer details
-  x += 200;
-  y += -60;
+  x += 275;
+  y += -75;
   d.block('optimizer', [x,y]);
   x += 15;
   y += -15;
