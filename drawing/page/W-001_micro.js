@@ -71,7 +71,6 @@ var mk_page = function(settings){
       [ ground_left + offset_wire -s, ground_bottom +s - offset_wire],
       [ loc.AC_loadcenter.N.x, ground_bottom  +s -offset_wire],
     ], 'AC_neutral');
-    d.block( 'terminal', [ loc.AC_loadcenter.N.x, ground_bottom  +s -offset_wire]);
     d.block( 'terminal', [ ground_left + offset_wire -s, loc.AC_jb_box.y +s]);
 
     d.line([
@@ -348,7 +347,7 @@ var mk_page = function(settings){
 
   // AC bus bars
   d.rect(
-    [ loc.AC_loadcenter.L1.x, loc.AC_loadcenter.bar.y ],
+    [ loc.AC_loadcenter.L1.x, loc.AC_loadcenter.bar.y + size.AC_wire_offset / 2 ],
     [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
     'box'
   );
@@ -361,7 +360,7 @@ var mk_page = function(settings){
   );
   d.rect(
     //[ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h/2  - size.terminal_diam*5 ],
-    [ loc.AC_loadcenter.L2.x, loc.AC_loadcenter.bar.y ],
+    [ loc.AC_loadcenter.L2.x, loc.AC_loadcenter.bar.y + size.AC_wire_offset / 2 ],
     [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
     'box'
   );
@@ -372,23 +371,28 @@ var mk_page = function(settings){
     'text',
     'table_col_title'
   );
+
+  var offset_wire_1 = size.AC_wire_offset + (size.AC_wire_offset * 2) * 0;
+  var offset_wire_a = size.AC_wire_offset + (size.AC_wire_offset * 2) * (system.array.num_of_strings-1);
+  d.line([
+    [ loc.AC_loadcenter.N.x, ground_bottom  +s -offset_wire_1],
+    [ loc.AC_loadcenter.N.x, ground_bottom  +s -offset_wire_a],
+  ], 'AC_neutral');
+
   d.rect(
-    //[ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h/2  - size.terminal_diam*5 ],
-    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.bar.y ],
-    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
-    'AC_neutral'
+    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y ],
+    [ size.AC_loadcenter.N.w, size.AC_loadcenter.N.h ],
+    'AC_neutral_bar'
   );
   d.text(
-    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 7 ],
-    //[ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h - 7 - size.terminal_diam*5 ],
+    [ loc.AC_loadcenter.N.x - size.AC_loadcenter.N.w/2 - 5, loc.AC_loadcenter.N.y + 2 ],
     'N',
     'text',
     'table_col_title'
   );
 
 
-
-
+  var s, l;
   l = loc.AC_loadcenter.groundbar;
   s = size.AC_loadcenter.groundbar;
   d.rect([l.x,l.y], [s.w,s.h], 'AC_ground_block' );

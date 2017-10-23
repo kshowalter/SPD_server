@@ -610,12 +610,12 @@ var mk_page = function(settings){
 
   var s, l;
   d.rect(
-    [ loc.AC_loadcenter.bar.x, loc.AC_loadcenter.bar.y ],
-    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
-    'AC_neutral'
+    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y ],
+    [ size.AC_loadcenter.N.w, size.AC_loadcenter.N.h ],
+    'AC_neutral_bar'
   );
   d.text(
-    [ loc.AC_loadcenter.bar.x, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 7 ],
+    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y - size.AC_loadcenter.N.h/2 - 7 ],
     'N',
     'text',
     'table_col_title'

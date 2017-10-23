@@ -587,19 +587,19 @@ var mk_page = function(settings){
   );
 
 
-  var s, l;
   d.rect(
-    [ loc.AC_loadcenter.bar.x, loc.AC_loadcenter.bar.y ],
-    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
-    'AC_neutral'
+    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y ],
+    [ size.AC_loadcenter.N.w, size.AC_loadcenter.N.h ],
+    'AC_neutral_bar'
   );
   d.text(
-    [ loc.AC_loadcenter.bar.x, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 7 ],
+    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y - size.AC_loadcenter.N.h/2 - 7 ],
     'N',
     'text',
     'table_col_title'
   );
 
+  var s, l;
   l = loc.AC_loadcenter.groundbar;
   s = size.AC_loadcenter.groundbar;
   d.rect([l.x,l.y], [s.w,s.h], 'AC_ground_block' );
