@@ -166,6 +166,13 @@ var mk_page = function(settings){
   y += 0;
   d.text(
     [ x, y ],
+    [state.system.module.manufacturer_name + ' ' + state.system.module.device_name ],
+    'text',
+    'label_center'
+  );
+  y += text_offset * 1.5;
+  d.text(
+    [ x, y ],
     [state.system.array.num_of_strings + ' strings:'],
     'text',
     'label_right'
@@ -295,12 +302,12 @@ var mk_page = function(settings){
   d.line(
     [
       [ x, y + h/2],
-      [ x + 16, y + h/2 + 32 ]
+      [ x + 10, y + h/2 + 16 ]
     ],
     'wire_callout'
   );
   d.text(
-    [ x + 16 + 10, y + h/2 + 32 ],
+    [ x + 10 + 10, y + h/2 + 16 ],
     ['(1)'],
     'text',
     'label_center'

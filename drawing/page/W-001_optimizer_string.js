@@ -133,7 +133,14 @@ var mk_page = function(settings){
   var text_offset = 11;
   // array details
   x += 225;
-  y += -100;
+  y += -120;
+  d.text(
+    [ x, y ],
+    [state.system.module.manufacturer_name + ' ' + state.system.module.device_name ],
+    'text',
+    'label_center'
+  );
+  y += text_offset * 1.5;
   d.text(
     [ x, y ],
     [state.system.array.num_of_strings + ' strings:'],
@@ -181,7 +188,7 @@ var mk_page = function(settings){
   y = loc.DC_jb_box.y + size.DC_jb_box.h/2 + 10;
 
   // Optimizer details
-  x += 275;
+  x += 285;
   y += -75;
   d.block('optimizer', [x,y]);
   x += 15;
@@ -310,12 +317,12 @@ var mk_page = function(settings){
   d.line(
     [
       [ x, y + h/2],
-      [ x + 16, y + h/2 + 32 ]
+      [ x + 10, y + h/2 + 16 ]
     ],
     'wire_callout'
   );
   d.text(
-    [ x + 16 + 10, y + h/2 + 32 ],
+    [ x + 10 + 10, y + h/2 + 16 ],
     ['(2)'],
     'text',
     'label_center'
@@ -612,7 +619,7 @@ var mk_page = function(settings){
   d.rect(
     [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y ],
     [ size.AC_loadcenter.N.w, size.AC_loadcenter.N.h ],
-    'AC_neutral_bar'
+    '(AC_neutral_bar)'
   );
   d.text(
     [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y - size.AC_loadcenter.N.h/2 - 7 ],
@@ -741,12 +748,12 @@ var mk_page = function(settings){
   d.line(
     [
       [ x,      y + 60/2],
-      [ loc.AC_disc.x - 15 , y + 60/2 + 30 ]
+      [ loc.AC_disc.x - 15 , y + 60/2 + 16 ]
     ],
     'wire_callout'
   );
   d.text(
-    [ loc.AC_disc.x , y + 60/2 + 30 ],
+    [ loc.AC_disc.x , y + 60/2 + 16 ],
     [
       //'(4)'
       '(3)'
@@ -766,7 +773,7 @@ var mk_page = function(settings){
   d.line(
     [
       [ x,                 y + 60/2],
-      [ loc.AC_disc.x + 15 , y + 60/2 + 30 ]
+      [ loc.AC_disc.x + 15 , y + 60/2 + 16 ]
     ],
     'wire_callout'
   );
