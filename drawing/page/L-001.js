@@ -276,7 +276,7 @@ var mk_page = function(settings){
   ];
   notes = [
     'Per Code:',
-    'NEC 690.64.B.4',
+    'NEC 705.12.D.3',
   ];
   h = mk_label(d, x, y, title, text_list, notes);
 
@@ -296,7 +296,7 @@ var mk_page = function(settings){
   ];
   notes = [
     'Per Code:',
-    'NEC 690.64.B.7',
+    'NEC 705.12.D.2.3.b',
   ];
   h = mk_label(d, x, y, title, text_list, notes);
 
