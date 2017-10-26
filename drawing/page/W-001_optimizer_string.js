@@ -619,7 +619,7 @@ var mk_page = function(settings){
   d.rect(
     [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y ],
     [ size.AC_loadcenter.N.w, size.AC_loadcenter.N.h ],
-    '(AC_neutral_bar)'
+    'AC_neutral_bar'
   );
   d.text(
     [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y - size.AC_loadcenter.N.h/2 - 7 ],
@@ -698,7 +698,8 @@ var mk_page = function(settings){
     if( line_name === 'ground' ){
       d.line([
         [ x, y ],
-        [ loc.AC_loadcenter.groundbar.x - size.AC_loadcenter.groundbar.w/2, y ]
+        [ loc.AC_loadcenter.groundbar.x - size.AC_loadcenter.groundbar.w/2, y ],
+        [ loc.AC_loadcenter.N.x - size.AC_loadcenter.N.w/2, y ]
       ]);
     } else if( line_name === 'neutral' ){
       d.line([

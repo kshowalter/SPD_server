@@ -677,7 +677,8 @@ var mk_page = function(settings){
     if( line_name === 'ground' ){
       d.line([
         [ x, y ],
-        [ loc.AC_loadcenter.groundbar.x - size.AC_loadcenter.groundbar.w/2, y ]
+        [ loc.AC_loadcenter.groundbar.x - size.AC_loadcenter.groundbar.w/2, y ],
+        [ loc.AC_loadcenter.N.x - size.AC_loadcenter.N.w/2, y ]
       ]);
     } else if( line_name === 'neutral' ){
       d.line([

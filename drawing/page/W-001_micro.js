@@ -281,6 +281,7 @@ var mk_page = function(settings){
     [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y ],
     [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.ground.y],
     [ loc.AC_loadcenter.groundbar.x - size.AC_loadcenter.groundbar.w/2 , loc.ground.y],
+    [ loc.AC_loadcenter.N.x - size.AC_loadcenter.N.w/2 , loc.ground.y],
   ],'DC_ground');
   //d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 , loc.ground.y]);
 
