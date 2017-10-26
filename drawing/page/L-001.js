@@ -286,20 +286,6 @@ var mk_page = function(settings){
 
   x += column_width;
   y = size.sheet.frame_padding*6;
-  title = 'CAUTION';
-  text_list = [
-    ['PHOTOVOLTAIC SYSTEM'],
-    ['CIRCUIT IS BACKFED'],
-  ];
-  notes = [
-    'Per Code:',
-    'NEC 690.64.B.4',
-  ];
-  h = mk_label(d, x, y, title, text_list, notes);
-
-
-  x += 0;
-  y += h + label_spacing;
   title = 'WARNING';
   text_list = [
     ['INVERTER OUTPUT'],
