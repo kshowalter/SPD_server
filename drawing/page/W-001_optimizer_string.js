@@ -830,7 +830,7 @@ var mk_page = function(settings){
     'wet_temp_rating': {
       top:'WET TEMP',
       bottom: 'RATING',
-      units: ' F'
+      units: ' C'
     },
     'location': {
       top:'LOCATION'
