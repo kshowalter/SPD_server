@@ -504,10 +504,15 @@ var mk_page = function(settings){
     circuit_parameters[circuit_parameter_name].top = circuit_parameters[circuit_parameter_name].top || f.pretty_name(circuit_parameter_name).toUpperCase();
     circuit_parameters[circuit_parameter_name].bottom = circuit_parameters[circuit_parameter_name].bottom || '';
 
+    var units_length = 0;
+    if( circuit_parameters[circuit_parameter_name].units ){
+      units_length = circuit_parameters[circuit_parameter_name].units.length;
+    }
+
     var col_size = circuit_parameters[circuit_parameter_name].col_size;
     if( ! col_size ){
-      var size0 = circuit_parameters[circuit_parameter_name].top.length * font_letter_width;
-      var size1 = circuit_parameters[circuit_parameter_name].bottom.length * font_letter_width;
+      var size0 = ( circuit_parameters[circuit_parameter_name].top.length + units_length ) * font_letter_width;
+      var size1 = ( circuit_parameters[circuit_parameter_name].bottom.length + units_length ) * font_letter_width;
       if( size0 > size1 ) { col_size = size0; }
       else { col_size = size1; }
       col_size += text_cell_size_fixed;

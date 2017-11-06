@@ -716,6 +716,12 @@ var mk_page = function(settings){
     [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w/2, loc.AC_loadcenter.bottom - size.terminal_diam*8 - size.circuit_breaker.h/3],
   ], 'circuit_breaker_connector');
 
+  d.text(
+    [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w/2, loc.AC_loadcenter.bottom - size.terminal_diam*8 - size.circuit_breaker.h/3 - 5],
+    parseFloat(system.circuits['inverter ac output circuit'].OCPD).toFixed(0),
+    'text',
+    'table_center'
+  );
 
   // Conduit callout: inverter to AC diconect
   x = loc.inverter.right + 30;
@@ -837,10 +843,15 @@ var mk_page = function(settings){
     circuit_parameters[circuit_parameter_name].top = circuit_parameters[circuit_parameter_name].top || f.pretty_name(circuit_parameter_name).toUpperCase();
     circuit_parameters[circuit_parameter_name].bottom = circuit_parameters[circuit_parameter_name].bottom || '';
 
+    var units_length = 0;
+    if( circuit_parameters[circuit_parameter_name].units ){
+      units_length = circuit_parameters[circuit_parameter_name].units.length;
+    }
+
     var col_size = circuit_parameters[circuit_parameter_name].col_size;
     if( ! col_size ){
-      var size0 = circuit_parameters[circuit_parameter_name].top.length * font_letter_width;
-      var size1 = circuit_parameters[circuit_parameter_name].bottom.length * font_letter_width;
+      var size0 = ( circuit_parameters[circuit_parameter_name].top.length + units_length ) * font_letter_width;
+      var size1 = ( circuit_parameters[circuit_parameter_name].bottom.length + units_length ) * font_letter_width;
       if( size0 > size1 ) { col_size = size0; }
       else { col_size = size1; }
       col_size += text_cell_size_fixed;
