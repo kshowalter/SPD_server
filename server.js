@@ -4,30 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var local_path = __dirname;
 
-// add timestamps in front of log messages
-require('console-stamp')(console, '[HH:MM:ss.l]');
-global._ = require('lodash');
-global.server_settings = require('./lib/server_settings.js')();
-global.f = require('functions');
-
-global.server_start_time = new Date();
-
 var logger = require('winston');
-var express = require('express');
-var http = require('http');
-
-
-var port = process.env.NODE_ENV === 'dev' ? '3333' : '3300'
-port = process.env.PORT || port;
-
-/*
-logger.add(logger.transports.File, {
-  filename: 'spd_server.log',
-  json: false,
-  handleExceptions: true,
-  humanReadableUnhandledException: true
-});
-*/
 logger.configure({
   transports: [
     new logger.transports.File({
@@ -40,9 +17,23 @@ logger.configure({
   ],
   exitOnError: false
 });
-
-
 global.logger = logger;
+// add timestamps in front of log messages
+require('console-stamp')(console, '[HH:MM:ss.l]');
+
+global._ = require('lodash');
+global.server_settings = require('./lib/server_settings.js')();
+global.f = require('functions');
+
+global.server_start_time = new Date();
+
+var express = require('express');
+var http = require('http');
+
+
+var port = process.env.NODE_ENV === 'dev' ? '3333' : '3300'
+port = process.env.PORT || port;
+
 
 ////////////////////////
 /// version history
