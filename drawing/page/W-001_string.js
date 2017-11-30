@@ -60,8 +60,12 @@ var mk_page = function(settings){
       [ loc.array.right_max + loc.array.offset + offset_wire, y ],
       [ loc.array.right_max + loc.array.offset + offset_wire, loc.array.lower + offset_wire ],
       [ loc.array.left - loc.array.offset + offset_wire, loc.array.lower  + offset_wire ],
+      [ loc.array.left - loc.array.offset + offset_wire, loc.rapid_shutdown.y - size.disconect.l/2 ],
+    ]);
+    d.block( 'disconect', [ loc.array.left - loc.array.offset + offset_wire, loc.rapid_shutdown.y - size.disconect.l/2]).rotate(90);
+    d.line([
+      [ loc.array.left - loc.array.offset + offset_wire, loc.rapid_shutdown.y + size.disconect.l/2 ],
       [ loc.array.left - loc.array.offset + offset_wire, loc.DC_jb_box.y],
-      //[ loc.DC_jb_box.x , loc.DC_jb_box.y-offset_wire],
     ]);
 
     // negative home run
@@ -70,8 +74,12 @@ var mk_page = function(settings){
       [ loc.array.left, y],
       [ loc.array.left - loc.array.offset - offset_wire, y ],
       [ loc.array.left - loc.array.offset - offset_wire, loc.array.lower + offset_wire ],
+      [ loc.array.left - loc.array.offset - offset_wire, loc.rapid_shutdown.y - size.disconect.l/2 ],
+    ]);
+    d.block( 'disconect', [ loc.array.left - loc.array.offset - offset_wire, loc.rapid_shutdown.y - size.disconect.l/2]).rotate(90);
+    d.line([
+      [ loc.array.left - loc.array.offset - offset_wire, loc.rapid_shutdown.y + size.disconect.l/2 ],
       [ loc.array.left - loc.array.offset - offset_wire, loc.DC_jb_box.y],
-      //[ loc.DC_jb_box.x , loc.DC_jb_box.y+offset_wire],
     ]);
 
     d.line([
@@ -92,6 +100,24 @@ var mk_page = function(settings){
   ]);
   d.layer();
 
+
+  // rapid shutdown box
+  x = loc.rapid_shutdown.x;
+  y = loc.rapid_shutdown.y;
+  w = size.rapid_shutdown.w;
+  h = size.rapid_shutdown.h;
+  label = ['RAPID SHUTDOWN','DEVICE'];
+  d.rect(
+    [x,y],
+    [w,h],
+    'box'
+  );
+  d.text(
+    [ x + w/2 + 5, y - 7],
+    label,
+    'text',
+    'label_left'
+  );
 
 
   x = loc.array.left;
@@ -160,10 +186,10 @@ var mk_page = function(settings){
     'box'
   );
   d.text(
-    [ x + w/2 + 35, y - 7],
+    [ x + w/2 + 5, y - 7],
     label,
     'text',
-    'label_center'
+    'label_left'
   );
 
   // Roofline
@@ -246,24 +272,24 @@ var mk_page = function(settings){
     d.line([
       [ loc.DC_jb_box.x - offset_wire , loc.DC_jb_box.y],
       [ loc.DC_jb_box.x - offset_wire , loc.DC_combiner.y + offset_wire],
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
-    //]);
-    //if( system.inverter.tranformerless && system.array.num_of_strings > 2){
-    //  d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
-    //} else {
-    //  d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
-    //  d.line([
-    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
-    //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
-    //  ]);
-    //}
-    //d.line([
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
-    //]);
-    ////d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire]);
-    //d.line([
-    //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
+      //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
+      //]);
+      //if( system.inverter.tranformerless && system.array.num_of_strings > 2){
+      //  d.block( 'fuse', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
+      //} else {
+      //  d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire]);
+      //  d.line([
+      //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2, loc.DC_combiner.y + offset_wire],
+      //    [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
+      //  ]);
+      //}
+      //d.line([
+      //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l, loc.DC_combiner.y + offset_wire],
+      //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
+      //]);
+      ////d.block( 'terminal', [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire]);
+      //d.line([
+      //  [ loc.DC_combiner.x - size.DC_combiner.components_width/2 + size.fuse.l + size.DC_combiner.fuse_to_bus_spacing, loc.DC_combiner.y + offset_wire],
       [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y+offset_wire],
     ], 'DC_neg');
     d.block( 'terminal', [ loc.inverter.left_terminal - size.disconect.l , loc.DC_combiner.y+offset_wire]);
