@@ -60,11 +60,11 @@ var mk_page = function(settings){
       [ loc.array.right_max + loc.array.offset + offset_wire, y ],
       [ loc.array.right_max + loc.array.offset + offset_wire, loc.array.lower + offset_wire ],
       [ loc.array.left - loc.array.offset + offset_wire, loc.array.lower  + offset_wire ],
-      [ loc.array.left - loc.array.offset + offset_wire, loc.rapid_shutdown.y - size.disconect.l/2 ],
+      [ loc.array.left - loc.array.offset + offset_wire, loc.rapid_shutdown.y - size.disconect.l/2 -10 ],
     ]);
-    d.block( 'disconect', [ loc.array.left - loc.array.offset + offset_wire, loc.rapid_shutdown.y - size.disconect.l/2]).rotate(90);
+    d.block( 'disconect', [ loc.array.left - loc.array.offset + offset_wire, loc.rapid_shutdown.y - size.disconect.l/2 -10]).rotate(90);
     d.line([
-      [ loc.array.left - loc.array.offset + offset_wire, loc.rapid_shutdown.y + size.disconect.l/2 ],
+      [ loc.array.left - loc.array.offset + offset_wire, loc.rapid_shutdown.y + size.disconect.l/2 -10 ],
       [ loc.array.left - loc.array.offset + offset_wire, loc.DC_jb_box.y],
     ]);
 
@@ -74,11 +74,11 @@ var mk_page = function(settings){
       [ loc.array.left, y],
       [ loc.array.left - loc.array.offset - offset_wire, y ],
       [ loc.array.left - loc.array.offset - offset_wire, loc.array.lower + offset_wire ],
-      [ loc.array.left - loc.array.offset - offset_wire, loc.rapid_shutdown.y - size.disconect.l/2 ],
+      [ loc.array.left - loc.array.offset - offset_wire, loc.rapid_shutdown.y - size.disconect.l/2 -10 ],
     ]);
-    d.block( 'disconect', [ loc.array.left - loc.array.offset - offset_wire, loc.rapid_shutdown.y - size.disconect.l/2]).rotate(90);
+    d.block( 'disconect', [ loc.array.left - loc.array.offset - offset_wire, loc.rapid_shutdown.y - size.disconect.l/2 -10]).rotate(90);
     d.line([
-      [ loc.array.left - loc.array.offset - offset_wire, loc.rapid_shutdown.y + size.disconect.l/2 ],
+      [ loc.array.left - loc.array.offset - offset_wire, loc.rapid_shutdown.y + size.disconect.l/2 -10 ],
       [ loc.array.left - loc.array.offset - offset_wire, loc.DC_jb_box.y],
     ]);
 
@@ -113,10 +113,34 @@ var mk_page = function(settings){
     'box'
   );
   d.text(
-    [ x + w/2 + 5, y - 7],
+    [ x + w/2 + 5, y - 7 - 10 ],
     label,
     'text',
     'label_left'
+  );
+  x += w/2;
+  y += 16;
+  d.line([
+    [ x, y ],
+    [ x + 60, y ],
+  ]);
+  d.line([
+    [ x + 60 + 3, y ],
+    [ x + 60 + 6, y ],
+  ]);
+  d.line([
+    [ x + 60 + 9, y ],
+    [ x + 60 + 12, y ],
+  ]);
+  d.line([
+    [ x + 60 + 15, y ],
+    [ x + 60 + 18, y ],
+  ]);
+  d.text(
+    [ x + 10, y + 8 ],
+    'Inverter com.',
+    'text',
+    'label_left_small'
   );
 
 
