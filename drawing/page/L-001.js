@@ -93,7 +93,7 @@ var mk_page = function(settings){
   var title;
   var notes;
 
-  var label_spacing = 20;
+  var label_spacing = 15;
   var column_width = 310;
 
   d.layer('base');
@@ -149,6 +149,22 @@ var mk_page = function(settings){
   } else {
     h = -label_spacing;
   }
+
+  if( system.config.system_type === 'string'){
+    x += 0;
+    y += h + label_spacing;
+    text_list = [
+      ['PHOTOVOLTAIC SYSTEM EQUIPPED'],
+      ['WITH RAPID SHUTDOWN'],
+    ];
+    notes = [
+      'Per Code:',
+      'NEC 690.56(C)'
+    ];
+    h = mk_label(d, x, y, title, text_list, notes);
+
+  }
+
 
   x += 0;
   y += h + label_spacing;
