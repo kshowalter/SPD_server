@@ -94,12 +94,12 @@ var mk_page = function(settings){
   var notes;
 
   var label_spacing = 15;
-  var column_width = 310;
+  var column_width = 330;
 
   d.layer('base');
 
-  x = size.sheet.frame_padding*6;
-  y = size.sheet.frame_padding*6;
+  x = size.sheet.frame_padding*4;
+  y = size.sheet.frame_padding*4;
 
 
   if( system.config.system_type !== 'micro'){
@@ -111,7 +111,10 @@ var mk_page = function(settings){
       ['PHOTOVOLTAIC POWER SOURCE'],
     ];
     notes = [
-      'Per Code:',
+      'LABEL LOCATION:',
+      'CONDUIT, COMBINER BOX',
+      ' ',
+      'PER CODE:',
       'NEC 690.31.G.3',
     ];
     h = mk_label(d, x, y, title, text_list, notes);
@@ -125,7 +128,10 @@ var mk_page = function(settings){
     ];
     text_list = [];
     notes = [
-      'Per Code:',
+      'LABEL LOCATION:',
+      'CONDUIT, COMBINER BOX',
+      ' ',
+      'PER CODE:',
       'NEC 690.14.C.2',
     ];
     h = mk_label(d, x, y, title, text_list, notes);
@@ -141,7 +147,10 @@ var mk_page = function(settings){
       [['MAXIMUM', 'CURRENT'], f.format_value(system.array.max_sys_current), 'A'],
     ];
     notes = [
-      'Per Code:',
+      'LABEL LOCATION:',
+      'DC DISCONNECT,',
+      ' ',
+      'PER CODE:',
       'NEC 690.53'
     ];
     h = mk_label(d, x, y, title, text_list, notes);
@@ -158,10 +167,32 @@ var mk_page = function(settings){
       ['WITH RAPID SHUTDOWN'],
     ];
     notes = [
-      'Per Code:',
-      'NEC 690.56(C)'
+      'LOCATION: AC/DC DISC.,',
+      'POINT OF INTERCONNECTION.',
+      ' ',
+      'PER CODE: NEC 690.56(C)'
     ];
     h = mk_label(d, x, y, title, text_list, notes);
+
+    x += 0;
+    y += h + label_spacing;
+    title = 'WARNING';
+    text_list = [
+      ['ELECTRIC SHOCK HAZARD'],
+      ['THE DC CONDUCTORS OF THIS'],
+      ['PHOTOVOLTAIC SYSTEM ARE'],
+      ['UNGROUNDED AND'],
+      ['MAY BE ENERGIZED'],
+    ];
+    notes = [
+      'PER CODE:',
+      'NEC 690.35(F)',
+      '(TO BE USED WHEN',
+      'INVERTER IS',
+      'UNGROUNDED)',
+    ];
+    h = mk_label(d, x, y, title, text_list, notes);
+
 
   }
 
@@ -177,13 +208,24 @@ var mk_page = function(settings){
     ['UNGROUNDED AND ENERGIZED'],
   ];
   notes = [
-    'Per Code:',
+    'LABEL LOCATION:',
+    'PV DISCONECTS',
+    ' ',
+    'PER CODE:',
     'NEC 690.5(C)'
   ];
   h = mk_label(d, x, y, title, text_list, notes);
 
-  x += 0;
-  y += h + label_spacing;
+
+
+
+
+  ///////
+  // Column 2
+
+
+  x += column_width;
+  y = size.sheet.frame_padding*4;
   title = 'WARNING';
   text_list = [
     ['ELECTRIC SHOCK HAZARD'],
@@ -198,29 +240,14 @@ var mk_page = function(settings){
     ['EXPOSED TO SUNLIGHT'],
   ];
   notes = [
-    'Per Code:',
+    'LABEL LOCATION:',
+    'AC DISCONNECT,',
+    'POINT OF INTERCONNECTION',
+    ' ',
+    'PER CODE:',
     'NEC 690.17(4)'
   ];
   h = mk_label(d, x, y, title, text_list, notes);
-
-
-
-  ///////
-  // Column 2
-
-  x += column_width;
-  y = size.sheet.frame_padding*6;
-  title = [
-    'PHOTOVOLTAIC AC',
-    'DISCONNECT'
-  ];
-  text_list = [];
-  notes = [
-    'Per Code:',
-    'NEC 690.14.C.2'
-  ];
-  h = mk_label(d, x, y, title, text_list, notes);
-
 
 
   x += 0;
@@ -231,26 +258,12 @@ var mk_page = function(settings){
     [['MAXIMUM AC', 'OPERATING VOLTAGE'], f.format_value(system.interconnection.grid_voltage ), 'V'],
   ];
   notes = [
-    'Per Code:',
+    'LABEL LOCATION:',
+    'AC DISCONNECT,',
+    'POINT OF INTERCONNECTION',
+    ' ',
+    'PER CODE:',
     'NEC 690.54'
-  ];
-  h = mk_label(d, x, y, title, text_list, notes);
-
-
-
-  x += 0;
-  y += h + label_spacing;
-  title = 'WARNING';
-  text_list = [
-    ['ELECTRIC SHOCK HAZARD'],
-    ['DO NOT TOUCH TERMINALS'],
-    ['TERMINALS ON BOTH LINE AND'],
-    ['LOAD SIDES MAY BE ENERGIZED'],
-    ['IN THE OPEN POSITION'],
-  ];
-  notes = [
-    'Per Code:',
-    'NEC 690.17.E'
   ];
   h = mk_label(d, x, y, title, text_list, notes);
 
@@ -274,7 +287,11 @@ var mk_page = function(settings){
     [['MAXIMUM AC', 'OPERATING VOLTAGE'], f.format_value(system.interconnection.grid_voltage ), 'V'],
   ];
   notes = [
-    'Per Code:',
+    'LABEL LOCATION:',
+    'AC DISCONNECT,',
+    'POINT OF INTERCONNECTION',
+    ' ',
+    'PER CODE:',
     'NEC 690.17.4;',
     'NEC 690.54',
   ];
@@ -291,7 +308,10 @@ var mk_page = function(settings){
     ['PHTOVOLTAIC SYSTEM'],
   ];
   notes = [
-    'Per Code:',
+    'LABEL LOCATION:',
+    'POINT OF INTERCONNECTION',
+    ' ',
+    'PER CODE:',
     'NEC 705.12.D.3',
   ];
   h = mk_label(d, x, y, title, text_list, notes);
@@ -301,7 +321,46 @@ var mk_page = function(settings){
   // Column 3
 
   x += column_width;
-  y = size.sheet.frame_padding*6;
+  y = size.sheet.frame_padding*10;
+  title = [
+    'PHOTOVOLTAIC AC',
+    'DISCONNECT'
+  ];
+  text_list = [];
+  notes = [
+    'LABEL LOCATION:',
+    'AC DISCONNECT',
+    ' ',
+    'PER CODE:',
+    'NEC 690.14.C.2'
+  ];
+  h = mk_label(d, x, y, title, text_list, notes);
+
+
+  x += 0;
+  y += h + label_spacing;
+  title = 'WARNING';
+  text_list = [
+    ['ELECTRIC SHOCK HAZARD'],
+    ['DO NOT TOUCH TERMINALS'],
+    ['TERMINALS ON BOTH LINE AND'],
+    ['LOAD SIDES MAY BE ENERGIZED'],
+    ['IN THE OPEN POSITION'],
+  ];
+  notes = [
+    'LABEL LOCATION:',
+    'AC DISCONNECT,',
+    'POINT OF INTERCON.',
+    ' ',
+    'PER CODE:',
+    'NEC 690.17.E'
+  ];
+  h = mk_label(d, x, y, title, text_list, notes);
+
+
+
+  x += 0;
+  y += h + label_spacing;
   title = 'WARNING';
   text_list = [
     ['INVERTER OUTPUT'],
@@ -311,7 +370,10 @@ var mk_page = function(settings){
     ['DEVICE'],
   ];
   notes = [
-    'Per Code:',
+    'LABEL LOCATION:',
+    'POINT OF INTERCON.',
+    ' ',
+    'PER CODE:',
     'NEC 705.12.D.2.3.b',
   ];
   h = mk_label(d, x, y, title, text_list, notes);
@@ -319,27 +381,63 @@ var mk_page = function(settings){
 
 
 
-  x += 0;
-  y += h + label_spacing;
-  title = 'WARNING';
-  text_list = [
-    ['ELECTRIC SHOCK HAZARD'],
-    ['THE DC CONDUCTORS OF THIS'],
-    ['PHOTOVOLTAIC SYSTEM ARE'],
-    ['UNGROUNDED AND'],
-    ['MAY BE ENERGIZED'],
-  ];
-  notes = [
-    'Per Code:',
-    'NEC 690.35(F)',
-    'TO BE USED WHEN',
-    'INVERTER IS',
-    'UNGROUNDED',
-  ];
-  h = mk_label(d, x, y, title, text_list, notes);
+
 
 
   d.layer();
+
+
+  var x = size.sheet.w * 2/3 + 20;
+  var y = size.sheet.h * 1/2 + 30;
+
+  d.text(
+    [x,y],
+    [
+      'LABEL NOTES',
+      '1.) THE LABEL SHALL BE SUITABLE FOR THE ENVIRONMENT ',
+      '    WHERE IT IS INSTALLED.',
+      '2.) ADHESIVE FASTENED SIGNS MAY BE ACCEPTABLE ',
+      '    IF PROPERLY ADHERED.',
+      '3.) VINYL SIGNS SHALL BE WEATHER RESISTANT [IFC 605.11.1.3].',
+      '4.) PROVIDE A PERMANENT PLAQUE OR DIRECTORY SHOWING ',
+      '    ALL ELECTRIC POWER SOURCES ON THE PREMISES AT ',
+      '    SERVICE ENTRANCE, PER NEC 705.10.',
+    ],
+    'text',
+    'NEC_label_notes_text'
+  );
+
+
+  x += 25;
+  y += 150;
+  d.text(
+    [x,y],
+    [
+      'MARKING CONTENT AND FORMAT',
+      ' - RED BACKGROUND',
+      ' - WHITE LETTERING',
+      ' - MINIMUM 3/8" LETTER HEIGHT',
+      ' - ALL CAPITAL LETTERS',
+      ' - ARIAL OR SIMILAR FONT, NON-BOLD',
+      ' - REFLECTIVE WEATHER RESISTANT MATERIAL',
+      '   SUITABLE FOR THE ENVIRONMENT',
+      '   (DURABLE ADHESIVE MATERIALS MUST',
+      '    MEET THIS REQUIREMENT)',
+    ],
+    'text',
+    'NEC_label_notes_text'
+  );
+
+
+  'MARKING CONTENT AND FORMAT',
+  ' - RED BACKGROUND',
+  ' - WHITE LETTERING',
+  ' - MINIMUM 3/8" LETTER HEIGHT',
+  ' - ALL CAPITAL LETTERS',
+  ' - ARIAL OR SIMILAR FONT, NON-BOLD',
+  ' - REFLECTIVE WEATHER RESISTANT MATERIAL SUITABLE FOR THE ENVIRONMENT (DURABLE ADHESIVE MATERIALS MUST',
+  d.layer();
+
 
   return d;
 };
