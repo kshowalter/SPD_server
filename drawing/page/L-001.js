@@ -148,7 +148,7 @@ var mk_page = function(settings){
     ];
     notes = [
       'LABEL LOCATION:',
-      'DC DISCONNECT,',
+      'DC DISCONNECT',
       ' ',
       'PER CODE:',
       'NEC 690.53'
