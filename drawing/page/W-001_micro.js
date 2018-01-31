@@ -267,7 +267,7 @@ var mk_page = function(settings){
   );
   d.text(
     [ x + w/2 + 16 + 5, y ],
-    ['MANUFACTURER SUPPLIED CABLE'],
+    ['(1) MANUFACTURER SUPPLIED CABLE'],
     'text',
     'label_left'
   );
@@ -309,7 +309,7 @@ var mk_page = function(settings){
   );
   d.text(
     [ x + 10 + 10, y + h/2 + 16 ],
-    ['(1)'],
+    ['(2)'],
     'text',
     'label_center'
   );
@@ -440,6 +440,7 @@ var mk_page = function(settings){
 
 
   var circuit_names = [
+    'Manufacturer cable',
     'PV Microinverter AC sources',
   ];
 
