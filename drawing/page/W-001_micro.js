@@ -444,58 +444,71 @@ var mk_page = function(settings){
     'PV Microinverter AC sources',
   ];
 
-  var text_cell_size_fixed = 20;
-  var font_letter_width = 3.6;
+  var text_cell_size_fixed = 16;
+  var font_letter_width = 3.5;
 
   var circuit_parameters = {
     'max_current': {
       top:'CIRCUIT',
-      bottom: 'CURRENT',
-      units: 'A',
-      col_size: 50
+      middle: 'CURR.',
+      bottom: '(A)',
     },
     'conductor': {
       top:'CONDUCTOR'
     },
     'type': {
-      top:'TYPE',
-      col_size: 45
+      top:'TYPE'
     },
     'conductor_size_min': {
       top:'COND.',
-      bottom: 'MIN. SIZE',
-      units: ' AWG'
+      middle: 'MIN. SIZE',
+      bottom: '(AWG)'
     },
     'material': {
-      top:'MATERIAL'
+      top:'MAT.'
+    },
+    'conductor_current': {
+      top:'MAX.',
+      middle: ' CONDUCT.',
+      bottom: 'CUR. (A)',
+    },
+    'temp_correction_factor': {
+      top:'TEMP.',
+      middle: 'COR.',
+      bottom: 'FACTOR',
+    },
+    'conductors_adj_factor': {
+      top:'CONDUCT.',
+      middle: 'ADJ. FACT.',
     },
     'conductor_current_cor': {
       top:'MAX. COND.',
-      bottom: 'CURRENT (CORR.)',
-      units: 'A'
+      middle: 'CUR. (CORR.)',
+      bottom: '(A)'
     },
     'wet_temp_rating': {
-      top:'WET_TEMP',
-      bottom: 'RATING',
-      units: ' C'
+      top:'WET TEMP',
+      middle: 'RATING',
+      bottom: '(deg. C)'
     },
     'location': {
       top:'LOCATION'
     },
     'conduit_type': {
       top:'CONDUIT',
-      bottom: 'TYPE'
+      middle: 'TYPE'
     },
     'min_conduit_size': {
       top:'CONDUIT',
-      bottom: 'SIZE'
+      middle: 'SIZE',
+      bottom: '(in.)'
     },
     'ocpd_type': {
       top:'OCPD TYPE'
     },
     'OCPD': {
       top:'OCPD',
-      units: 'A'
+      middle: '(A)'
     },
   };
   var circuit_parameter_list = Object.keys(circuit_parameters);
@@ -503,6 +516,7 @@ var mk_page = function(settings){
   circuit_parameter_list.forEach(function(circuit_parameter_name){
     circuit_parameters[circuit_parameter_name] = circuit_parameters[circuit_parameter_name] || [];
     circuit_parameters[circuit_parameter_name].top = circuit_parameters[circuit_parameter_name].top || f.pretty_name(circuit_parameter_name).toUpperCase();
+    circuit_parameters[circuit_parameter_name].middle = circuit_parameters[circuit_parameter_name].middle || '';
     circuit_parameters[circuit_parameter_name].bottom = circuit_parameters[circuit_parameter_name].bottom || '';
 
     var units_length = 0;
@@ -513,9 +527,9 @@ var mk_page = function(settings){
     var col_size = circuit_parameters[circuit_parameter_name].col_size;
     if( ! col_size ){
       var size0 = ( circuit_parameters[circuit_parameter_name].top.length + units_length ) * font_letter_width;
-      var size1 = ( circuit_parameters[circuit_parameter_name].bottom.length + units_length ) * font_letter_width;
-      if( size0 > size1 ) { col_size = size0; }
-      else { col_size = size1; }
+      var size1 = ( circuit_parameters[circuit_parameter_name].middle.length + units_length ) * font_letter_width;
+      var size2 = ( circuit_parameters[circuit_parameter_name].bottom.length + units_length ) * font_letter_width;
+      col_size = Math.max(size0, size1, size2);
       col_size += text_cell_size_fixed;
     }
 
@@ -523,12 +537,13 @@ var mk_page = function(settings){
       col_size,
       [
         circuit_parameters[circuit_parameter_name].top,
+        circuit_parameters[circuit_parameter_name].middle,
         circuit_parameters[circuit_parameter_name].bottom
       ]
     ];
   });
 
-  var n_rows = 2 + circuit_names.length;
+  var n_rows = 3 + circuit_names.length;
   var n_cols = 2 + circuit_parameter_list.length;
   var row_height = 16;
   var row_width = 50;
@@ -544,11 +559,11 @@ var mk_page = function(settings){
   });
 
 
-  var row = 3;
+  var row = 4;
   circuit_names.forEach(function(circuit_name){
     var circuit = system.circuits[circuit_name];
 
-    t.cell(row,1).font('table').text( String(row-2) );
+    t.cell(row,1).font('table').text( String(row-3) );
     t.cell(row,2).font('table_left').text( circuit_name.toUpperCase() );
 
     var col = 3;
@@ -579,12 +594,14 @@ var mk_page = function(settings){
   // Fixed columns
   t.cell(1,1).font('table_col_title').text('SYM.');
   t.cell(1,1).border('B', false);
+  t.cell(2,1).border('B', false);
   t.col_size(1, 25);
   w += 25;
 
   t.cell(1,2).font('table_col_title').text('CIRCUIT');
   t.cell(1,2).border('B', false);
-  t.col_size(2, 160);
+  t.cell(2,2).border('B', false);
+  t.col_size(2, 150);
   w += 165;
 
   circuit_parameter_labels['conductor'][0] += 5;
@@ -595,9 +612,11 @@ var mk_page = function(settings){
     var col_size = circuit_parameter_labels[circuit_parameter_name][0];
     var label = circuit_parameter_labels[circuit_parameter_name][1];
     t.cell(1,i+3).border('B', false);
+    t.cell(2,i+3).border('B', false);
     t.col_size(i+3, col_size);
     t.cell(1,i+3).font('table_col_title').text(label[0]);
     t.cell(2,i+3).font('table_col_title').text(label[1]);
+    t.cell(3,i+3).font('table_col_title').text(label[2]);
     w += col_size;
   });
 
