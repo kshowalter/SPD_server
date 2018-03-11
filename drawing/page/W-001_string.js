@@ -600,6 +600,7 @@ var mk_page = function(settings){
   y = loc.AC_loadcenter.y;
   w = size.AC_loadcenter.w;
   h = size.AC_loadcenter.h;
+  offset = size.AC_loadcenter.bar.offset;
 
   d.rect([x,y],
     [w,h],
@@ -607,7 +608,7 @@ var mk_page = function(settings){
   );
 
   d.text(
-    [ x, y-h/2-27 ],
+    [ x - w/2 - 23, y-h/2 + 10 ],
     [
       'LOAD',
       'CENTER'
@@ -616,51 +617,131 @@ var mk_page = function(settings){
     'label_center'
   );
 
+
   // AC bus bars
   d.rect(
-    [ loc.AC_loadcenter.x-10, loc.AC_loadcenter.bar.y ],
+    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y ],
     [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
     'box'
   );
   d.text(
-    //[ loc.AC_loadcenter.x-10, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h - 7 - size.terminal_diam*5 ],
-    [ loc.AC_loadcenter.x-10, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 7 ],
+    //[ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h - 7 - size.terminal_diam*5 ],
+    [ loc.AC_loadcenter.x-offset-10, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 4 ],
     'L1',
     'text',
     'table_col_title'
   );
   d.rect(
-    //[ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h/2  - size.terminal_diam*5 ],
-    [ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bar.y ],
+    //[ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h/2  - size.terminal_diam*5 ],
+    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y ],
     [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
     'box'
   );
   d.text(
-    [ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 7 ],
-    //[ loc.AC_loadcenter.x+10, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h - 7 - size.terminal_diam*5 ],
+    [ loc.AC_loadcenter.x+offset+10, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 4 ],
+    //[ loc.AC_loadcenter.x+o, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h - 7 - size.terminal_diam*5 ],
     'L2',
     'text',
     'table_col_title'
   );
 
-
+  var s, l;
   d.rect(
     [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y ],
     [ size.AC_loadcenter.N.w, size.AC_loadcenter.N.h ],
     'AC_neutral_bar'
   );
   d.text(
-    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y - size.AC_loadcenter.N.h/2 - 7 ],
+    [ loc.AC_loadcenter.N.x+7, loc.AC_loadcenter.N.y - size.AC_loadcenter.N.h/2 + 4 ],
     'N',
     'text',
     'table_col_title'
   );
 
-  var s, l;
   l = loc.AC_loadcenter.groundbar;
   s = size.AC_loadcenter.groundbar;
   d.rect([l.x,l.y], [s.w,s.h], 'AC_ground_block' );
   d.block('ground', [l.x,l.y+s.h/2]);
+
+
+  //# utility meter
+  d.section('AC load center');
+
+  x = loc.meter.x;
+  y = loc.meter.y;
+  w = size.meter.w;
+  h = size.meter.h;
+  offset = size.AC_loadcenter.bar.offset;
+
+  d.rect([x,y],
+    [w,h],
+    'box'
+  );
+  d.circ(
+    [x,y],
+    h/2,
+    'box'
+  );
+
+  d.text(
+    [ x - w/2 -34, y-h/2 + 10 ],
+    [
+      'NET-METER',
+      '(UTILITY-',
+      'APPROVED)'
+    ],
+    'text',
+    'label_center'
+  );
+
+  d.layer('AC_L1');
+  // AC bus bars
+  d.line([
+    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2],
+    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15],
+  ]);
+  d.block('circuit_breaker',
+    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w/2]
+  ).rotate(-90);
+  d.line([
+    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w],
+    [ loc.AC_loadcenter.x-offset, y + h/2 - 5],
+  ]);
+  d.block('terminal',
+    [ loc.AC_loadcenter.x-offset, y + h/2 - 5]
+  );
+
+  d.layer('AC_L2');
+  d.line([
+    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2],
+    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15],
+  ]);
+  d.block('circuit_breaker',
+    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w/2]
+  ).rotate(-90);
+  d.line([
+    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w],
+    [ loc.AC_loadcenter.x+offset, y + h/2 - 5],
+  ]);
+  d.block('terminal',
+    [ loc.AC_loadcenter.x+offset, y + h/2 - 5]
+  );
+
+  d.layer('AC_neutral');
+  d.line([
+    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.N.y ],
+    [ loc.AC_loadcenter.N.x, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2],
+    [ loc.AC_loadcenter.N.x, y + h/2 - 5],
+  ]);
+  d.block('terminal',
+    [ loc.AC_loadcenter.N.x, y + h/2 - 5]
+  );
+
+  d.line([
+    [ loc.AC_loadcenter.x-offset - size.circuit_breaker.h, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w/2],
+    [ loc.AC_loadcenter.x+offset - size.circuit_breaker.h, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w/2],
+  ], 'circuit_breaker_connector');
+
 
 
 
@@ -733,7 +814,7 @@ var mk_page = function(settings){
     } else if( line_name === 'neutral' ){
       d.line([
         [ x, y ],
-        [ loc.AC_loadcenter.neutralbar.x - size.AC_loadcenter.neutralbar.w/2, y ]
+        [ loc.AC_loadcenter.N.x - size.AC_loadcenter.N.w/2, y ]
       ]);
     } else if( line_name === 'L1' ){
       d.line([
@@ -742,7 +823,7 @@ var mk_page = function(settings){
       ]);
       d.line([
         [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w , y ],
-        [ loc.AC_loadcenter.x-10 -5/2, y ]
+        [ loc.AC_loadcenter.x-offset -5/2, y ]
       ]);
       d.block('circuit_breaker', [ loc.AC_loadcenter.left + size.circuit_breaker.w/2 + size.terminal_diam, y ] );
     } else if( line_name === 'L2' ){
@@ -752,7 +833,7 @@ var mk_page = function(settings){
       ]);
       d.line([
         [ loc.AC_loadcenter.left + size.terminal_diam + size.circuit_breaker.w , y ],
-        [ loc.AC_loadcenter.x+10 -5/2, y ],
+        [ loc.AC_loadcenter.x+offset -5/2, y ],
       ]);
       d.block('circuit_breaker', [ loc.AC_loadcenter.left + size.circuit_breaker.w/2 + size.terminal_diam, y ] );
     }
