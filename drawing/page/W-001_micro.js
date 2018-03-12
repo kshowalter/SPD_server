@@ -537,11 +537,14 @@ var mk_page = function(settings){
       middle: 'CURR.',
       bottom: '(A)',
     },
-    'conductor': {
-      top:'CONDUCTOR'
+    'location': {
+      top:'LOCATION'
     },
     'type': {
       top:'TYPE'
+    },
+    'conductor': {
+      top:'CONDUCTOR'
     },
     'conductor_size_min': {
       top:'COND.',
@@ -550,6 +553,11 @@ var mk_page = function(settings){
     },
     'material': {
       top:'MAT.'
+    },
+    'total_cc_conductors': {
+      top: 'CUR.',
+      middle: 'CAR.',
+      bottom: 'COND.'
     },
     'conductor_current': {
       top:'MAX.',
@@ -571,12 +579,9 @@ var mk_page = function(settings){
       bottom: '(A)'
     },
     'wet_temp_rating': {
-      top:'WET TEMP',
+      top:'WET TEMP.',
       middle: 'RATING',
       bottom: '(deg. C)'
-    },
-    'location': {
-      top:'LOCATION'
     },
     'conduit_type': {
       top:'CONDUIT',
@@ -686,7 +691,7 @@ var mk_page = function(settings){
   t.cell(1,2).border('B', false);
   t.cell(2,2).border('B', false);
   t.col_size(2, 150);
-  w += 165;
+  w += 150;
 
   circuit_parameter_labels['conductor'][0] += 5;
   circuit_parameter_labels['conductor_size_min'][0] += 10;
