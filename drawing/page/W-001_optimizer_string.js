@@ -875,7 +875,7 @@ var mk_page = function(settings){
       bottom: 'FACTOR',
     },
     'conductors_adj_factor': {
-      top:'CONDUCT.',
+      top:'CONDUIT',
       middle: 'ADJ. FACT.',
     },
     'conductor_current_cor': {
