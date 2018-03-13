@@ -128,12 +128,27 @@ var mk_page = function(settings){
     'label_center'
   );
 
-  x = loc.DC_jb_box.x;
-  y = loc.DC_jb_box.y + size.DC_jb_box.h/2 + 10;
+
+  x = loc.array.left;
+  y = loc.array.lower;
   var text_offset = 11;
   // array details
-  x += 225;
-  y += -120;
+  x += 20;
+  y += 40;
+  d.text(
+    [ x, y ],
+    [ 'EQUIPMENT BONDED TO GROUND PER UL 2703' ],
+    'text',
+    'label_left_small'
+  );
+
+
+  x = loc.array.right_max;
+  y = loc.array.lower;
+  var text_offset = 11;
+  // array details
+  x += 200;
+  y -= 125;
   d.text(
     [ x, y ],
     [state.system.module.manufacturer_name + ' ' + state.system.module.device_name ],
@@ -181,15 +196,9 @@ var mk_page = function(settings){
     y -= text_offset
   }
 
-
-
-
-  x = loc.DC_jb_box.x;
-  y = loc.DC_jb_box.y + size.DC_jb_box.h/2 + 10;
-
   // Optimizer details
-  x += 285;
-  y += -75;
+  x += 0;
+  y += 100;
   d.block('optimizer', [x,y]);
   x += 15;
   y += -15;

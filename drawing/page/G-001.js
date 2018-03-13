@@ -68,7 +68,7 @@ var mk_page = function(settings){
   if( circuit ){
     var minimum_design_current_test = circuit.conductor_current_cor > circuit.max_current ? 'PASS' : 'FAIL';
     var adjusted_wire_ampacity_test = circuit.conductor_current_cor > circuit.max_current ? 'PASS' : 'FAIL';
-    
+
     notes = notes.concat([
       ' ',
       'CALCULATIONS',

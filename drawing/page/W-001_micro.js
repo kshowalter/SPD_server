@@ -183,7 +183,7 @@ var mk_page = function(settings){
 
   var micro_array_offset = 50;
   x = loc.array.left + micro_array_offset;
-  y = loc.array.lower - size.string.h*system.array.num_of_strings - 20;
+  y = loc.array.lower - size.string.h*system.array.num_of_strings;
   //y -= size.string.h/2;
   var y_string = y;
   s = size.AC_wire_offset*2/3;
@@ -320,12 +320,12 @@ var mk_page = function(settings){
 
 
 
-  x = loc.array.left;
+  x = loc.array.right_max;
   y = loc.array.lower;
   var text_offset = 11;
   // array details
-  x += 400;
-  y += 0;
+  x += 200;
+  y -= 125;
   d.text(
     [ x, y ],
     [state.system.module.manufacturer_name + ' ' + state.system.module.device_name ],

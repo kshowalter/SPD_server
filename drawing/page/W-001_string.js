@@ -148,8 +148,23 @@ var mk_page = function(settings){
   y = loc.array.lower;
   var text_offset = 11;
   // array details
-  x += 250;
-  y += 50;
+  x += 20;
+  y += 40;
+  d.text(
+    [ x, y ],
+    [ 'EQUIPMENT BONDED TO GROUND PER UL 2703' ],
+    'text',
+    'label_left_small'
+  );
+
+
+
+  x = loc.array.right_max;
+  y = loc.array.lower;
+  var text_offset = 11;
+  // array details
+  x += 200;
+  y -= 125;
   d.text(
     [ x, y ],
     [state.system.module.manufacturer_name + ' ' + state.system.module.device_name ],
@@ -196,6 +211,11 @@ var mk_page = function(settings){
     );
     y -= text_offset
   }
+
+
+
+
+
 
 
   // DC Junction box
