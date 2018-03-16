@@ -456,7 +456,7 @@ var mk_page = function(settings){
   d.section('inverter symbol');
 
   x = loc.inverter.x;
-  y = loc.inverter.y + size.inverter.symbol_h/2;
+  y = loc.inverter.y + size.inverter.symbol_h/2 - 20;
 
   w = size.inverter.symbol_w;
   h = size.inverter.symbol_h;
@@ -504,7 +504,15 @@ var mk_page = function(settings){
 
   d.layer();
 
-
+  d.text(
+    [loc.inverter.left + 30, loc.inverter.bottom - 40 ],
+    [
+      'WITH INTEGRATED',
+      'DC DISCONNECT',
+    ],
+    'text',
+    'label_left_small'
+  );
 
 
 
