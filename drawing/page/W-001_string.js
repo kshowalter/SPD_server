@@ -587,9 +587,10 @@ var mk_page = function(settings){
   d.section('AC_discconect');
 
   d.text(
-    [loc.AC_disc.x, loc.AC_disc.y - size.AC_disc.h/2 - 45 ],
+    [loc.AC_disc.x, loc.AC_disc.y - size.AC_disc.h/2 - 60 ],
     [
-      'AC DISCONNECT',
+      'AC DISCONNECT,',
+      'SERVICE RATED',
       '(OPTIONAL)',
       '60A, 240Vac, Nema 3R'
     ],
