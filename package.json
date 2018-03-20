@@ -20,23 +20,23 @@
   "homepage": "https://github.com/kshowalter/SPD_server#readme",
   "dependencies": {
     "console-stamp": "^0.2.5",
-    "express": "^4.14.1",
-    "functions": "kshowalter/functions",
+    "express": "^4.16.3",
+    "functions": "github:kshowalter/functions",
     "jsdom": "^9.4.1",
-    "lodash": "^4.17.4",
-    "mathjs": "^3.10.0",
-    "mkDrawing": "kshowalter/mkDrawing",
+    "lodash": "^4.17.5",
+    "mathjs": "^3.20.2",
+    "mkDrawing": "github:kshowalter/mkDrawing",
     "mocha": "^3.4.2",
-    "moment": "^2.17.1",
+    "moment": "^2.21.0",
     "oracledb": "^1.12.2",
-    "phantom": "^4.0.0",
-    "request": "^2.81.0",
+    "phantom": "^4.0.12",
+    "request": "^2.85.0",
     "shelljs": "^0.7.2",
-    "spreadsheet_functions": "kshowalter/spreadsheet_functions",
-    "winston": "^2.3.1"
+    "spreadsheet_functions": "github:kshowalter/spreadsheet_functions",
+    "winston": "^2.4.1"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0",
-    "pm2": "^2.4.2"
+    "nodemon": "^1.17.2",
+    "pm2": "^2.10.1"
   }
 }

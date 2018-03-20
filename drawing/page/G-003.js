@@ -1,7 +1,7 @@
 var mk_page = function(settings){
   var state = settings.state;
 
-  var data_to_display = state.db_info_tables;
+  var data_to_display = state.calculation_tables;
 
   var f = settings.f;
 
