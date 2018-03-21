@@ -10,9 +10,9 @@ var mk_page = function(settings){
   var size = settings.drawing_settings.size;
   var loc = settings.drawing_settings.loc;
 
-  var x = size.sheet.frame_padding*6;
+  var x = size.sheet.frame_padding + size.tables.table_spacing/2;
 
-  var top = size.sheet.frame_padding*6 +10;
+  var top = size.sheet.frame_padding + size.tables.table_spacing;
   var y = top;
 
   var text_cell_size_fixed = size.tables.text_cell_size_fixed;
@@ -20,6 +20,12 @@ var mk_page = function(settings){
 
   d.layer('table');
 
+  var col_widths = [null,
+    300,
+    150,
+    450,
+    60,
+  ];
 
   for( var section_name in data_to_display ){
     var section = data_to_display[section_name];
@@ -31,7 +37,6 @@ var mk_page = function(settings){
     var table_spacing = size.tables.table_spacing;
 
     var row_height = size.tables.row_height;
-    var col_widths = [];
     var table_width_min = 0;
 
     var t = d.table(n_rows,n_cols);
@@ -51,10 +56,10 @@ var mk_page = function(settings){
       } else {
         for( var c = 1; c <= section[r-1].length; c++ ){
           t.cell(r,c).text( section[r-1][c-1] );
-          if(section[r-1][c-1].length){
-            col_widths[c] = col_widths[c] || 0;
-            col_widths[c] = Math.max(col_widths[c], section[r-1][c-1].length * font_letter_width + text_cell_size_fixed );
-          }
+          //if(section[r-1][c-1].length){
+          //  col_widths[c] = col_widths[c] || 0;
+          //  col_widths[c] = Math.max(col_widths[c], section[r-1][c-1].length * font_letter_width + text_cell_size_fixed );
+          //}
         }
       }
     }
@@ -63,13 +68,13 @@ var mk_page = function(settings){
     if(col_widths.length){
       var table_width = col_widths.reduce((a,c)=>a+c);
     }
-    var comment_table_ratio = table_width_min / table_width;
-    table_width = Math.max( table_width, table_width_min );
+    //var comment_table_ratio = table_width_min / table_width;
+    //table_width = Math.max( table_width, table_width_min );
 
     col_widths.forEach(function(cw,i){
-      if(comment_table_ratio>1){
-        cw *= comment_table_ratio;
-      }
+      //if(comment_table_ratio>1){
+      //  cw *= comment_table_ratio;
+      //}
       t.col_size(i, cw);
     });
 
