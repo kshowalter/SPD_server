@@ -1,5 +1,6 @@
 var mk_page = function(settings){
   var state = settings.state;
+  var system = settings.state.system;
 
   var data_to_display = state.db_info_tables;
 
@@ -10,7 +11,7 @@ var mk_page = function(settings){
   var size = settings.drawing_settings.size;
   var loc = settings.drawing_settings.loc;
 
-  var x = size.sheet.frame_padding + size.tables.table_spacing;
+  var x = size.sheet.frame_padding + size.tables.table_spacing/2;
 
   var top = size.sheet.frame_padding + size.tables.table_spacing;
   var y = top;
@@ -21,9 +22,9 @@ var mk_page = function(settings){
   d.layer('table');
 
   var col_widths = [null,
-    350,
-    200,
-    75,
+    250,
+    140,
+    80,
   ];
 
   for( var section_name in data_to_display ){
@@ -41,7 +42,7 @@ var mk_page = function(settings){
     var t = d.table(n_rows,n_cols);
     t.row_size('all', row_height);
     t.all_cells().forEach(function(cell){
-      cell.font('table_left').border('all');
+      cell.font('table_left_calc').border('all');
     });
 
     for( var r = 1; r <= section.length; r++ ){
@@ -83,7 +84,7 @@ var mk_page = function(settings){
       x += table_width*1.1;
     }
     t.loc(x,y);
-    d.text( [x+table_width/2, y-row_height*2/3], f.pretty_name(section_name),'table' );
+    d.text( [x+table_width/2, y-row_height*2/3], f.pretty_name(section_name), 'table', 'table_title' );
 
     for( var c=1; c<=n_cols; c++){
       t.cell(1,c).font('table_col_title_left');
@@ -93,6 +94,12 @@ var mk_page = function(settings){
     t.mk();
 
     y += table_height + table_spacing;
+    //y = top;
+    //x += table_width*1.05;
+
+    if( system.config.system_type === 'optimizer' ){
+      x = size.sheet.frame_padding + size.tables.table_spacing/2;
+    }
   }
 
   d.layer();
