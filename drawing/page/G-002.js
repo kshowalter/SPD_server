@@ -10,13 +10,13 @@ var mk_page = function(settings){
   var size = settings.drawing_settings.size;
   var loc = settings.drawing_settings.loc;
 
-  var x = size.sheet.frame_padding*6;
+  var x = size.sheet.frame_padding + size.tables.table_spacing;
 
-  var top = size.sheet.frame_padding*6 +10;
+  var top = size.sheet.frame_padding + size.tables.table_spacing;
   var y = top;
 
-  var text_cell_size_fixed = 20;
-  var font_letter_width = 4.1;
+  var text_cell_size_fixed = size.tables.text_cell_size_fixed;
+  var font_letter_width = size.tables.font_letter_width;
 
   d.layer('table');
 
@@ -28,9 +28,9 @@ var mk_page = function(settings){
 
     var n_rows = section.length;
     var n_cols = section[0].length;
-    var table_spacing = 30;
+    var table_spacing = size.tables.table_spacing;
 
-    var row_height = 15;
+    var row_height = size.tables.row_height;
     var col_widths = [];
     var table_width_min = 0;
 
