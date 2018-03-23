@@ -598,7 +598,6 @@ var mk_page = function(settings){
     [loc.AC_disc.x, loc.AC_disc.y - size.AC_disc.h/2 - 60 ],
     [
       'AC DISCONNECT,',
-      'SERVICE RATED',
       '(OPTIONAL)',
       '60A, 240Vac, Nema 3R'
     ],
