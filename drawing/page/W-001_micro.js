@@ -469,7 +469,7 @@ var mk_page = function(settings){
   );
   d.text(
     [ x + w/2 + 16 + 5, y ],
-    ['(1) MANUFACTURER SUPPLIED CABLE'],
+    ['(1) MANUFACTURER SUPPLIED CABLE TYPE TC-ER'],
     'text',
     'label_left'
   );
