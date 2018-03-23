@@ -78,15 +78,15 @@ var mk_page = function(settings){
       '      * (FOR AC CIRUITS: MAX_CURRENT * 1.25)',
       '      * MAX_CURRENT  / ( TEMP_CORRECTION_FACTOR * CONDUCTORS_ADJ_FACTOR )',
       '    B.) ROOFTOP MINIMUM DESIGN CURRENT',
-      '      * ' + circuit.max_current + ' * 1.25 * 1.25 = ' + circuit.min_req_cond_current_3.toFixed(2),
-      '      * ' + circuit.max_current + ' / ( ' + circuit.temp_correction_factor + ' * ' + circuit.conductors_adj_factor + ') = ' + circuit.min_req_cond_current_2.toFixed(2),
-      '      * MINIMUM DESIGN CURRENT (' + circuit.min_req_cond_current.toFixed(2) + ') < CONDUCTOR AMPACITY(' + circuit.conductor_current + ') = ' + minimum_design_current_test,
+      '      * ' + circuit.max_current.toFixed(2) + ' * 1.25 * 1.25 = ' + circuit.min_req_cond_current_3.toFixed(2),
+      '      * ' + circuit.max_current.toFixed(2) + ' / ( ' + circuit.temp_correction_factor.toFixed(2) + ' * ' + circuit.conductors_adj_factor.toFixed(2) + ') = ' + circuit.min_req_cond_current_2.toFixed(2),
+      '      * MINIMUM DESIGN CURRENT (' + circuit.min_req_cond_current.toFixed(2) + ') < CONDUCTOR AMPACITY(' + circuit.conductor_current.toFixed(2) + ') = ' + minimum_design_current_test,
       '2.) ADJUSTED WIRE AMPACITY',
       '    A.) THE RATED AMPACY OF THE CONDUCTOR IS ADJUSTED BASED ON THE TEMPERATURE AND CONDUIT FILL FACTORS.',
       '      * CONDUCTOR_CURRENT * TEMP_CORRECTION_FACTOR * CONDUCTORS_ADJ_FACTOR',
       '    B.) ROOFTOP MINIMUM DESIGN CURRENT',
-      '      * ' + circuit.conductor_current + ' * ' + circuit.temp_correction_factor + ' * ' +  circuit.conductors_adj_factor + ' = ' + circuit.conductor_current_cor.toFixed(2),
-      '      * ADJUSTED WIRE AMPACITY (' + circuit.conductor_current_cor.toFixed(2) + ') > CIRCUIT AMPACITY(' + circuit.max_current + ') = ' + adjusted_wire_ampacity_test,
+      '      * ' + circuit.conductor_current.toFixed(2) + ' * ' + circuit.temp_correction_factor.toFixed(2) + ' * ' +  circuit.conductors_adj_factor.toFixed(2) + ' = ' + circuit.conductor_current_cor.toFixed(2),
+      '      * ADJUSTED WIRE AMPACITY (' + circuit.conductor_current_cor.toFixed(2) + ') > CIRCUIT AMPACITY(' + circuit.max_current.toFixed(2) + ') = ' + adjusted_wire_ampacity_test,
     ]);
   }
 
