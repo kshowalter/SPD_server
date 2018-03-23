@@ -226,50 +226,89 @@ var mk_page = function(settings){
 
   x += column_width;
   y = size.sheet.frame_padding*4;
-  title = 'WARNING';
-  text_list = [
-    ['ELECTRIC SHOCK HAZARD'],
-    ['DO NOT TOUCH TERMINALS'],
-    ['TERMINALS ON BOTH LINE AND'],
-    ['LOAD SIDES MAY BE ENERGIZED'],
-    ['IN THE OPEN POSITION'],
-    [''],
-    ['DC VOLTAGE IS'],
-    ['ALWAYS PRESENT WHEN'],
-    ['SOLAR MODULES ARE'],
-    ['EXPOSED TO SUNLIGHT'],
-  ];
-  notes = [
-    'LABEL LOCATION:',
-    'AC DISCONNECT,',
-    'POINT OF INTERCONNECTION',
-    ' ',
-    'PER CODE:',
-    'NEC 690.17(4)'
-  ];
-  h = mk_label(d, x, y, title, text_list, notes);
+
+  if( system.config.system_type === 'string'|| system.config.system_type === 'optimizer'){
+    title = 'WARNING';
+    text_list = [
+      ['ELECTRIC SHOCK HAZARD'],
+      ['DO NOT TOUCH TERMINALS'],
+      ['TERMINALS ON BOTH LINE AND'],
+      ['LOAD SIDES MAY BE ENERGIZED'],
+      ['IN THE OPEN POSITION'],
+      [''],
+      ['DC VOLTAGE IS'],
+      ['ALWAYS PRESENT WHEN'],
+      ['SOLAR MODULES ARE'],
+      ['EXPOSED TO SUNLIGHT'],
+    ];
+    notes = [
+      'LABEL LOCATION:',
+      'AC DISCONNECT,',
+      'POINT OF INTERCONNECTION',
+      ' ',
+      'PER CODE:',
+      'NEC 690.17(4)'
+    ];
+    h = mk_label(d, x, y, title, text_list, notes);
+
+    x += 0;
+    y += h + label_spacing;
+  }
+
+  var string_lengths = _.uniq(settings.drawing.displayed_modules);
+  console.log('XXXXX',settings.drawing.displayed_modules,string_lengths);
+
+  if( system.config.system_type === 'string'|| system.config.system_type === 'optimizer'){
+    title = undefined;
+    text_list = [
+      [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(system.interconnection.max_ac_current), 'A'],
+      [['MAXIMUM AC', 'OPERATING VOLTAGE'], f.format_value(system.interconnection.grid_voltage ), 'V'],
+    ];
+    notes = [
+      'LABEL LOCATION:',
+      'AC DISCONNECT,',
+      'POINT OF INTERCONNECTION',
+      ' ',
+      'PER CODE:',
+      'NEC 690.54'
+    ];
+    h = mk_label(d, x, y, title, text_list, notes);
+    x += 0;
+    y += h + label_spacing;
+  } else {
+    string_lengths.forEach(function(string_length){
+      max_total_current = (system.module.pmp * string_length / system.inverter.grid_voltage).toFixed(0);
+
+      console.log(string_length,max_total_current);
+
+      title = undefined;
+      text_list = [
+        [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(max_total_current), 'A'],
+        [['MAXIMUM AC', 'OPERATING VOLTAGE'], f.format_value(system.interconnection.grid_voltage ), 'V'],
+      ];
+      notes = [
+        'LABEL LOCATION:',
+        'AC DISCONNECT,',
+        'POINT OF INTERCONNECTION',
+        ' ',
+        'PER CODE:',
+        'NEC 690.54'
+      ];
+      h = mk_label(d, x, y, title, text_list, notes);
+      x += 0;
+      y += h + label_spacing;
+    });
+  }
+
+  var max_total_current;
+  if( system.config.system_type === 'string'|| system.config.system_type === 'optimizer'){
+    //max_total_current = system.interconnection.max_ac_current;
+    max_total_current = (system.array.pmp / system.inverter.grid_voltage).toFixed(0);
+  } else {
+    max_total_current = (system.array.pmp / system.inverter.grid_voltage).toFixed(0);
+  }
 
 
-  x += 0;
-  y += h + label_spacing;
-  title = undefined;
-  text_list = [
-    [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(system.interconnection.max_ac_current), 'A'],
-    [['MAXIMUM AC', 'OPERATING VOLTAGE'], f.format_value(system.interconnection.grid_voltage ), 'V'],
-  ];
-  notes = [
-    'LABEL LOCATION:',
-    'AC DISCONNECT,',
-    'POINT OF INTERCONNECTION',
-    ' ',
-    'PER CODE:',
-    'NEC 690.54'
-  ];
-  h = mk_label(d, x, y, title, text_list, notes);
-
-
-  x += 0;
-  y += h + label_spacing;
   title = undefined;
   text_list = [
     ['PHTOVOLTAIC POINT OF'],
@@ -283,7 +322,7 @@ var mk_page = function(settings){
     ['DE-ENERGIZE BOTH SOURCE'],
     ['AND MAIN BREAKER.'],
     ['PV POWER SOURCE'],
-    [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(system.interconnection.max_ac_current), 'A'],
+    [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(max_total_current), 'A'],
     [['MAXIMUM AC', 'OPERATING VOLTAGE'], f.format_value(system.interconnection.grid_voltage ), 'V'],
   ];
   notes = [
