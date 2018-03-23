@@ -328,9 +328,29 @@ var mk_page = function(settings){
   y -= 125;
   d.text(
     [ x, y ],
-    [state.system.module.manufacturer_name + ' ' + state.system.module.device_name ],
+    [state.system.module.manufacturer_name + ' ' + state.system.module.device_name + ',' ],
     'text',
     'label_center'
+  );
+  y += text_offset * 1.5;
+  d.text(
+    [ x, y ],
+    [state.system.inverter.manufacturer_name + ' ' + state.system.inverter.device_model_number ],
+    'text',
+    'label_center'
+  );
+  y += text_offset * 1.5;
+  d.text(
+    [ x+33, y ],
+    ['Mod.'],
+    'text',
+    'label_right'
+  );
+  d.text(
+    [ x+33+42, y ],
+    ['Inv.'],
+    'text',
+    'label_right'
   );
   y += text_offset * 1.5;
   d.text(
@@ -342,22 +362,35 @@ var mk_page = function(settings){
   y += system.array.num_of_strings * text_offset + text_offset/2;
   d.text(
     [ x, y ],
-    ['Total modules:'],
+    ['Total:'],
     'text',
     'label_right'
   );
-  x += 13;
+  x += 30;
   d.text(
-    [ x, y ],
+    [ x-5, y ],
     [state.system.array.num_of_modules],
     'text',
-    'label_center'
+    'label_right'
+  );
+  d.text(
+    [ x-5+42, y ],
+    [state.system.array.num_of_modules],
+    'text',
+    'label_right'
   );
   y -= text_offset;
   d.line(
     [
-      [ x - 8, y + text_offset/4 ],
-      [ x + 8, y + text_offset/4 ]
+      [ x-26, y + text_offset/4 ],
+      [ x, y + text_offset/4 ]
+    ],
+    'text'
+  );
+  d.line(
+    [
+      [ x+42-26, y + text_offset/4 ],
+      [ x+42, y + text_offset/4 ]
     ],
     'text'
   );
@@ -369,11 +402,18 @@ var mk_page = function(settings){
       [ x, y ],
       ['['+num_of_modules_in_string+']'],
       'text',
-      'label_center'
+      'label_right'
+    );
+    d.text(
+      [ x+42, y ],
+      ['['+num_of_modules_in_string+']'],
+      'text',
+      'label_right'
     );
     y -= text_offset
   }
   _.reverse(settings.drawing.displayed_modules);
+
 
 
 
