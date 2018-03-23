@@ -137,7 +137,7 @@ var mk_page = function(settings){
   y += 40;
   d.text(
     [ x, y ],
-    [ 'EQUIPMENT BONDED TO GROUND PER UL 2703' ],
+    [ 'EQUIPMENT BONDED IN ACCORDANCE WITH UL 2703 LISTING' ],
     'text',
     'label_left_small'
   );

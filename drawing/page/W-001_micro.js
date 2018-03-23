@@ -309,9 +309,19 @@ var mk_page = function(settings){
     [3,20],
     'AC_ground_block'
   );
+  d.line([
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y-6],
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y-6 - 50],
+  ], 'DC_ground');
 
   // DC ground run from array to JB
   d.layer('DC_ground');
+  d.text(
+    [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y-6 - 50 - 20],
+    ['TO','RACK'],
+    'text',
+    'label_center_small'
+  );
   //d.line([
   //  [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, y + size.module.h*7.2/8 ],
   //  [ loc.array.left - loc.array.offset - size.DC_wire_offset.ground, loc.AC_jb_box.y ]
@@ -454,10 +464,23 @@ var mk_page = function(settings){
   );
 
 
+  x = loc.array.left;
+  y = loc.array.lower;
+  var text_offset = 11;
+  // array details
+  x += 40;
+  y += 20;
+  d.text(
+    [ x, y ],
+    [ 'EQUIPMENT BONDED IN ACCORDANCE WITH UL 2703 LISTING' ],
+    'text',
+    'label_left_small'
+  );
+
   // Conduit callout: array to JB
-  w = 140;
+  w = 100;
   h = 15;
-  x = loc.AC_jb_box.x;
+  x = loc.AC_jb_box.x + 15;
   y = loc.AC_jb_box.y - size.AC_jb_box.h/2 - h;
   d.ellipse([x, y],[w, h],'wire_callout');
   d.line(
