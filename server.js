@@ -55,9 +55,9 @@ if( ! version_history.versions[global.project.version] ){
     first_run: date.toISOString(),
   };
   version_history.order.push(global.project.version);
+  fs.writeFileSync(version_history_path, JSON.stringify(version_history, null, '  '), {encoding: 'utf8'});
 }
 global.project.version_history = version_history;
-fs.writeFileSync(version_history_path, JSON.stringify(version_history, null, '  '), {encoding: 'utf8'});
 
 
 // Start express app

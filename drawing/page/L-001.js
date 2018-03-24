@@ -256,7 +256,6 @@ var mk_page = function(settings){
   }
 
   var string_lengths = _.uniq(settings.drawing.displayed_modules);
-  console.log('XXXXX',settings.drawing.displayed_modules,string_lengths);
 
   if( system.config.system_type === 'string'|| system.config.system_type === 'optimizer'){
     title = undefined;

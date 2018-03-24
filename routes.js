@@ -123,13 +123,22 @@ router.get('/d/SVG', function(req, res) {
         });
 
         if(sheet_num){
-          var svg_string = svgs[sheet_num-1];
-          if( svg_string ){
-            var html = html_wrap_svg(svg_string);
-            res.end(html);
+          if( sheet_num === 'all' ){
+            var html;
+            if( svgs.length ){
+              html = html_wrap_svg(svgs);
+            } else {
+              html = html_wrap_svg('Drawing not found.');
+            }
           } else {
-            res.end();
+            var svg_string = svgs[sheet_num-1];
+            if( svg_string ){
+              html = html_wrap_svg(svg_string);
+            } else {
+              html = html_wrap_svg('Drawing not found.');
+            }
           }
+          res.end(html);
         } else {
           res.json({
             system_id: system_id,
@@ -142,21 +151,21 @@ router.get('/d/SVG', function(req, res) {
             state: system_settings.state.system,
           });
         }
-
-
       } else if( status === 'error' ){
-
-        res.json({
-          system_id: system_id,
-          status: status,
-          time: ( new Date() - start_time )/1000,
-          notes: system_settings.state.notes,
-          SVGs: [],
-          data: data,
-          state: system_settings.state.system,
-        });
+        if(sheet_num){
+          res.end(html_wrap_svg(system_settings.state.notes.errors));
+        } else {
+          res.json({
+            system_id: system_id,
+            status: status,
+            time: ( new Date() - start_time )/1000,
+            notes: system_settings.state.notes,
+            SVGs: [],
+            data: data,
+            state: system_settings.state.system,
+          });
+        }
       }
-
     } else {
       res.json({
         system_id: system_id,
@@ -208,13 +217,34 @@ router.get('/t/SVG', function(req, res) {
         });
 
         if(sheet_num){
-          var svg_string = svgs[sheet_num-1];
-          if( svg_string ){
-            var html = html_wrap_svg(svg_string);
-            res.end(html);
+          if( sheet_num === 'all' ){
+            var html;
+            if( svgs.length ){
+              html = html_wrap_svg(
+                system_settings.state.notes.info.concat(
+                  system_settings.state.notes.warnings.concat(
+                    svgs
+                  )
+                )
+              );
+            } else {
+              html = html_wrap_svg('Drawing not found.');
+            }
           } else {
-            res.end();
+            var svg_string = svgs[sheet_num-1];
+            if( svg_string ){
+              html = html_wrap_svg(
+                system_settings.state.notes.info.concat(
+                  system_settings.state.notes.warnings.concat(
+                    [svg_string]
+                  )
+                )
+              );
+            } else {
+              html = html_wrap_svg('Drawing not found.');
+            }
           }
+          res.end(html);
         } else {
           res.json({
             system_id: system_id,
@@ -231,15 +261,20 @@ router.get('/t/SVG', function(req, res) {
 
       } else if( status === 'error' ){
 
-        res.json({
-          system_id: system_id,
-          status: status,
-          time: ( new Date() - start_time )/1000,
-          notes: system_settings.state.notes,
-          SVGs: [],
-          data: data,
-          state: system_settings.state.system,
-        });
+        if(sheet_num){
+          res.end(html_wrap_svg(system_settings.state.notes.errors));
+        } else {
+          res.json({
+            system_id: system_id,
+            status: status,
+            time: ( new Date() - start_time )/1000,
+            notes: system_settings.state.notes,
+            SVGs: [],
+            data: data,
+            state: system_settings.state.system,
+          });
+        }
+
       }
 
     } else {
