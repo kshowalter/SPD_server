@@ -302,7 +302,7 @@ var mk_page = function(settings){
   var max_total_current;
   if( system.config.system_type === 'string'|| system.config.system_type === 'optimizer'){
     //max_total_current = system.interconnection.max_ac_current;
-    max_total_current = (system.array.pmp / system.inverter.grid_voltage).toFixed(0);
+    max_total_current = (system.interconnection.max_ac_current).toFixed(0);
   } else {
     max_total_current = (system.array.pmp / system.inverter.grid_voltage).toFixed(0);
   }
