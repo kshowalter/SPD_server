@@ -141,10 +141,10 @@ var mk_page = function(settings){
     y += h + label_spacing;
     title = undefined;
     text_list = [
-      [['MAXIMUM POWER-','POINT CURRENT (Imp)'], f.format_value(system.array.imp), 'A' ],
-      [['MAXIMUM POWER-', 'POINT VOLTAGE (Vmp)'], f.format_value(system.array.vmp), 'V'],
-      [['MAXIMUM SYSTEM', 'VOLTAGE'], f.format_value(system.array.max_sys_voltage), 'V'],
-      [['MAXIMUM', 'CURRENT'], f.format_value(system.array.max_sys_current), 'A'],
+      [['MAXIMUM POWER-','POINT CURRENT (Imp)'], f.format_value(system.array.imp.toFixed(0)), 'A' ],
+      [['MAXIMUM POWER-', 'POINT VOLTAGE (Vmp)'], f.format_value(system.array.vmp.toFixed(0)), 'V'],
+      [['MAXIMUM SYSTEM', 'VOLTAGE'], f.format_value(system.array.max_sys_voltage.toFixed(0)), 'V'],
+      [['MAXIMUM', 'CURRENT'], f.format_value(system.array.max_sys_current.toFixed(0)), 'A'],
     ];
     notes = [
       'LABEL LOCATION:',
