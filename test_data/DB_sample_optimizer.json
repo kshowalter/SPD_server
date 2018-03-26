@@ -26,11 +26,11 @@
     "num_of_series_strings": null,
     "num_of_bat_per_string": null,
     "pvsystem_type_id": 1,
-    "bussbar_rating": 225,
-    "supply_ocpd_rating": 200,
+    "bussbar_rating": 25,
+    "supply_ocpd_rating": 10,
     "inverter_ocpd_dev_sum": null,
     "inverter_output_cur_sum": null,
-    "load_breaker_total": 150,
+    "load_breaker_total": 10,
     "review_comments": null
   },
   "inverter": {
@@ -102,7 +102,7 @@
     "num_of_modules": 16,
     "num_of_strings": 4,
     "smallest_string": 2,
-    "largest_string": 7,
+    "largest_string": 10,
     "properties_updated_per_dev_id": 9695,
     "properties_id": 401,
     "device_id": 1419,

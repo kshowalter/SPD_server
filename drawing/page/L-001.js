@@ -278,8 +278,6 @@ var mk_page = function(settings){
     string_lengths.forEach(function(string_length){
       max_total_current = (system.module.pmp * string_length / system.inverter.grid_voltage).toFixed(0);
 
-      console.log(string_length,max_total_current);
-
       title = undefined;
       text_list = [
         [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(max_total_current), 'A'],
