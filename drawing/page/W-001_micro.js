@@ -49,8 +49,8 @@ var mk_page = function(settings){
 
   // AC bus bars
   d.rect(
-    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y ],
-    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
+    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y -1],
+    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h - 2 ],
     'box'
   );
   d.text(
@@ -62,8 +62,8 @@ var mk_page = function(settings){
   );
   d.rect(
     //[ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bottom - size.AC_loadcenter.bar.h/2  - size.terminal_diam*5 ],
-    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y ],
-    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h ],
+    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - 1 ],
+    [ size.AC_loadcenter.bar.w, size.AC_loadcenter.bar.h - 2 ],
     'box'
   );
   d.text(
@@ -126,9 +126,12 @@ var mk_page = function(settings){
   d.layer('AC_L1');
   // AC bus bars
   d.line([
-    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2],
+    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 2],
     [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15],
   ]);
+  d.block('terminal',
+    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 2],
+  );
   d.block('circuit_breaker',
     [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w/2]
   ).rotate(-90);
@@ -142,9 +145,12 @@ var mk_page = function(settings){
 
   d.layer('AC_L2');
   d.line([
-    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2],
+    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 2],
     [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15],
   ]);
+  d.block('terminal',
+    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 2],
+  );
   d.block('circuit_breaker',
     [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w/2]
   ).rotate(-90);
