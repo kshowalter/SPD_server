@@ -130,7 +130,7 @@ var mk_page = function(settings){
     [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15],
   ]);
   d.block('terminal',
-    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 2],
+    [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 2]
   );
   d.block('circuit_breaker',
     [ loc.AC_loadcenter.x-offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w/2]
@@ -149,7 +149,7 @@ var mk_page = function(settings){
     [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15],
   ]);
   d.block('terminal',
-    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 2],
+    [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 + 2]
   );
   d.block('circuit_breaker',
     [ loc.AC_loadcenter.x+offset, loc.AC_loadcenter.bar.y - size.AC_loadcenter.bar.h/2 - 15 - size.circuit_breaker.w/2]
