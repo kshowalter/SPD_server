@@ -260,7 +260,7 @@ var mk_page = function(settings){
   if( system.config.system_type === 'string'|| system.config.system_type === 'optimizer'){
     title = undefined;
     text_list = [
-      [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(system.interconnection.max_ac_current), 'A'],
+      [['MAXIMUM AC','OPERATING CURRENT'], f.format_value(system.interconnection.max_ac_current.toFixed(0)), 'A'],
       [['MAXIMUM AC', 'OPERATING VOLTAGE'], f.format_value(system.interconnection.grid_voltage ), 'V'],
     ];
     notes = [
