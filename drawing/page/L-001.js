@@ -456,11 +456,6 @@ var mk_page = function(settings){
       ' - WHITE LETTERING',
       ' - MINIMUM 3/8" LETTER HEIGHT',
       ' - ALL CAPITAL LETTERS',
-      ' - ARIAL OR SIMILAR FONT, NON-BOLD',
-      ' - REFLECTIVE WEATHER RESISTANT MATERIAL',
-      '   SUITABLE FOR THE ENVIRONMENT',
-      '   (DURABLE ADHESIVE MATERIALS MUST',
-      '    MEET THIS REQUIREMENT)',
     ],
     'text',
     'NEC_label_notes_text'
