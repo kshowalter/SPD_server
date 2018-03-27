@@ -947,8 +947,8 @@ var mk_page = function(settings){
   var font_letter_width = 3.5;
 
   var circuit_parameters = {
-    'max_current': {
-      top:'CIRCUIT',
+    'max_current_adjusted': {
+      top:'MAX.',
       middle: 'CURR.',
       bottom: '(A)',
     },
@@ -1130,7 +1130,7 @@ var mk_page = function(settings){
   d.text(
     [ x + 3 , y - 13 ],
     [
-      'CIRCUIT SCHEDULE'
+      'CONDUCTOR AND CONDUIT (OR RACEWAY) SCHEDULE'
     ],
     'text',
     'label_left'
