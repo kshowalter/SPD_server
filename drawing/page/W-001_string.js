@@ -101,64 +101,6 @@ var mk_page = function(settings){
   d.layer();
 
 
-  // rapid shutdown box
-  x = loc.rapid_shutdown.x;
-  y = loc.rapid_shutdown.y;
-  w = size.rapid_shutdown.w;
-  h = size.rapid_shutdown.h;
-  label = ['RAPID SHUTDOWN','DEVICE'];
-  d.rect(
-    [x,y],
-    [w,h],
-    'box'
-  );
-  d.text(
-    [ x + w/2 + 5, y - 7 - 10 ],
-    label,
-    'text',
-    'label_left'
-  );
-  x += w/2;
-  y += 16;
-  d.line([
-    [ x, y ],
-    [ x + 60, y ],
-  ]);
-  d.line([
-    [ x + 60 + 3, y ],
-    [ x + 60 + 6, y ],
-  ]);
-  d.line([
-    [ x + 60 + 9, y ],
-    [ x + 60 + 12, y ],
-  ]);
-  d.line([
-    [ x + 60 + 15, y ],
-    [ x + 60 + 18, y ],
-  ]);
-  d.text(
-    [ x + 10, y + 8 ],
-    'Inverter com.',
-    'text',
-    'label_left_small'
-  );
-
-
-  x = loc.array.left;
-  y = loc.array.lower;
-  var text_offset = 11;
-  // array details
-  x += 20;
-  y += 40;
-  d.text(
-    [ x, y ],
-    [ 'EQUIPMENT BONDED IN ACCORDANCE WITH UL 2703 LISTING' ],
-    'text',
-    'label_left_small'
-  );
-
-
-
   x = loc.array.right_max;
   y = loc.array.lower;
   var text_offset = 11;
@@ -216,6 +158,69 @@ var mk_page = function(settings){
 
 
 
+  // rapid shutdown box
+  x = loc.rapid_shutdown.x;
+  y = loc.rapid_shutdown.y;
+  w = size.rapid_shutdown.w;
+  h = size.rapid_shutdown.h;
+  label = ['RAPID SHUTDOWN DEVICE'];
+  d.rect(
+    [x,y],
+    [w,h],
+    'box'
+  );
+  d.text(
+    [ x + w/2 + 10, y - 10 ],
+    label,
+    'text',
+    'label_left'
+  );
+  x += w/2;
+
+  y += 5;
+  d.text(
+    [ x+10, y ],
+    [ '(LOCATED WITHIN 10 FEET OF ARRAY)' ],
+    'text',
+    'label_left_small'
+  );
+  y += 10;
+  d.line([
+    [ x, y ],
+    [ x + 60, y ],
+  ]);
+  d.line([
+    [ x + 60 + 3, y ],
+    [ x + 60 + 6, y ],
+  ]);
+  d.line([
+    [ x + 60 + 9, y ],
+    [ x + 60 + 12, y ],
+  ]);
+  d.line([
+    [ x + 60 + 15, y ],
+    [ x + 60 + 18, y ],
+  ]);
+  d.text(
+    [ x + 10 + 20, y + 8 ],
+    'Inverter com.',
+    'text',
+    'label_left_small'
+  );
+
+
+  x = loc.array.left;
+  y = loc.array.lower;
+  var text_offset = 11;
+  // array details
+  x += 20;
+  y += 40;
+  d.text(
+    [ x, y ],
+    [ 'EQUIPMENT BONDED IN ACCORDANCE WITH UL 2703 LISTING' ],
+    'text',
+    'label_left_small'
+  );
 
 
   // DC Junction box
@@ -223,18 +228,30 @@ var mk_page = function(settings){
   y = loc.DC_jb_box.y;
   w = size.DC_jb_box.w;
   h = size.DC_jb_box.h;
-  label = ['JUNCTION','BOX'];
+  label = ['JUNCTION BOX'];
   d.rect(
     [x,y],
     [w,h],
     'box'
   );
   d.text(
-    [ x + w/2 + 5, y - 7],
+    [ x + w/2 + 10, y],
     label,
     'text',
     'label_left'
   );
+
+  w = size.DC_jb_box.w + 10;
+  h = size.DC_jb_box.h + size.rapid_shutdown.h + 15;
+  x = loc.DC_jb_box.x;
+  y = loc.DC_jb_box.y + size.DC_jb_box.h/2 - h/2 +5;
+  d.rect(
+    [x,y],
+    [w,h],
+    'box_dotted'
+  );
+
+
 
   // Roofline
   x = loc.DC_jb_box.x;
@@ -242,12 +259,12 @@ var mk_page = function(settings){
   d.line(
     [
       [ x - 60, y],
-      [ x + 200, y ]
+      [ x + 250, y ]
     ],
     'roof_line'
   );
   d.text(
-    [ x + 150, y - 7],
+    [ x + 200, y - 7],
     'ROOFLINE',
     'text',
     'label_center'
@@ -257,8 +274,8 @@ var mk_page = function(settings){
   // Conduit callout: array to JB
   w = 120;
   h = 15;
-  x = loc.DC_jb_box.x;
-  y = loc.DC_jb_box.y - size.DC_jb_box.h/2 - h;
+  x = loc.rapid_shutdown.x;
+  y = loc.rapid_shutdown.y - size.rapid_shutdown.h/2 - h*2;
   d.ellipse([x, y],[w, h],'wire_callout');
   d.line(
     [
