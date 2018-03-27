@@ -613,7 +613,8 @@ var mk_page = function(settings){
       top:'LOCATION'
     },
     'type': {
-      top:'TYPE'
+      top:'TYPE',
+      col_size: 41
     },
     'conductor': {
       top:'CONDUCTOR'
