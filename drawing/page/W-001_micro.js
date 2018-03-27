@@ -37,13 +37,16 @@ var mk_page = function(settings){
   );
 
   d.text(
-    [ x - w/2 - 23, y-h/2 + 10 ],
+    [ x - w/2 - 10, y-h/2 + 10 ],
     [
+      'SERVICE DISCONNECT',
+      '(R.S. INITIATION DEVICE)',
+      ' ',
       'LOAD',
       'CENTER'
     ],
     'text',
-    'label_center'
+    'label_right'
   );
 
 

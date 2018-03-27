@@ -519,7 +519,7 @@ var mk_page = function(settings){
   d.section('AC_discconect');
 
   d.text(
-    [loc.AC_disc.x, loc.AC_disc.y - size.AC_disc.h/2 - 60 ],
+    [loc.AC_disc.x, loc.AC_disc.y - size.AC_disc.h/2 - 40 ],
     [
       'AC DISCONNECT,',
       '(OPTIONAL)',
@@ -560,13 +560,16 @@ var mk_page = function(settings){
   );
 
   d.text(
-    [ x - w/2 - 23, y-h/2 + 10 ],
+    [ x - w/2 - 10, y-h/2 + 10 ],
     [
+      'SERVICE DISCONNECT',
+      '(R.S. INITIATION DEVICE)',
+      ' ',
       'LOAD',
       'CENTER'
     ],
     'text',
-    'label_center'
+    'label_right'
   );
 
 
