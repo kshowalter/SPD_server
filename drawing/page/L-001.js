@@ -113,9 +113,8 @@ var mk_page = function(settings){
     notes = [
       'LABEL LOCATION:',
       'CONDUIT, COMBINER BOX',
-      ' ',
-      'PER CODE:',
-      'NEC 690.31)(G)(3)',
+      'PER: NEC 690.31)(G)(3)',
+      'REQUIREMENTS *',
     ];
     h = mk_label(d, x, y, title, text_list, notes);
 
@@ -169,8 +168,8 @@ var mk_page = function(settings){
     notes = [
       'LOCATION: AC/DC DISC.,',
       'POINT OF INTERCONNECTION.',
-      ' ',
-      'PER CODE: NEC 690.56(C)'
+      'PER CODE: NEC 690.56(C)',
+      'REQUIREMENTS *',
     ];
     h = mk_label(d, x, y, title, text_list, notes);
 
@@ -435,9 +434,12 @@ var mk_page = function(settings){
       '2.) ADHESIVE FASTENED SIGNS MAY BE ACCEPTABLE ',
       '    IF PROPERLY ADHERED.',
       '3.) VINYL SIGNS SHALL BE WEATHER RESISTANT [IFC 605.11.1.3].',
+      '    REFLECTIVE WEATHER RESISTANT MATERIAL',
+      '    SUITABLE FOR THE ENVIRONMENT.',
       '4.) PROVIDE A PERMANENT PLAQUE OR DIRECTORY SHOWING ',
       '    ALL ELECTRIC POWER SOURCES ON THE PREMISES AT ',
       '    SERVICE ENTRANCE, PER NEC 705.10.',
+      '5.) USA ARIAL OR SIMILAR FONT, NON-BOLD.',
     ],
     'text',
     'NEC_label_notes_text'
@@ -445,11 +447,11 @@ var mk_page = function(settings){
 
 
   x += 25;
-  y += 150;
+  y += 180;
   d.text(
     [x,y],
     [
-      'MARKING CONTENT AND FORMAT',
+      '* MARKING CONTENT AND FORMAT REQUIREMENTS',
       ' - RED BACKGROUND',
       ' - WHITE LETTERING',
       ' - MINIMUM 3/8" LETTER HEIGHT',
@@ -465,13 +467,6 @@ var mk_page = function(settings){
   );
 
 
-  'MARKING CONTENT AND FORMAT',
-  ' - RED BACKGROUND',
-  ' - WHITE LETTERING',
-  ' - MINIMUM 3/8" LETTER HEIGHT',
-  ' - ALL CAPITAL LETTERS',
-  ' - ARIAL OR SIMILAR FONT, NON-BOLD',
-  ' - REFLECTIVE WEATHER RESISTANT MATERIAL SUITABLE FOR THE ENVIRONMENT (DURABLE ADHESIVE MATERIALS MUST',
   d.layer();
 
 
