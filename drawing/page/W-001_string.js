@@ -612,7 +612,7 @@ var mk_page = function(settings){
   d.section('AC_discconect');
 
   d.text(
-    [loc.AC_disc.x, loc.AC_disc.y - size.AC_disc.h/2 - 60 ],
+    [loc.AC_disc.x, loc.AC_disc.y - size.AC_disc.h/2 - 40 ],
     [
       'AC DISCONNECT,',
       '(OPTIONAL)',
