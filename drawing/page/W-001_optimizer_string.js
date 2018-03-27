@@ -789,7 +789,7 @@ var mk_page = function(settings){
       ]);
       d.block('circuit_breaker', [ loc.AC_loadcenter.left + size.circuit_breaker.w/2 + size.terminal_diam, y ] );
       d.block( 'terminal',
-        [ loc.AC_loadcenter.x-offset, y ],
+        [ loc.AC_loadcenter.x-offset, y ]
       );
     } else if( line_name === 'L2' ){
       d.line([
@@ -802,7 +802,7 @@ var mk_page = function(settings){
       ]);
       d.block('circuit_breaker', [ loc.AC_loadcenter.left + size.circuit_breaker.w/2 + size.terminal_diam, y ] );
       d.block( 'terminal',
-        [ loc.AC_loadcenter.x+offset, y ],
+        [ loc.AC_loadcenter.x+offset, y ]
       );
     }
     /*
