@@ -115,7 +115,7 @@ var mk_page = function(settings){
       'CONDUIT, COMBINER BOX',
       ' ',
       'PER CODE:',
-      'NEC 690.31.G.3',
+      'NEC 690.31)(G)(3)',
     ];
     h = mk_label(d, x, y, title, text_list, notes);
 
@@ -132,7 +132,7 @@ var mk_page = function(settings){
       'CONDUIT, COMBINER BOX',
       ' ',
       'PER CODE:',
-      'NEC 690.14.C.2',
+      'NEC 690.14(C)(2)',
     ];
     h = mk_label(d, x, y, title, text_list, notes);
 
@@ -348,7 +348,7 @@ var mk_page = function(settings){
     'POINT OF INTERCONNECTION',
     ' ',
     'PER CODE:',
-    'NEC 705.12.D.3',
+    'NEC 705.12(D)(3)',
   ];
   h = mk_label(d, x, y, title, text_list, notes);
 
@@ -368,7 +368,7 @@ var mk_page = function(settings){
     'AC DISCONNECT',
     ' ',
     'PER CODE:',
-    'NEC 690.14.C.2'
+    'NEC 690.14(C)(2)'
   ];
   h = mk_label(d, x, y, title, text_list, notes);
 
@@ -389,7 +389,7 @@ var mk_page = function(settings){
     'POINT OF INTERCON.',
     ' ',
     'PER CODE:',
-    'NEC 690.17.E'
+    'NEC 690.17(E)'
   ];
   h = mk_label(d, x, y, title, text_list, notes);
 
@@ -410,7 +410,7 @@ var mk_page = function(settings){
     'POINT OF INTERCON.',
     ' ',
     'PER CODE:',
-    'NEC 705.12.D.2.3.b',
+    'NEC 705.12(D)(2)(3)(b)',
   ];
   h = mk_label(d, x, y, title, text_list, notes);
 
