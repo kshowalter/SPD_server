@@ -327,7 +327,7 @@ var mk_page = function(settings){
     'POINT OF INTERCONNECTION',
     ' ',
     'PER CODE:',
-    'NEC 690.17.4;',
+    'NEC 690.17(4)',
     'NEC 690.54',
   ];
   h = mk_label(d, x, y, title, text_list, notes);
