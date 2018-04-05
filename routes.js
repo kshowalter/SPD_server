@@ -400,6 +400,7 @@ router.get('/test', function(req, res) {
 router.get('/d/PDF', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
+  var sheet_num = req.query.sheet_num;
   //var system_id = req.query.system_id;
 
   logger.info(req.method + ': ' + req.url);
@@ -412,7 +413,6 @@ router.get('/d/PDF', function(req, res) {
       // update system calculations
       var system_settings = mk_settings(data);
       system_settings.server.host = req.headers.host;
-      system_settings.system_id = system_id;
       system_settings = process_system(system_settings);
 
       var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
@@ -425,39 +425,56 @@ router.get('/d/PDF', function(req, res) {
           return svg.outerHTML;
         });
 
-        //var svg_string = svgs[1];
-        //if( svg_string ){
-        //  var html = html_wrap_svg(svg_string);
-        //  res.end(html);
-        //} else {
-        //  res.end();
-        //}
-
         var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
 
         mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
+          logger.info( 'pdf_write_success: ', pdf_write_success);
+        });
+
+        if(sheet_num){
+          if( sheet_num === 'all' ){
+            var html;
+            if( svgs.length ){
+              html = html_wrap_svg(svgs);
+            } else {
+              html = html_wrap_svg('Drawing not found.');
+            }
+          } else {
+            var svg_string = svgs[sheet_num-1];
+            if( svg_string ){
+              html = html_wrap_svg(svg_string);
+            } else {
+              html = html_wrap_svg('Drawing not found.');
+            }
+          }
+          res.end(html);
+        } else {
           res.json({
             system_id: system_id,
             status: status,
             time: ( new Date() - start_time )/1000,
             notes: system_settings.state.notes,
             SVGs: svgs,
-            PDF_file_name: PDF_file_name
+            PDF_file_name: PDF_file_name,
+            data: data,
+            state: system_settings.state.system,
           });
-        });
-
+        }
       } else if( status === 'error' ){
-
-        res.json({
-          system_id: system_id,
-          status: status,
-          time: ( new Date() - start_time )/1000,
-          notes: system_settings.state.notes,
-          SVGs: [],
-          PDF_file_name: false
-        });
+        if(sheet_num){
+          res.end(html_wrap_svg(system_settings.state.notes.errors));
+        } else {
+          res.json({
+            system_id: system_id,
+            status: status,
+            time: ( new Date() - start_time )/1000,
+            notes: system_settings.state.notes,
+            SVGs: [],
+            data: data,
+            state: system_settings.state.system,
+          });
+        }
       }
-
     } else {
       res.json({
         system_id: system_id,
