@@ -88,16 +88,24 @@ router.get('/api', function(req, res) {
 
 
 ///////////////////////////////////////////
-router.get('/d/SVG', function(req, res) {
+router.get('/:var(t|d)?/:var(SVG|PDF)?', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
   var sheet_num = req.query.sheet_num;
-  //var system_id = req.query.system_id;
+  var system_type = req.query.system_type;
 
   logger.info(req.method + ': ' + req.url);
 
+  var get_data;
+  if( req.url[1] === 'd' ){
+    get_data = get_DB_data;
+  } else if( req.url[1] === 't' ){
+    get_data = get_DB_data_LOCAL;
+    system_id = system_type;
+  }
+
   //get_DB_data(system_id, function(data){
-  get_DB_data(system_id, function(data){
+  get_data(system_id, function(data){
     if( data ){
       data = map_DB_data(data);
 
@@ -166,117 +174,6 @@ router.get('/d/SVG', function(req, res) {
           });
         }
       }
-    } else {
-      res.json({
-        system_id: system_id,
-        status: 'DB data not available',
-        time: ( new Date() - start_time )/1000,
-        notes: false,
-        SVGs: false,
-        data: false,
-        state: false,
-      });
-    }
-
-  });
-});
-
-///////////////////////////////////////////
-router.get('/t/SVG', function(req, res) {
-  var start_time = new Date();
-  var system_id = req.query.pv_system_id;
-  var sheet_num = req.query.sheet_num;
-  var system_type = req.query.system_type;
-
-  logger.info(req.method + ': ' + req.url);
-
-  //get_DB_data(system_id, function(data){
-  get_DB_data_LOCAL(system_type, function(data){
-    if( data ){
-      data = map_DB_data(data);
-
-      // update system calculations
-      var system_settings = mk_settings(data);
-      system_settings.server.host = req.headers.host;
-      system_settings = process_system(system_settings);
-
-      var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
-
-      if( status === 'pass'){
-        // update drawing
-        system_settings = mk_drawing(system_settings);
-
-        var svgs = system_settings.drawing.svgs.map(function(svg){
-          return svg.outerHTML;
-        });
-
-        var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
-
-        mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
-          logger.info( 'pdf_write_success: ', pdf_write_success);
-        });
-
-        if(sheet_num){
-          if( sheet_num === 'all' ){
-            var html;
-            if( svgs.length ){
-              html = html_wrap_svg(
-                system_settings.state.notes.info.concat(
-                  system_settings.state.notes.warnings.concat(
-                    svgs
-                  )
-                )
-              );
-            } else {
-              html = html_wrap_svg('Drawing not found.');
-            }
-          } else {
-            var svg_string = svgs[sheet_num-1];
-            if( svg_string ){
-              html = html_wrap_svg(
-                system_settings.state.notes.info.concat(
-                  system_settings.state.notes.warnings.concat(
-                    [svg_string]
-                  )
-                )
-              );
-            } else {
-              html = html_wrap_svg('Drawing not found.');
-            }
-          }
-          res.end(html);
-        } else {
-          res.json({
-            system_id: system_id,
-            status: status,
-            time: ( new Date() - start_time )/1000,
-            notes: system_settings.state.notes,
-            SVGs: svgs,
-            PDF_file_name: PDF_file_name,
-            data: data,
-            state: system_settings.state.system,
-          });
-        }
-
-
-      } else if( status === 'error' ){
-
-        if(sheet_num){
-          res.end(html_wrap_svg(system_settings.state.notes.errors));
-        } else {
-          res.json({
-            system_id: system_id,
-            status: status,
-            time: ( new Date() - start_time )/1000,
-            notes: system_settings.state.notes,
-            SVGs: [],
-            data: data,
-            state: system_settings.state.system,
-          });
-        }
-
-      }
-
     } else {
       res.json({
         system_id: system_id,
@@ -389,170 +286,6 @@ router.get('/test', function(req, res) {
 
 });
 
-
-
-
-
-
-
-
-///////////////////////////////////////////
-router.get('/d/PDF', function(req, res) {
-  var start_time = new Date();
-  var system_id = req.query.pv_system_id;
-  var sheet_num = req.query.sheet_num;
-  //var system_id = req.query.system_id;
-
-  logger.info(req.method + ': ' + req.url);
-
-  //get_DB_data(system_id, function(data){
-  get_DB_data(system_id, function(data){
-    if( data ){
-      data = map_DB_data(data);
-
-      // update system calculations
-      var system_settings = mk_settings(data);
-      system_settings.server.host = req.headers.host;
-      system_settings = process_system(system_settings);
-
-      var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
-
-      if( status === 'pass'){
-        // update drawing
-        system_settings = mk_drawing(system_settings);
-
-        var svgs = system_settings.drawing.svgs.map(function(svg){
-          return svg.outerHTML;
-        });
-
-        var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
-
-        mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
-          logger.info( 'pdf_write_success: ', pdf_write_success);
-        });
-
-        if(sheet_num){
-          if( sheet_num === 'all' ){
-            var html;
-            if( svgs.length ){
-              html = html_wrap_svg(svgs);
-            } else {
-              html = html_wrap_svg('Drawing not found.');
-            }
-          } else {
-            var svg_string = svgs[sheet_num-1];
-            if( svg_string ){
-              html = html_wrap_svg(svg_string);
-            } else {
-              html = html_wrap_svg('Drawing not found.');
-            }
-          }
-          res.end(html);
-        } else {
-          res.json({
-            system_id: system_id,
-            status: status,
-            time: ( new Date() - start_time )/1000,
-            notes: system_settings.state.notes,
-            SVGs: svgs,
-            PDF_file_name: PDF_file_name,
-            data: data,
-            state: system_settings.state.system,
-          });
-        }
-      } else if( status === 'error' ){
-        if(sheet_num){
-          res.end(html_wrap_svg(system_settings.state.notes.errors));
-        } else {
-          res.json({
-            system_id: system_id,
-            status: status,
-            time: ( new Date() - start_time )/1000,
-            notes: system_settings.state.notes,
-            SVGs: [],
-            data: data,
-            state: system_settings.state.system,
-          });
-        }
-      }
-    } else {
-      res.json({
-        system_id: system_id,
-        status: 'DB data not available',
-        time: ( new Date() - start_time )/1000,
-        notes: false,
-        SVGs: false,
-        data: false,
-        state: false,
-      });
-    }
-
-  });
-});
-
-
-///////////////////////////////////////////
-router.get('/t/PDF', function(req, res) {
-  var start_time = new Date();
-  var system_id = req.query.pv_system_id;
-  var system_type = req.query.system_type;
-
-  logger.info(req.method + ': ' + req.url);
-
-  //get_DB_data(system_id, function(data){
-  get_DB_data_LOCAL(system_type, function(data){
-    data = map_DB_data(data);
-
-    // update system calculations
-    var system_settings = mk_settings(data);
-    system_settings.server.host = req.headers.host;
-    system_settings.system_id = system_id;
-    system_settings = process_system(system_settings);
-
-    var status = system_settings.state.notes.errors.length ? 'error' : 'pass';
-
-    if( status === 'pass'){
-      // update drawing
-      system_settings = mk_drawing(system_settings);
-
-      var svgs = system_settings.drawing.svgs.map(function(svg){
-        return svg.outerHTML;
-      });
-
-      //var svg_string = svgs[1];
-      //if( svg_string ){
-      //  var html = html_wrap_svg(svg_string);
-      //  res.end(html);
-      //} else {
-      //  res.end();
-      //}
-
-      var PDF_file_name = 'PV_drawing_' + system_id + '.pdf';
-
-      mk_PDFs(system_settings, PDF_file_name, function(pdf_write_success){
-        res.json({
-          system_id: system_id,
-          status: status,
-          time: ( new Date() - start_time )/1000,
-          notes: system_settings.state.notes,
-          SVGs: svgs,
-          PDF_file_name: PDF_file_name
-        });
-      });
-
-    } else if( status === 'error' ){
-
-      res.json({
-        system_id: system_id,
-        status: status,
-        time: ( new Date() - start_time )/1000,
-        notes: system_settings.state.notes,
-        SVGs: [],
-        PDF_file_name: false
-      });
-    }
-  });
-});
 
 
 
