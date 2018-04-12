@@ -35,8 +35,8 @@ var mk_page = function(settings){
   d.layer('table');
 
   var col_widths = [null,
-    size.sheet.w*0.487,
-    size.sheet.w*0.487
+    size.sheet.w*0.33,
+    size.sheet.w*0.645
   ];
 
   for( var section_name in data_to_display ){
@@ -76,7 +76,7 @@ var mk_page = function(settings){
       } else {
         for( var c = 1; c <= section[r-1].length; c++ ){
 
-          var max_characters = Math.ceil( ( col_widths[c] / font_letter_width + text_cell_size_fixed  ) * 0.95 );
+          var max_characters = Math.ceil( ( col_widths[c] / font_letter_width + text_cell_size_fixed  ) * 1.0 );
           var cell_content = f.split_string_by_length( section[r-1][c-1], max_characters);
 
           t.cell(r,c).text( cell_content );
