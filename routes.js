@@ -23,15 +23,16 @@ var sample_DB_data = {
 
 
 var get_DB_data_LOCAL = function(system_type, callback){
-  logger.info('USING TEST DATABASE DATA');
+  logger.info('USING TEST DATABASE DATA: '+system_type);
   system_type = system_type || 'string';
+  logger.info('USING TEST DATABASE DATA: '+system_type);
   var input_data = sample_DB_data[system_type];
   callback(input_data);
 };
 
 var get_DB_data_LOCAL_TEST = function(req, callback){
-  logger.info('USING TEST DATABASE DATA');
   var system_type = req.query.system_type || 'string';
+  logger.info('USING TEST DATABASE DATA: '+system_type);
 
   var input_data = sample_DB_data[system_type];
   var test_data_dir = path.join(local_path, 'test_data/'+global.project.version);
@@ -103,7 +104,7 @@ router.get('/:var(t|d)?/:var(SVG|PDF)?', function(req, res) {
     get_data = get_DB_data_LOCAL;
     system_id = system_type;
   }
-
+  console.log('system_id',system_id);
   //get_DB_data(system_id, function(data){
   get_data(system_id, function(data){
     if( data ){
@@ -296,14 +297,24 @@ router.get('/test', function(req, res) {
 
 
 ///////////////////////////////////////////
-router.get('/d/data', function(req, res) {
+router.get('/:var(t|d)?/data', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
+  var sheet_num = req.query.sheet_num;
+  var system_type = req.query.system_type;
 
   logger.info(req.method + ': ' + req.url);
 
+  var get_data;
+  if( req.url[1] === 'd' ){
+    get_data = get_DB_data;
+  } else if( req.url[1] === 't' ){
+    get_data = get_DB_data_LOCAL;
+    system_id = system_type;
+  }
+  console.log('system_id',system_id);
   //get_DB_data(system_id, function(data){
-  get_DB_data(system_id, function(data){
+  get_data(system_id, function(data){
     data = map_DB_data(data);
 
     // update system calculations
@@ -325,46 +336,27 @@ router.get('/d/data', function(req, res) {
 });
 
 
-///////////////////////////////////////////
-router.get('/t/data', function(req, res) {
-  var start_time = new Date();
-  var system_type = req.query.pv_system_type;
-
-  logger.info(req.method + ': ' + req.url);
-
-  //get_DB_data(system_id, function(data){
-  get_DB_data_LOCAL(system_type, function(data){
-    data = map_DB_data(data);
-
-    // update system calculations
-    var system_settings = mk_settings(data);
-    system_settings.server.host = req.headers.host;
-    system_settings = process_system(system_settings);
-
-    var settings_sections = Object.keys(system_settings.state.system);
-
-    res.json({
-      settings_sections: settings_sections,
-      time: ( new Date() - start_time )/1000,
-      state_system: system_settings.state.system,
-      //size: system_settings.drawing_settings.size,
-      //loc: system_settings.drawing_settings.loc,
-    });
-
-  });
-});
-
 
 
 ///////////////////////////////////////////
-router.get('/d/db', function(req, res) {
+router.get('/:var(t|d)?//db', function(req, res) {
   var start_time = new Date();
   var system_id = req.query.pv_system_id;
+  var sheet_num = req.query.sheet_num;
+  var system_type = req.query.system_type;
 
   logger.info(req.method + ': ' + req.url);
 
+  var get_data;
+  if( req.url[1] === 'd' ){
+    get_data = get_DB_data;
+  } else if( req.url[1] === 't' ){
+    get_data = get_DB_data_LOCAL;
+    system_id = system_type;
+  }
+  console.log('system_id',system_id);
   //get_DB_data(system_id, function(data){
-  get_DB_data(system_id, function(data){
+  get_data(system_id, function(data){
     if( data ){
       res.json({
         status: 'success',
@@ -381,33 +373,6 @@ router.get('/d/db', function(req, res) {
 
   });
 });
-
-///////////////////////////////////////////
-router.get('/t/db', function(req, res) {
-  var start_time = new Date();
-  var system_type = req.query.pv_system_type;
-
-  logger.info(req.method + ': ' + req.url);
-
-  //get_DB_data(system_id, function(data){
-  get_DB_data_LOCAL(system_type, function(data){
-    if( data ){
-      res.json({
-        status: 'success',
-        time: ( new Date() - start_time )/1000,
-        data: data,
-      });
-    } else {
-      res.json({
-        status: 'fail',
-        time: ( new Date() - start_time )/1000,
-        data: data,
-      });
-    }
-
-  });
-});
-
 
 
 
