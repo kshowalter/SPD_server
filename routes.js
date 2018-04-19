@@ -23,7 +23,6 @@ var sample_DB_data = {
 
 
 var get_DB_data_LOCAL = function(system_type, callback){
-  logger.info('USING TEST DATABASE DATA: '+system_type);
   system_type = system_type || 'string';
   logger.info('USING TEST DATABASE DATA: '+system_type);
   var input_data = sample_DB_data[system_type];
@@ -104,8 +103,6 @@ router.get('/:var(t|d)?/:var(SVG|PDF)?', function(req, res) {
     get_data = get_DB_data_LOCAL;
     system_id = system_type;
   }
-  console.log('system_id',system_id);
-  //get_DB_data(system_id, function(data){
   get_data(system_id, function(data){
     if( data ){
       data = map_DB_data(data);
@@ -312,8 +309,6 @@ router.get('/:var(t|d)?/data', function(req, res) {
     get_data = get_DB_data_LOCAL;
     system_id = system_type;
   }
-  console.log('system_id',system_id);
-  //get_DB_data(system_id, function(data){
   get_data(system_id, function(data){
     data = map_DB_data(data);
 
@@ -354,8 +349,6 @@ router.get('/:var(t|d)?//db', function(req, res) {
     get_data = get_DB_data_LOCAL;
     system_id = system_type;
   }
-  console.log('system_id',system_id);
-  //get_DB_data(system_id, function(data){
   get_data(system_id, function(data){
     if( data ){
       res.json({
