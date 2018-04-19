@@ -254,7 +254,7 @@ var mk_page = function(settings){
     y += h + label_spacing;
   }
 
-  var string_lengths = _.uniq(settings.drawing.displayed_modules);
+  var string_lengths = _.uniq(settings.drawing.module_count);
 
   if( system.config.system_type === 'string'|| system.config.system_type === 'optimizer'){
     title = undefined;
