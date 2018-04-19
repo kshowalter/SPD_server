@@ -32,4 +32,3 @@ COPY . /srv/
 
 EXPOSE 3333
 CMD ["npm", "run", "serve_dev"]
-# At the end, set the user to use when running this image
