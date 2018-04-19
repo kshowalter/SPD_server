@@ -209,12 +209,17 @@ var mk_page = function(settings){
       d.block('module microinverter', [x_string,y_string]);
       x_string += size.module.w;
     }
+    d.line([
+      [ x_string, y_string + size.module.h*6.5/8 ],
+      [ ground_left + offset_wire, y_string + size.module.h*6.5/8 ],
+      [ ground_left + offset_wire, loc.AC_jb_box.y],
+    ], 'AC_cable');
 
     if( settings.drawing.break_string[i] ) {
       d.line(
         [
-          [x_string,y_string],
-          [x_string+size.string.gap_missing,y_string],
+          [x_string,y_string + size.module.h*6.5/8],
+          [x_string+size.string.gap_missing,y_string + size.module.h*6.5/8],
         ],
         'DC_intermodule'
       );
@@ -222,14 +227,13 @@ var mk_page = function(settings){
       d.block('module microinverter', [x_string,y_string]);
     }
 
-    d.block('connector_block',
-      [ loc.array.right[i]+micro_array_offset+7, y_string + size.module.h*6.5/8 ]
-    );
     d.line([
+      [ x_string, y_string + size.module.h*6.5/8 ],
       [ loc.array.right[i]+micro_array_offset+7, y_string + size.module.h*6.5/8 ],
-      [ ground_left + offset_wire, y_string + size.module.h*6.5/8 ],
-      [ ground_left + offset_wire, loc.AC_jb_box.y],
     ], 'AC_cable');
+    d.block('connector_block',
+    [ loc.array.right[i]+micro_array_offset+7, y_string + size.module.h*6.5/8 ]
+  );
 
 
 
@@ -291,7 +295,6 @@ var mk_page = function(settings){
     ], 'DC_ground');
     /*
     d.block( 'terminal', [ ground_left+offset_wire-s , loc.AC_jb_box.y]);
-    console.log(i, offset_wire);
     if( i != 0 ){
       var path_string = 'm'+(ground_left+offset_wire-s*2)+' '+(loc.AC_jb_box.y-s/2*i)+' ';
       path_string += 'c '+(0)+' '+(-s)+', '+(-s *2)+' '+(-s)+', '+(-s *2)+' '+(0)+' ';
@@ -414,9 +417,9 @@ var mk_page = function(settings){
     'text'
   );
   y -= text_offset/2;
-  _.reverse(settings.drawing.displayed_modules);
+  _.reverse(settings.drawing.module_count);
   for( var i in _.range(system.array.num_of_strings)) {
-    var num_of_modules_in_string = settings.drawing.displayed_modules[i];
+    var num_of_modules_in_string = settings.drawing.module_count[i];
     d.text(
       [ x, y ],
       ['['+num_of_modules_in_string+']'],
@@ -431,7 +434,7 @@ var mk_page = function(settings){
     );
     y -= text_offset
   }
-  _.reverse(settings.drawing.displayed_modules);
+  _.reverse(settings.drawing.module_count);
 
 
 
