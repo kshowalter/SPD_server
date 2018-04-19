@@ -38,13 +38,13 @@ var mk_page = function(settings){
     if( settings.drawing.break_string[i] ) {
       d.line(
         [
-          [x_string,y_string],
-          [x_string+size.string.gap_missing,y_string],
+          [x_string,y_string+size.module.h*5/8],
+          [x_string+size.string.gap_missing,y_string+size.module.h*5/8],
         ],
         'DC_intermodule'
       );
       x_string += size.string.gap_missing;
-      d.block('module', [x_string,y_string]);
+      d.block('module optimizer', [x_string,y_string]);
     }
 
     //d.block('string', [x,y]);
@@ -147,7 +147,7 @@ var mk_page = function(settings){
   y = loc.array.lower;
   var text_offset = 11;
   // array details
-  x += 200;
+  x += 175;
   y -= 125;
   d.text(
     [ x, y ],
@@ -219,7 +219,7 @@ var mk_page = function(settings){
   );
   y -= text_offset/2;
   for( var i in _.range(system.array.num_of_strings)) {
-    var num_of_modules_in_string = settings.drawing.displayed_modules[i];
+    var num_of_modules_in_string = settings.drawing.module_count[i];
     d.text(
       [ x, y ],
       ['['+num_of_modules_in_string+']'],
@@ -1083,7 +1083,6 @@ var mk_page = function(settings){
   });
 
   x = size.sheet.w/2-w/2;
-  //logger.info(t.cells);
   t.loc(x,y);
   d.text(
     [ x + 3 , y - 13 ],

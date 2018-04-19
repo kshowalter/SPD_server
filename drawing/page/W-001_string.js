@@ -144,7 +144,7 @@ var mk_page = function(settings){
   );
   y -= text_offset/2;
   for( var i in _.range(system.array.num_of_strings)) {
-    var num_of_modules_in_string = settings.drawing.displayed_modules[i];
+    var num_of_modules_in_string = settings.drawing.module_count[i];
     d.text(
       [ x, y ],
       ['['+num_of_modules_in_string+']'],
