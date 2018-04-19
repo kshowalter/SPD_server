@@ -34,8 +34,8 @@
     "review_comments": null
   },
   "inverter": {
-    "device_model_number": "M250-60-2LL-S22",
-    "device_name": "M250-60-2LL-S22",
+    "device_model_number": "SE6000H-US",
+    "device_name": "inv",
     "manufacturer_name": "SolarEdge",
     "device_type_id": 56,
     "device_type_name": "DC-DC",
@@ -99,9 +99,9 @@
     "manufacturer_name": "SolarWorld",
     "pvsystem_id": 1445,
     "pvmodule_id": 1419,
-    "num_of_modules": 16,
-    "num_of_strings": 4,
-    "smallest_string": 2,
+    "num_of_modules": 18,
+    "num_of_strings": 2,
+    "smallest_string": 8,
     "largest_string": 10,
     "properties_updated_per_dev_id": 9695,
     "properties_id": 401,
