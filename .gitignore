@@ -1,4 +1,3 @@
 node_modules/*
 npm-debug.log
 spd_server.log
-package-lock.json

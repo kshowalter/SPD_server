@@ -7,8 +7,8 @@
     "serve_dev": ". ./oracle_setup_linux.sh && export NODE_ENV='dev' && nodemon server.js",
     "serve_production": ". ./oracle_setup_linux.sh && export port=3300 && pm2 start server.js",
     "test": "./node_modules/.bin/mocha --reporter spec || exit 0",
-    "docker": "docker run -p 8888:3333 -it kshowalter/spd_server",
-    "docker_dev": "docker run -p 8888:3333 -it -e NODE_ENV='dev' kshowalter/spd_server",
+    "docker": "docker run -p 8800:3300 -itd kshowalter/spd_server bash",
+    "docker_dev": "docker run -p 8888:3333 -itd -e NODE_ENV='dev' kshowalter/spd_server bash",
     "docker_build": "docker build -t kshowalter/spd_server ."
   },
   "repository": {
@@ -31,7 +31,7 @@
     "mkDrawing": "github:kshowalter/mkDrawing",
     "mocha": "^3.4.2",
     "moment": "^2.21.0",
-    "oracledb": "^1.13.1",
+    "oracledb": "^2.2.0",
     "phantom": "^4.0.12",
     "request": "^2.85.0",
     "shelljs": "^0.7.2",
