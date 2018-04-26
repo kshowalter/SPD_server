@@ -28,6 +28,7 @@ RUN echo '/opt/oracle/instantclient/' | tee -a /etc/ld.so.conf.d/oracle_instant_
 COPY docker_install/phantomjs /usr/local/bin/phantomjs
 
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+
 ENV PATH=$PATH:/home/node/.npm-global/bin
 
 RUN npm install --global pm2
